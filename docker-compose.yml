@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  db:
+    container_name: mangareader_pg
+    hostname: pg.mangareader.com
+    image: postgres:14.2
+    environment:
+      PGUSER: "mangareader" #Variável pré-definir o usuário da ferramenta psql.
+      POSTGRES_USER: "mangareader"
+      POSTGRES_PASSWORD: "manga@Reader2022"
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./postgres-data:/var/lib/postgresql/data 
+    networks:
+      - mangareader
+
+  redis:
+    container_name: mangareader_redis
+    hostname: redis.mangareader.com
+    image: redis:alpine
+    command: redis-server /usr/local/etc/redis/redis.conf --requirepass manga@Reader2022 #A senha será taskmanager
+    ports:
+      - "6379:6379"
+    volumes:
+      - $PWD/Docker/redis:/usr/local/etc/redis
+    networks:
+      - mangareader
+
+networks: 
+  mangareader:
+    driver: bridge

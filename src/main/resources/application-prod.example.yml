@@ -1,0 +1,20 @@
+spring:
+    
+    redis: 
+        host: redis.mangareader.com
+        port: 6379
+        password: manga@Reader2022
+
+    datasource:
+        url: jdbc:postgresql://pg.mangareader.com:5432/mangareader
+        username: mangareader
+        password: manga@Reader2022
+
+    jpa:
+        show-sql: true
+        properties:
+            hibernate:
+                '[format_sql]': false
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+        hibernate:
+            ddl-auto: none

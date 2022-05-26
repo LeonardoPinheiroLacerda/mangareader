@@ -1,0 +1,20 @@
+spring:
+
+    cache:
+        type: redis
+
+    data:
+        redis:
+            repositories:
+                enabled: false
+
+    profiles:
+        active: dev
+
+    jpa:
+        open-in-view: false
+
+    mvc:
+        pathmatch:
+            #Configuração para correção de erros do swagger
+            matching-strategy: ant-path-matcher
