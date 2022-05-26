@@ -13,8 +13,3 @@ spring:
 
     jpa:
         open-in-view: false
-
-    mvc:
-        pathmatch:
-            #Configuração para correção de erros do swagger
-            matching-strategy: ant-path-matcher

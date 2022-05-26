@@ -18,3 +18,10 @@ spring:
                 dialect: org.hibernate.dialect.PostgreSQLDialect
         hibernate:
             ddl-auto: none
+
+application:
+    security:
+        rememberme:
+            key: sdaskjhgs09834uidhfgsldjkth34098sdfglkjb54lkjjhjhgsd034lkjhsdg-dfsjh328
+            validity-days: 21
+            cookie-name: JREMEMBERME
