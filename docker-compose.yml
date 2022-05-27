@@ -16,18 +16,6 @@ services:
     networks:
       - mangareader
 
-  redis:
-    container_name: mangareader_redis
-    hostname: redis.mangareader.com
-    image: redis:alpine
-    command: redis-server /usr/local/etc/redis/redis.conf --requirepass manga@Reader2022 #A senha será taskmanager
-    ports:
-      - "6379:6379"
-    volumes:
-      - $PWD/Docker/redis:/usr/local/etc/redis
-    networks:
-      - mangareader
-
 networks: 
   mangareader:
     driver: bridge

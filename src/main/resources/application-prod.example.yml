@@ -1,9 +1,4 @@
 spring:
-    
-    redis: 
-        host: redis.mangareader.com
-        port: 6379
-        password: manga@Reader2022
 
     datasource:
         url: jdbc:postgresql://pg.mangareader.com:5432/mangareader

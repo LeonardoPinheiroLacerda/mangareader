@@ -1,13 +1,4 @@
 spring:
-
-    cache:
-        type: redis
-
-    data:
-        redis:
-            repositories:
-                enabled: false
-
     profiles:
         active: dev
 

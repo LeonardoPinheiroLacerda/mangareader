@@ -1,9 +1,4 @@
 spring:
-    
-    redis:
-        host: 127.0.0.1
-        port: 6379
-        password: manga@Reader2022
 
     datasource:
         url: jdbc:postgresql://127.0.0.1:5432/mangareader
@@ -16,6 +11,12 @@ spring:
             hibernate:
                 '[format_sql]': false
                 dialect: org.hibernate.dialect.PostgreSQLDialect
+            javax:
+                persistence:
+                    schema-generation:
+                        scripts:
+                            create-target: create.sql
+                            action: create
         hibernate:
             ddl-auto: update
 
@@ -25,4 +26,3 @@ application:
             key: askjfhsldkjahlafkjhlgkjh983405dfgdfsgsjh
             validity-days: 21
             cookie-name: JREMEMBERME
-
