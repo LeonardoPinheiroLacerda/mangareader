@@ -20,14 +20,26 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 @EnableWebSecurity
 public class SecurityConfig {
     
+    private final static String[] GET_WHITELIST = new String[]
+    {
+        "/login",
+        "/signin",
+        "/assets/*",
+        "/favicon.ico"
+    };
+
+    private final static String[] POST_WHITELIST = new String[]{
+        "/api/users"
+    };
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, RemembermeProperties rememberMeProperties) throws Exception{
 
         http.csrf().disable()
 
         .authorizeHttpRequests()
-            .antMatchers(HttpMethod.GET, "/assets/*", "/favicon.ico").permitAll()
-            .antMatchers(HttpMethod.GET, "/login").permitAll()
+        .antMatchers(HttpMethod.GET, GET_WHITELIST).permitAll()
+        .antMatchers(HttpMethod.POST, POST_WHITELIST).permitAll()
             .anyRequest().authenticated()
 
         .and()

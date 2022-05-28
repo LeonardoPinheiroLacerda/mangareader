@@ -9,13 +9,13 @@
 </head>
 <body class="bg-dark d-flex align-items-center justify-content-center vh-100">
   
-    <form action="/login" method="post" class="bg-dark d-flex flex-column shadow px-5 py-4 rounded">
-        <label class="text-light text-center fs-5 m-3">Para acessar o sistema, <br>insira suas credênciais abaixo ou cadastre-se.</label>
+    <form action="/api/users?redirect=true" method="post" class="bg-dark d-flex flex-column shadow px-5 py-4 rounded">
+        <label class="text-light text-center fs-5 m-3">Insira suas credênciais abaixo para se cadastrar.</label>
 
-        <div class="alert alert-danger text-center d-none" id="error-alert" role="alert">
-            Credenciais inválidas, tente novamente.
+        <div class="form-floating m-2">
+            <input type="email" class="form-control" name="email" id="email" placeholder="E-mail">
+            <label for="email">E-mail</label>
         </div>
-
         <div class="form-floating m-2">
             <input type="text" class="form-control" name="username" id="username" placeholder="Nome de usuário">
             <label for="username">Nome de usuário</label>
@@ -24,30 +24,18 @@
             <input type="password" class="form-control" name="password" id="password" placeholder="Senha">
             <label for="password">Senha</label>
         </div>
-
-        <div class="form-check d-flex justify-content-center mb-3 mt-1">
-            <input class="form-check-input" type="checkbox" id="rememberme" name="rememberme">
-            <label class="form-check-label text-light ms-2" for="rememberme">
-                Lembre de mim
-            </label>
+        <div class="form-floating m-2">
+            <input type="password" class="form-control" name="password-confirm" id="password-confirm" placeholder="Senha">
+            <label for="password-confirm">Confirme sua senha</label>
         </div>
 
-        <input type="submit" class="btn btn-primary m-2" value="Entrar"/>
-        <a class="text-center m-2" href="/recoverpassword">Esqueci minha senha</a>
-
+        <input type="submit" class="btn btn-primary m-2 mt-4" value="Cadastrar"/>
+    
         <hr class="text-light">
 
-        <a class="btn btn-outline-primary m-2 mx-5" href="/signin">Cadastrar</a>
+        <a class="btn btn-outline-primary m-2 mx-5" href="/login">Já tenho cadastro</a>
     </form>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script>
-        window.onload = () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            if(urlParams.has('error')){
-                document.querySelector('#error-alert').classList.remove('d-none');
-            }
-        }
-    </script>
 </body>
 </html>
