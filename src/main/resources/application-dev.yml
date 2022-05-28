@@ -11,12 +11,12 @@ spring:
             hibernate:
                 '[format_sql]': false
                 dialect: org.hibernate.dialect.PostgreSQLDialect
-            javax:
-                persistence:
-                    schema-generation:
-                        scripts:
-                            create-target: create.sql
-                            action: create
+            # javax:
+            #     persistence:
+            #         schema-generation:
+            #             scripts:
+            #                 create-target: create.sql
+            #                 action: create
         hibernate:
             ddl-auto: update
 

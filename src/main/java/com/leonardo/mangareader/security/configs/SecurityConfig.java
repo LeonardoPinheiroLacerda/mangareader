@@ -25,6 +25,7 @@ public class SecurityConfig {
         "/login",
         "/signin",
         "/assets/*",
+        "/js/**",
         "/favicon.ico"
     };
 
