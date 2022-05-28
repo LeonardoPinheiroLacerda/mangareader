@@ -26,7 +26,9 @@ public class SecurityConfig {
         "/signin",
         "/assets/*",
         "/js/**",
-        "/favicon.ico"
+        "/favicon.ico",
+        "/api/users/username/*",
+        "/api/users/email/*",
     };
 
     private final static String[] POST_WHITELIST = new String[]{

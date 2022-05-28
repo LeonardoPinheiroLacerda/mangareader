@@ -13,20 +13,27 @@
         <label class="text-light text-center fs-5 m-3">Insira suas credênciais abaixo para se cadastrar.</label>
 
         <div class="form-floating m-2">
-            <input type="email" class="form-control" name="email" id="email" placeholder="E-mail">
+            <input type="text" class="form-control" name="email" id="email" placeholder="E-mail">
             <label for="email">E-mail</label>
+            <div id="email-err" class="err form-text text-danger mx-2 d-none"></div>
         </div>
+        
         <div class="form-floating m-2">
             <input type="text" class="form-control" name="username" id="username" placeholder="Nome de usuário">
             <label for="username">Nome de usuário</label>
+            <div id="username-err" class="err form-text text-danger mx-2 d-none"></div>
         </div>
+
         <div class="form-floating m-2">
             <input type="password" class="form-control" name="password" id="password" placeholder="Senha">
             <label for="password">Senha</label>
+            <div id="password-err" class="err form-text text-danger mx-2 d-none"></div>
         </div>
+        
         <div class="form-floating m-2">
             <input type="password" class="form-control" name="passwordConfirmation" id="passwordConfirmation" placeholder="Senha">
             <label for="passwordConfirmation">Confirme sua senha</label>
+            <div id="passwordConfirmation-err" class="err form-text text-danger mx -2 d-none"></div>
         </div>
 
         <input type="submit" class="btn btn-primary m-2 mt-4" value="Cadastrar"/>
