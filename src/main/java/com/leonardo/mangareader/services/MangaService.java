@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.leonardo.mangareader.dtos.ChapterDTO;
 import com.leonardo.mangareader.dtos.GenreDTO;
 import com.leonardo.mangareader.dtos.MangaDTO;
+import com.leonardo.mangareader.dtos.SimpleMangaDTO;
 import com.leonardo.mangareader.models.Manga;
 import com.leonardo.mangareader.repositories.MangaRepository;
 
@@ -24,17 +26,26 @@ import lombok.AllArgsConstructor;
 public class MangaService {
     
     private final MangaRepository repository;
+    private final DtoMapperService dtoMapperService;
 
     private static final String URL_PREFIX = "https://goldenmangas.top";
+
+    private static final String API_MANGA_URL_PREFIX = "/api/mangas?url=";
+    private static final String API_CHAPTER_URL_PREFIX = "/api/chapters?url=";
+
+    public List<SimpleMangaDTO> findAll(){
+        return repository.findAll()
+            .stream()
+            .map(manga -> dtoMapperService.mangaTSimpleMangaDTO(manga, API_MANGA_URL_PREFIX))
+            .collect(Collectors.toList());
+    }
 
     public MangaDTO createFromUrl(String url){
         
         try{
             Document document = Jsoup.connect(url).get();
            
-        
             MangaDTO dto = new MangaDTO();
-
 
             String name = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h2:nth-child(1)").text();
             String cover = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-4.text-right > img").attr("src");
@@ -47,10 +58,9 @@ public class MangaService {
                 
                 String chapterUrl = URL_PREFIX + document.select("#capitulos > li:nth-child(" + i + ") > a").attr("href");                
                 String chapterNumber = document.select("#capitulos > li:nth-child(" + i + ") > a > div.col-sm-5").text();
-                String chapterApiUrl = "/api/chapters?url=" + chapterUrl;
+                String chapterApiUrl = API_CHAPTER_URL_PREFIX + chapterUrl;
 
                 chapters.add(new ChapterDTO(chapterUrl, chapterNumber, chapterApiUrl));
-
             }
 
             String synopsis = document.select("#manga_capitulo_descricao").text();
@@ -68,13 +78,11 @@ public class MangaService {
 
                 genreLink = genreLink.replace("..", URL_PREFIX);
 
-
                 genres.add(new GenreDTO(genreUrl, genreLink));
-
             }
 
             dto.setUrl(url);
-            dto.setApiUrl("/api/mangas?url=" + url);
+            dto.setApiUrl(API_MANGA_URL_PREFIX + url);
             dto.setName(name);
             dto.setCover(URL_PREFIX + cover);
             dto.setChapters(chapters);

@@ -27,17 +27,17 @@ public class UserService {
         }catch(Exception e){
             throw new DataIntegrityException("Esse objeto não pode ser persistido", e);
         }
-        return dtoService.UserToUserDTO(user);
+        return dtoService.userToUserDTO(user);
     }
 
     public UserDTO findByUsername(String username){
         User user = repository.findByUsername(username).orElseThrow(() -> new ObjectNotFoundException("Nenhum usuário esta cadastrado com esse nome de usuário."));
-        return dtoService.UserToUserDTO(user);
+        return dtoService.userToUserDTO(user);
     }
 
     public UserDTO findByEmail(String email){
         User user = repository.findByEmail(email).orElseThrow(() -> new ObjectNotFoundException("Nenhum usuário está cadastrado com esse e-mail."));
-        return dtoService.UserToUserDTO(user);
+        return dtoService.userToUserDTO(user);
     }
 
 }
