@@ -4,7 +4,7 @@ services:
   db:
     container_name: mangareader_pg
     hostname: pg.mangareader.com
-    image: postgres:14.2
+    image: postgres:14-alpine
     environment:
       PGUSER: "mangareader" #Variável pré-definir o usuário da ferramenta psql.
       POSTGRES_USER: "mangareader"

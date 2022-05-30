@@ -1,0 +1,36 @@
+.offcanvas-icon {
+    width: 32px;
+    height: auto;
+}
+
+/* Largura do offcanvas */
+.offcanvas-start {
+    width: 320px
+}
+
+#offcanvas-body{
+    position: relative;
+    top: 17px;
+}
+
+#sidebar-spacer, #sidebar{
+    width: 75px;
+}
+
+.btn.highlight, a.highlight{
+    background-color: #0d63e4;
+}
+
+#home-icon {
+    width:100px;
+    height:auto;
+}
+
+.pointer{
+    cursor: pointer;
+    transition: .2s;
+}
+
+.pointer:hover{
+    color: var(--bs-light) !important;
+}

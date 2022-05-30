@@ -11,7 +11,7 @@ public class SigninController {
     
     @GetMapping
     public ModelAndView index(){
-        ModelAndView modelAndView = new ModelAndView("signin");
+        ModelAndView modelAndView = new ModelAndView("screens/signin");
         return modelAndView;
     }
 
