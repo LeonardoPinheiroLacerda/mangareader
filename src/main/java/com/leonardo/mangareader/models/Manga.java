@@ -37,7 +37,6 @@ public class Manga {
     private String name;
     private String cover;
     private String url;
-    private LocalDateTime lastRead;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(

@@ -92,7 +92,7 @@ public class MangaService {
             dto.setSynopsis(synopsis);
             dto.setGenres(genres);
 
-            Manga manga = new Manga(null, dto.getName(), dto.getCover(), dto.getUrl(), LocalDateTime.now(), new HashSet<User>());
+            Manga manga = new Manga(null, dto.getName(), dto.getCover(), dto.getUrl(), new HashSet<User>());
             
             Manga persisted = repository.findByUrl(url).orElse(null);
 

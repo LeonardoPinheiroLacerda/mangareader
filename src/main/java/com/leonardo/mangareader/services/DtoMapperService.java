@@ -23,7 +23,6 @@ public class DtoMapperService {
             manga.getName(), 
             manga.getCover(), 
             manga.getUrl(), 
-            manga.getLastRead(),
             apiUrlPrefix + manga.getUrl()
         );
     }

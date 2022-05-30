@@ -16,6 +16,5 @@ public class SimpleMangaDTO {
     private String name;
     private String cover;
     private String url;
-    private LocalDateTime lastRead;
     private String apiUrl;
 }
