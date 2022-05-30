@@ -47,7 +47,7 @@
 
     #sidebar-spacer, #sidebar{
         height: 100% !important;
-        width: 50px !important;
+        width: 55px !important;
     }
 
     #search-section {
@@ -55,8 +55,8 @@
     }
 
     svg{
-        width: 22px;
-        height: 22px;
+        width: 20px;
+        height: 20px;
     }
 
 }
