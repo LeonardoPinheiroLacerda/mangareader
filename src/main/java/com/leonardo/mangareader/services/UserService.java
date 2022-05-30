@@ -6,7 +6,9 @@ import com.leonardo.mangareader.exceptions.DataIntegrityException;
 import com.leonardo.mangareader.exceptions.ObjectNotFoundException;
 import com.leonardo.mangareader.models.User;
 import com.leonardo.mangareader.repositories.UserRepository;
+import com.leonardo.mangareader.security.AppUserDetails;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
@@ -38,6 +40,10 @@ public class UserService {
     public UserDTO findByEmail(String email){
         User user = repository.findByEmail(email).orElseThrow(() -> new ObjectNotFoundException("Nenhum usuário está cadastrado com esse e-mail."));
         return dtoService.userToUserDTO(user);
+    }
+
+    public User getLogged(){
+        return ((AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
     }
 
 }

@@ -1,6 +1,9 @@
 package com.leonardo.mangareader.services;
 
+import java.util.HashSet;
+
 import com.leonardo.mangareader.dtos.SigninCredentialsDTO;
+import com.leonardo.mangareader.models.Manga;
 import com.leonardo.mangareader.models.User;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,7 +23,8 @@ public class ModelMapperService {
             null, 
             dto.getUsername(), 
             dto.getEmail(), 
-            passwordEncoder.encode(dto.getPassword())
+            passwordEncoder.encode(dto.getPassword()),
+            new HashSet<Manga>()
         );
     }
 

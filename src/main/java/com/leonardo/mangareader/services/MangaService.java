@@ -3,6 +3,7 @@ package com.leonardo.mangareader.services;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,6 +12,7 @@ import com.leonardo.mangareader.dtos.GenreDTO;
 import com.leonardo.mangareader.dtos.MangaDTO;
 import com.leonardo.mangareader.dtos.SimpleMangaDTO;
 import com.leonardo.mangareader.models.Manga;
+import com.leonardo.mangareader.models.User;
 import com.leonardo.mangareader.repositories.MangaRepository;
 
 import org.jsoup.Jsoup;
@@ -26,6 +28,7 @@ import lombok.AllArgsConstructor;
 public class MangaService {
     
     private final MangaRepository repository;
+    private final UserService userService;
     private final DtoMapperService dtoMapperService;
 
     private static final String URL_PREFIX = "https://goldenmangas.top";
@@ -89,13 +92,18 @@ public class MangaService {
             dto.setSynopsis(synopsis);
             dto.setGenres(genres);
 
-            Manga manga = new Manga(null, dto.getName(), dto.getCover(), dto.getUrl(), LocalDateTime.now());
+            Manga manga = new Manga(null, dto.getName(), dto.getCover(), dto.getUrl(), LocalDateTime.now(), new HashSet<User>());
             
             Manga persisted = repository.findByUrl(url).orElse(null);
 
             if(persisted != null){
                 manga.setId(persisted.getId());
+                manga.setUsers(persisted.getUsers());
             }
+
+            User logged = userService.getLogged();
+
+            manga.getUsers().add(logged);
 
             repository.save(manga);
 

@@ -1,11 +1,17 @@
 package com.leonardo.mangareader.models;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -33,4 +39,11 @@ public class Manga {
     private String url;
     private LocalDateTime lastRead;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+        name = "USERS_MANGAS", 
+        joinColumns = @JoinColumn(name = "manga_id"), 
+        inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<User> users = new HashSet<>();
 }
