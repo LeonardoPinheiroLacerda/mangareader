@@ -34,3 +34,15 @@
 .pointer:hover{
     color: var(--bs-light) !important;
 }
+
+@media (max-width:530px) {
+    
+    body.vh-100 {
+        height: auto !important
+    }
+
+    form.shadow {
+        box-shadow: none !important
+    }
+
+}

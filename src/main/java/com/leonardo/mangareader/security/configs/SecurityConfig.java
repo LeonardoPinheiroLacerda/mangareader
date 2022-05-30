@@ -26,6 +26,7 @@ public class SecurityConfig {
         "/signin",
         "/assets/*",
         "/js/**",
+        "/css/**",
         "/favicon.ico",
         "/api/users/username/*",
         "/api/users/email/*",
