@@ -65,4 +65,32 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}
 
+	@ExceptionHandler(NotSuportedSourceException.class)
+	public ResponseEntity<StandardError> notSuportedSourceException(NotSuportedSourceException e, HttpServletRequest request){
+
+		StandardError err = new StandardError(
+			System.currentTimeMillis(),
+			HttpStatus.BAD_REQUEST.value(),
+			"Source não suportada.",
+			e.getMessage(),
+			request.getRequestURI()
+		);
+
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+	}
+
+	@ExceptionHandler(SourceException.class)
+	public ResponseEntity<StandardError> sourceException(SourceException e, HttpServletRequest request){
+
+		StandardError err = new StandardError(
+			System.currentTimeMillis(),
+			HttpStatus.BAD_REQUEST.value(),
+			"Erro ao tentar recuperar os dados do source.",
+			e.getMessage(),
+			request.getRequestURI()
+		);
+
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+	}
+
 }

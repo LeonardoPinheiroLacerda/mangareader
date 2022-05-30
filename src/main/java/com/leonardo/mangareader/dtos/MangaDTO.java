@@ -1,5 +1,6 @@
 package com.leonardo.mangareader.dtos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -20,8 +21,8 @@ public class MangaDTO {
     private String apiUrl;
     private String synopsis;
 
-    private List<GenreDTO> genres;
+    private List<GenreDTO> genres = new ArrayList<>();
 
-    private List<ChapterDTO> chapters;
+    private List<ChapterDTO> chapters = new ArrayList<>();
 
 }
