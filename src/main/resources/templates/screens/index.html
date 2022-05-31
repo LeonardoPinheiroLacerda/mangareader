@@ -21,13 +21,20 @@
                 <img th:src="@{/assets/icon-large.png}" id="home-icon">
                 <h1 class="text-light m-3">Manga Reader</h1>
             </div>
-            <p class="text-secondary text-center mt-3">
-                Pesquise o link de um manga de uma das 
-                <a class="text-reset text-decoration-underline pointer" th:href="@{/help#source}">fontes suportadas</a>, 
-                para acessar os seus capítulos:
-            </p>
+            <div class="text-secondary text-center mt-3 d-flex flex-row">
+                <p>Pesquise o link de um manga de uma das&nbsp;</p>
+                <div class="dropdown">
+                    <span class="text-decoration-underline pointer text-secondary fst-italic" type="button" id="dropdown-source" data-bs-toggle="dropdown" aria-expanded="false">
+                        Fontes Suportadas
+                    </span>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown-source">
+                        <li><a class="dropdown-item" target="_blank" href="https://goldenmangas.top/">Golden Mangas</a></li>
+                    </ul>
+                </div>
+                <p>, para acessar os seus capítulos:</p>
+            </div>
          
-            <form action="/manga" method="post" class="input-group" id="search-field">
+            <form action="/manga" method="get" class="input-group" id="search-field">
                 <input type="text" name="url" class="form-control" placeholder="Pesquisa" id="search-input" aria-label="Pesquis" aria-describedby="search">
                 <button class="btn btn-primary" type="submit" id="search">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">

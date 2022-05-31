@@ -65,7 +65,7 @@ public class GoldenMangasGetter implements MangaGetter{
             dto.setSynopsis(synopsis);
 
             return dto;
-        }catch(IOException e){
+        }catch(IOException | NullPointerException e){
             throw new SourceException("Erro ao tentar recuperar o manga de " + url);
         }
         

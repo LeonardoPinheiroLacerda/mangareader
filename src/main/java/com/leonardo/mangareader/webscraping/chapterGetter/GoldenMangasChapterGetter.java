@@ -42,7 +42,7 @@ public class GoldenMangasChapterGetter implements ChapterGetter{
             dto.setUrl(url);
             return dto;
 
-        }catch(IOException e){
+        }catch(IOException | NullPointerException e){
             throw new SourceException("Erro ao tentar recuperar o capítulo de " + url);
         }
     }
