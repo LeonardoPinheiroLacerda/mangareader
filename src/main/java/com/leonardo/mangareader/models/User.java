@@ -40,6 +40,4 @@ public class User {
     @ManyToMany(mappedBy = "users", fetch = FetchType.EAGER)
     private Set<Manga> mangas = new HashSet<>();
 
-    private String data;
-
 }
