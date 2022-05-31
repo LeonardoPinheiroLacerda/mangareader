@@ -35,6 +35,9 @@ async function logout(){
 function openSearch(){
     offcanvas.show();
 
+    const tooltip = bootstrap.Tooltip.getInstance(document.getElementById('search-sidebar'))
+    tooltip.hide();
+
     const input = document.querySelector("#search-input-offcanvas");
     input.value = "";
 
