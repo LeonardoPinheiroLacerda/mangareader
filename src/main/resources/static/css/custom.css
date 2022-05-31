@@ -72,3 +72,12 @@
     }
 
 }
+
+@media (max-width:380px) {
+    
+    .toast {
+        width:85%;
+        margin: 5%;
+    }
+
+}
