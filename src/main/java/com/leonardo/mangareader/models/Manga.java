@@ -3,14 +3,12 @@ package com.leonardo.mangareader.models;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -33,15 +31,24 @@ public class Manga {
     @SequenceGenerator(name = "manga_seq", sequenceName = "manga_seq", initialValue = 1, allocationSize = 1)
     private Integer id;
 
+    @Column(nullable = false)
     private String title;
+
+    @Column(nullable = false)
     private String cover;
+
+    @Column(nullable = false, unique = true)
     private String url;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-        name = "USERS_MANGAS", 
-        joinColumns = @JoinColumn(name = "manga_id"), 
-        inverseJoinColumns = @JoinColumn(name = "user_id")
-    )
-    private Set<User> users = new HashSet<>();
+    @OneToMany(mappedBy = "id.manga")
+    private Set<History> histories = new HashSet<>();
+
+    public Manga(Integer id, String title, String cover, String url) {
+        this.id = id;
+        this.title = title;
+        this.cover = cover;
+        this.url = url;
+    }
+
 }
+
