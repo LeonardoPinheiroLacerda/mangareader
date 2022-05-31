@@ -18,6 +18,7 @@ function showLogoutModal(){
 
 async function logout(){
     logoutModal.hide();
+    tooltip.hide();
     const req = await request("/logout", "POST");
 
     if(req.status == 200){
