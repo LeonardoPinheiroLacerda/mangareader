@@ -1,5 +1,6 @@
 package com.leonardo.mangareader.controllers;
 
+import com.leonardo.mangareader.exceptions.NotSuportedSourceException;
 import com.leonardo.mangareader.services.MangaService;
 
 import org.springframework.stereotype.Controller;
@@ -22,8 +23,12 @@ public class MangaController {
 
     @PostMapping
     public ModelAndView index(@ModelAttribute(name = "url") String url, ModelMap model){
-        model.put("manga", mangaService.createFromUrl(url));
-        return new ModelAndView("redirect:/manga", model);
+        try{
+            model.put("manga", mangaService.createFromUrl(url));
+            return new ModelAndView("redirect:/manga", model);
+        }catch(NotSuportedSourceException e){
+            return new ModelAndView("redirect:/?err");
+        }
     }
 
     @GetMapping
