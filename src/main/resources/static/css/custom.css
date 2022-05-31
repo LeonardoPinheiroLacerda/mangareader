@@ -14,7 +14,7 @@
 }
 
 #sidebar-spacer, #sidebar{
-    width: 75px;
+    width: 67px;
 }
 
 .btn.highlight, a.highlight{
@@ -57,6 +57,18 @@
     svg{
         width: 20px;
         height: 20px;
+    }
+
+    #home-icon {
+        width: 75px;
+    }
+
+    #home-icon-text{
+        font-size: 26px;
+    }
+
+    #home-tutorial{
+        font-size: 14px;
     }
 
 }

@@ -31,3 +31,14 @@ async function logout(){
     }, 3000);
 
 }
+
+function openSearch(){
+    offcanvas.show();
+
+    const input = document.querySelector("#search-input-offcanvas");
+    input.value = "";
+
+    setTimeout(() => {
+        input.focus();
+    }, 400);
+}

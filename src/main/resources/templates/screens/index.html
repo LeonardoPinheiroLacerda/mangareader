@@ -19,23 +19,23 @@
 
             <div class="d-flex flex-row align-items-center">
                 <img th:src="@{/assets/icon-large.png}" id="home-icon">
-                <h1 class="text-light m-3">Manga Reader</h1>
+                <h1 class="text-light m-3" id="home-icon-text">Manga Reader</h1>
             </div>
-            <div class="text-secondary text-center mt-3 d-flex flex-row">
-                <p>Pesquise o link de um manga de uma das&nbsp;</p>
-                <div class="dropdown">
+            <div class="text-secondary text-center my-3" id="home-tutorial">
+                Pesquise o link de um manga de uma das
+                <span class="dropdown">
                     <span class="text-decoration-underline pointer text-secondary fst-italic" type="button" id="dropdown-source" data-bs-toggle="dropdown" aria-expanded="false">
                         Fontes Suportadas
                     </span>
                     <ul class="dropdown-menu" aria-labelledby="dropdown-source">
                         <li><a class="dropdown-item" target="_blank" href="https://goldenmangas.top/">Golden Mangas</a></li>
                     </ul>
-                </div>
-                <p>, para acessar os seus capítulos:</p>
+                </span>
+                para acessar os seus capítulos
             </div>
          
             <form action="/manga" method="get" class="input-group" id="search-field">
-                <input type="text" name="url" class="form-control" placeholder="Pesquisa" id="search-input" aria-label="Pesquis" aria-describedby="search">
+                <input type="text" name="url" class="form-control" placeholder="Pesquisar" id="search-input" aria-label="Pesquisar" aria-describedby="search" autocomplete="off" oninvalid="return false;" required>
                 <button class="btn btn-primary" type="submit" id="search">
                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
                         <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
