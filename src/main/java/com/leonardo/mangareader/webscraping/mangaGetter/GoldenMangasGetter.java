@@ -29,7 +29,7 @@ public class GoldenMangasGetter implements MangaGetter{
            
             MangaDTO dto = new MangaDTO();
 
-            String name = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h2:nth-child(1)").text();
+            String title = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h2:nth-child(1)").text();
             String cover = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-4.text-right > img").attr("src");
             String synopsis = document.select("#manga_capitulo_descricao").text();
 
@@ -60,7 +60,7 @@ public class GoldenMangasGetter implements MangaGetter{
 
             dto.setUrl(url);
             dto.setApiUrl(MangareaderApplication.API_MANGA_URL_PREFIX + url);
-            dto.setName(name);
+            dto.setTitle(title);
             dto.setCover(URL_PREFIX + cover);
             dto.setSynopsis(synopsis);
 

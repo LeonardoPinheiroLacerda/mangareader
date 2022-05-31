@@ -39,7 +39,7 @@ public class MangaService {
     }
 
     public void checkIfExistsAndCreateOrUpdate(MangaDTO dto, String url) {
-        Manga manga = new Manga(null, dto.getName(), dto.getCover(), dto.getUrl(), new HashSet<User>());
+        Manga manga = new Manga(null, dto.getTitle(), dto.getCover(), dto.getUrl(), new HashSet<User>());
 
         Manga persisted = repository.findByUrl(url).orElse(null);
 

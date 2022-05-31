@@ -15,7 +15,7 @@ import lombok.Setter;
 
 public class MangaDTO {
     
-    private String name;
+    private String title;
     private String cover;
     private String url;
     private String apiUrl;

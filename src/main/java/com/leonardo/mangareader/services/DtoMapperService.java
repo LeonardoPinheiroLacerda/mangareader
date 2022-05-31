@@ -20,7 +20,7 @@ public class DtoMapperService {
 
     public SimpleMangaDTO mangaTSimpleMangaDTO(Manga manga, String apiUrlPrefix){
         return new SimpleMangaDTO(
-            manga.getName(), 
+            manga.getTitle(), 
             manga.getCover(), 
             manga.getUrl(), 
             apiUrlPrefix + manga.getUrl()

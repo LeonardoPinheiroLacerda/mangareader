@@ -33,7 +33,7 @@ public class Manga {
     @SequenceGenerator(name = "manga_seq", sequenceName = "manga_seq", initialValue = 1, allocationSize = 1)
     private Integer id;
 
-    private String name;
+    private String title;
     private String cover;
     private String url;
 
