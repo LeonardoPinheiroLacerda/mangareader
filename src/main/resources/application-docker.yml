@@ -6,17 +6,17 @@ spring:
         password: manga@Reader2022
 
     jpa:
-        show-sql: true
+        show-sql: false
         properties:
             hibernate:
                 '[format_sql]': false
                 dialect: org.hibernate.dialect.PostgreSQLDialect
         hibernate:
-            ddl-auto: none
+            ddl-auto: update
 
 application:
     security:
         rememberme:
-            key: sdaskjhgs09834uidhfgsldjkth34098sdfglkjb54lkjjhjhgsd034lkjhsdg-dfsjh328
-            validity-days: 21
-            cookie-name: JREMEMBERME
+            key: ${MANGAREADER_REMEMBERME_VALIDITY:kasjhd0aufdg37qyrsdfghaslkgjy23rsadgasdgasdfsdf}
+            validity-days: ${MANGAREADER_REMEMBERME_VALIDITY:21}
+            cookie-name: ${MANGAREADER_REMEMBERME_COOKIE_NAME:JREMEMBERME}

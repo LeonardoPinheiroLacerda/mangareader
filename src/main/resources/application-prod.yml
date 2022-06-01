@@ -1,0 +1,22 @@
+spring:
+
+    datasource:
+        url: ${DATABASE_URL}
+        username: ${DATABASE_USERNAME}
+        password: ${DATABASE_PASSWORD}
+
+    jpa:
+        show-sql: false
+        properties:
+            hibernate:
+                '[format_sql]': false
+                dialect: org.hibernate.dialect.PostgreSQLDialect
+        hibernate:
+            ddl-auto: update
+
+application:
+    security:
+        rememberme:
+            key: ${MANGAREADER_REMEMBERME_KEY}
+            validity-days: ${MANGAREADER_REMEMBERME_VALIDITY}
+            cookie-name: ${MANGAREADER_REMEMBERME_COOKIE_NAME}

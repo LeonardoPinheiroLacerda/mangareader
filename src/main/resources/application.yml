@@ -1,6 +1,6 @@
 spring:
     profiles:
-        active: dev
+        active: ${MANGAREADER_PROFILE:dev}
 
     jpa:
         open-in-view: false

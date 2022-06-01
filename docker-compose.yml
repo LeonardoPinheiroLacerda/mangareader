@@ -16,6 +16,22 @@ services:
     networks:
       - mangareader
 
+  app:
+    container_name: mangareader_app
+    hostname: app.mangareader.com
+    image: mangareader:0.0.1-SNAPSHOT
+    environment:
+      MANGAREADER_PROFILE: "docker"
+      MANGAREADER_REMEMBERME_VALIDITY: 21
+      MANGAREADER_REMEMBERME_KEY: kasjhd0aufdg37qyrsdfghaslkgjy23rsadgasdgasdfsdf
+      MANGAREADER_REMEMBERME_COOKIE_NAME: JREMEMBERME
+    ports:
+      - "8000:8080"
+    networks:
+      - mangareader
+    depends_on:
+      - db
+
 networks: 
   mangareader:
     driver: bridge
