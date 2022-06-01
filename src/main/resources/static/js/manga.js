@@ -12,3 +12,16 @@ for(let i = 0; i < chaptersElements.length; i ++){
         document.location = chaptersElement.getAttribute('chapter-url');
     })
 }
+
+const downloadElements = document.querySelectorAll('[chapter-download]');
+
+for(let i = 0; i < downloadElements.length; i ++){
+    const downloadElement = downloadElements[i];
+
+    downloadElement.addEventListener("click", () => {
+        const tooltip = bootstrap.Tooltip.getInstance(downloadElement)
+        tooltip.hide();
+
+        console.log("Vai baixar o pdf do endpoint: " + downloadElement.getAttribute('chapter-download'));
+    })
+}

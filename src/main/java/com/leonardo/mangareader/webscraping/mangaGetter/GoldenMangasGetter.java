@@ -32,26 +32,42 @@ public class GoldenMangasGetter implements MangaGetter{
            
             MangaDTO dto = new MangaDTO();
 
-            String title = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h2:nth-child(1)").text();
-            String cover = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-4.text-right > img").attr("src");
-            String synopsis = document.select("#manga_capitulo_descricao").text();
+            Integer count = 1;
 
-            Elements chaptersEls = document.select("#capitulos").first().children();
 
-            for(int i = 1; i <= chaptersEls.size(); i ++){
-                
-                String chapterUrl = URL_PREFIX + document.select("#capitulos > li:nth-child(" + i + ") > a").attr("href");                
-                String chapterNumber = document.select("#capitulos > li:nth-child(" + i + ") > a > div.col-sm-5").text();
-                String chapterApiUrl = MangareaderApplication.API_CHAPTER_URL_PREFIX + chapterUrl;
+            //-------------------------TITLE-------------------------
+            Elements titleEl = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h2:nth-child(" + count + ")");
+            String title = titleEl.text();
 
-                dto.getChapters().add(new ChapterDTO(chapterUrl, chapterNumber, chapterApiUrl));
+            if(!title.equals("")){
+                count+=1;
             }
 
-            Elements genresEls = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h5:nth-child(3)").get(0).children();
+
+            //-------------------------SCORE-------------------------
+            Elements scoreEl = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h2:nth-child(" + count + ")");
+
+            String scoreText = scoreEl.text();
+
+            String[] scoreSplited = scoreText.split(" ");
+
+            String score = null;
+            String scoredBy = null;
+
+            try{
+                score = scoreSplited[0].replace("#", "");
+                scoredBy = scoreSplited[1];
+                count+=1;
+            }catch(IndexOutOfBoundsException e){}
+
+
+            //-------------------------GENRE-------------------------
+            Elements genreEl = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h5:nth-child(" + count + ")");
+            Elements genresEls = genreEl.get(0).children();
 
             for(int i = 3; i <= genresEls.size(); i ++){
 
-                Elements genre = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h5:nth-child(3) > a:nth-child(" + i + ")");
+                Elements genre = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h5:nth-child(" + count + ") > a:nth-child(" + i + ")");
                 
                 String genreUrl = genre.text();
                 String genreLink = genre.attr("href");
@@ -61,35 +77,72 @@ public class GoldenMangasGetter implements MangaGetter{
                 dto.getGenres().add(new GenreDTO(genreUrl, genreLink));
             }
 
-            Elements statusEl = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h5:nth-child(6) > a");
+            if(dto.getGenres().size() > 0){
+                count+=1;    
+            }
+
+
+            //-------------------------AUTHOR-------------------------
+            Elements authorEl = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h5:nth-child(" + count + ") > a");
+
+            authorEl = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h5:nth-child(4) > a");
+            String authorName = authorEl.text();
+            String authorHref = URL_PREFIX + authorEl.attr("href");        
+            
+            if(!authorName.equals("") && !authorHref.equals("")){
+                count+=1;
+            }
+            
+            
+            //-------------------------ARTIST-------------------------
+            Elements artistEl = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h5:nth-child(" + count + ") > a");
+
+            artistEl = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h5:nth-child(5) > a");
+            String artistName = artistEl.text();
+            String artistHref = URL_PREFIX + artistEl.attr("href");
+            
+            if(!artistName.equals("") && !artistHref.equals("")){
+                count+=1;
+            }
+
+
+            //-------------------------STATUS-------------------------
+            Elements statusEl = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h5:nth-child(" + count + ") > a");
 
             String status = statusEl.text();
             String statusHref = URL_PREFIX + statusEl.attr("href");
 
             StatusEnumDTO statusEnum = null;
+           
             if(status.equals("Ativo")){
                 statusEnum = StatusEnumDTO.ATIVO;
             }else if(status.equals("Completo")){
                 statusEnum = StatusEnumDTO.COMPLETO;
             }
 
-            String scoreText = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h2:nth-child(2)").text();
 
-            String[] scoreSplited = scoreText.split(" ");
+            //-------------------------COVER-------------------------
+            String cover = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-4.text-right > img").attr("src");
 
-            String score = scoreSplited[0].replace("#", "");
-            String scoredBy = scoreSplited[1];
 
-            Elements authorEl = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h5:nth-child(4) > a");
-            String authorName = authorEl.text();
-            String authorHref = URL_PREFIX + authorEl.attr("href");        
+            //-------------------------SYNOPSIS-------------------------
+            String synopsis = document.select("#manga_capitulo_descricao").text();
+
+
+            //-------------------------CHAPTERS-------------------------
+            Elements chaptersEls = document.select("#capitulos").first().children();
+
+            for(int i = 1; i <= chaptersEls.size(); i ++){
+                
+                String chapterUrl = URL_PREFIX + document.select("#capitulos > li:nth-child(" + i + ") > a").attr("href");                
+                String chapterNumber = document.select("#capitulos > li:nth-child(" + i + ") > a > div.col-sm-5").text();
+                String chapterApiUrl = MangareaderApplication.API_CHAPTER_URL_PREFIX + chapterUrl;
+                String chapterApiDownloadUrl = MangareaderApplication.API_CHAPTER_DOWNLOAD_URL_PREFIX + chapterUrl;
+
+                dto.getChapters().add(new ChapterDTO(chapterUrl, chapterNumber, chapterApiUrl, chapterApiDownloadUrl));
+            }
+
             
-            
-            Elements artistEl = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h5:nth-child(5) > a");
-            String artistName = artistEl.text();
-            String artistHref = URL_PREFIX + artistEl.attr("href");        
-
-
             dto.setAuthor(new AuthorDTO(authorName, authorHref));
             dto.setArtist(new AuthorDTO(artistName, artistHref));
             dto.setStatus(new StatusDTO(statusHref, statusEnum));

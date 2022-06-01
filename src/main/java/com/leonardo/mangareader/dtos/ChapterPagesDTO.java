@@ -15,8 +15,9 @@ import lombok.Setter;
 
 public class ChapterPagesDTO {
     
-    public String url;
+    public String chapterUrl;
     public String mangaUrl;
+    public String apiDownloadUrl;
     public String title;
     public List<String> pages = new ArrayList<>();;
 

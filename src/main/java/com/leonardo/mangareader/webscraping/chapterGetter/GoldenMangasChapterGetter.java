@@ -2,6 +2,7 @@ package com.leonardo.mangareader.webscraping.chapterGetter;
 
 import java.io.IOException;
 
+import com.leonardo.mangareader.MangareaderApplication;
 import com.leonardo.mangareader.dtos.ChapterPagesDTO;
 import com.leonardo.mangareader.exceptions.SourceException;
 
@@ -39,7 +40,8 @@ public class GoldenMangasChapterGetter implements ChapterGetter{
 
             dto.setTitle(title);
             dto.setMangaUrl(URL_PREFIX + mangaUrl);
-            dto.setUrl(url);
+            dto.setApiDownloadUrl(MangareaderApplication.API_CHAPTER_DOWNLOAD_URL_PREFIX + mangaUrl);
+            dto.setChapterUrl(url);
             return dto;
 
         }catch(IOException | NullPointerException e){

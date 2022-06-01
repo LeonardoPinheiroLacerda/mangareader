@@ -67,6 +67,30 @@
     margin-bottom: 2px !important;
 }
 
+@media (max-width:620px) {
+    
+    #manga-tags-body{
+        flex-direction: column;    
+    }
+
+    .manga-col{
+        width:90% !important;
+        margin: auto !important;
+        margin-bottom: 10px !important;
+        text-align: center;
+    }
+
+    .manga-tag-row{
+        text-align: left;
+        padding: 0px 15px !important;
+    }
+
+    #chapters{
+        margin-top: 15px !important;
+    }
+
+}
+
 @media (max-width:530px) {
     
     body.vh-100 {
@@ -127,3 +151,4 @@
     }
 
 }
+
