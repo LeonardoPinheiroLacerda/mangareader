@@ -17,7 +17,7 @@
 
     <main class="container d-flex justify-content-center align-items-center" id="search-section">
 
-        <div class="d-flex align-items-center flex-column">
+        <div class="d-flex align-items-center flex-column user-select-none">
 
             <div class="d-flex flex-row align-items-center">
                 <img th:src="@{/assets/icon-large.png}" id="home-icon">
@@ -29,7 +29,7 @@
                     <span class="text-decoration-underline pointer text-secondary fst-italic" type="button" id="dropdown-source" data-bs-toggle="dropdown" aria-expanded="false">
                         Fontes Suportadas
                     </span>
-                    <ul class="dropdown-menu" aria-labelledby="dropdown-source">
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdown-source">
                         <li><a class="dropdown-item" target="_blank" href="https://goldenmangas.top/">Golden Mangas</a></li>
                     </ul>
                 </span>
@@ -44,8 +44,6 @@
                     </svg>
                 </button>
             </form>           
-
-            <a href="/help" class="btn btn-outline-primary mt-4 ms-auto">Preciso de ajuda</a>
         </div>
 
     </main>

@@ -63,6 +63,10 @@
     opacity: .9;
 }
 
+#search svg {
+    margin-bottom: 2px !important;
+}
+
 @media (max-width:530px) {
     
     body.vh-100 {
@@ -97,6 +101,20 @@
 
     #home-tutorial{
         font-size: 14px;
+    }
+
+    #search-input {
+        height: 36px;
+        font-size: 15px;
+    }
+
+    #search {
+        height: 36px;
+    }
+
+    #search svg {
+        width:15px;
+        margin-bottom: 6px;
     }
 
 }
