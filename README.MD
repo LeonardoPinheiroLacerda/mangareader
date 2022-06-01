@@ -6,6 +6,7 @@ This application uses the 8000 port when using docker.
 
 ### Requirements
 
+- Git
 - Docker
 
 ### Commands
