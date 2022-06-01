@@ -7,11 +7,13 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@ToString
 
 public class MangaDTO {
     
@@ -20,6 +22,13 @@ public class MangaDTO {
     private String url;
     private String apiUrl;
     private String synopsis;
+
+    private AuthorDTO author;
+    private AuthorDTO artist;
+
+    private StatusDTO status;
+    private String score;
+    private String scoredBy;
 
     private List<GenreDTO> genres = new ArrayList<>();
 

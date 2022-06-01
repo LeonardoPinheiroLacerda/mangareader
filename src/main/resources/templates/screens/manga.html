@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#0d6efd" />
-    
+
     <title>Manga Reader</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" th:href="@{/css/custom.css}">
@@ -15,9 +15,69 @@
   
     <nav th:replace="fragments/offcanvas :: offcanvas"></nav>
 
-    <main class="container">
+    <main class="my-4 container">
 
-        <h1 class="text-light" th:text="${manga.getTitle()}"></h1>
+        <div class="d-flex">
+            <div class="manga-col">
+            
+                <a th:href="${manga.getUrl()}" target="_blank" class="btn btn-primary w-100 m-0 p-1" id="manga-source">
+                    <img id="manga-cover" th:src="${manga.getCover()}">
+                    <label class="m-1">Fonte original</label>
+                </a>
+            </div>
+    
+            <div class="text-light ms-3 manga-col">
+                <h4 th:text="${manga.getTitle()}"></h4>
+                <div class="d-flex my-3 align-items-end">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="currentColor" class="bi bi-star" viewBox="0 0 16 16">
+                        <path d="M2.866 14.85c-.078.444.36.791.746.593l4.39-2.256 4.389 2.256c.386.198.824-.149.746-.592l-.83-4.73 3.522-3.356c.33-.314.16-.888-.282-.95l-4.898-.696L8.465.792a.513.513 0 0 0-.927 0L5.354 5.12l-4.898.696c-.441.062-.612.636-.283.95l3.523 3.356-.83 4.73zm4.905-2.767-3.686 1.894.694-3.957a.565.565 0 0 0-.163-.505L1.71 6.745l4.052-.576a.525.525 0 0 0 .393-.288L8 2.223l1.847 3.658a.525.525 0 0 0 .393.288l4.052.575-2.906 2.77a.565.565 0 0 0-.163.506l.694 3.957-3.686-1.894a.503.503 0 0 0-.461 0z"/>
+                    </svg>
+                    <label class="fs-6 mx-1 me-3" th:text="${manga.getScore()}"></label>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
+                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10z"/>
+                    </svg>
+                    <label class="fs-6 mx-1" th:text="${manga.getScoredBy()}"></label>
+                </div>
+                <p class="my-3">
+                    <b>Generos: </b>
+                    <a  th:each="genre : ${manga.getGenres()}" target="_blank" class="badge bg-primary fw-normal text-decoration-none text-reset me-1" th:href="${genre.getUrl()}" th:text="${genre.getDescription()}"></a>
+                </p>
+                <p class="my-3">
+                    <b>Autor: </b>
+                    <a target="_blank" class="badge bg-primary fw-normal text-decoration-none text-reset" th:href="${manga.getAuthor().getUrl()}" th:text="${manga.getAuthor().getName()}"></a>
+                </p>
+                <p class="my-3">
+                    <b>Artista: </b>
+                    <a target="_blank" class="badge bg-primary fw-normal text-decoration-none text-reset" th:href="${manga.getArtist().getUrl()}" th:text="${manga.getArtist().getName()}"></a>
+                </p>
+                <p class="my-3">
+                    <b>Status: </b>
+                    <a target="_blank" class="badge bg-primary fw-normal text-decoration-none text-reset" th:href="${manga.getStatus().getUrl()}" th:text="${manga.getStatus().getStatus().getFriendlyName()}"></a>
+                </p>
+    
+                <p class="mt-4" th:text="${manga.getSynopsis()}"></p>
+    
+            </div>
+        </div>
+        
+
+        <div id="chapters" class="my-5 d-flex flex-column">
+            <h3 class="text-light text-center mb-4">Capítulos</h3>
+
+            <div class="text-light p-2 d-flex align-items-center" th:each="chapter : ${manga.getChapters()}" th:attr="chapter-url=${chapter.getApiUrl()}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-book mx-2" viewBox="0 0 16 16">
+                    <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+                </svg>
+                <span class="fs-6 me-auto" th:text="${chapter.getDescription()}"></span>
+                <button class="btn btn-danger px-2" data-bs-toggle="tooltip" data-bs-placement="left" title="Baixar PDF">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-filetype-pdf" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM1.6 11.85H0v3.999h.791v-1.342h.803c.287 0 .531-.057.732-.173.203-.117.358-.275.463-.474a1.42 1.42 0 0 0 .161-.677c0-.25-.053-.476-.158-.677a1.176 1.176 0 0 0-.46-.477c-.2-.12-.443-.179-.732-.179Zm.545 1.333a.795.795 0 0 1-.085.38.574.574 0 0 1-.238.241.794.794 0 0 1-.375.082H.788V12.48h.66c.218 0 .389.06.512.181.123.122.185.296.185.522Zm1.217-1.333v3.999h1.46c.401 0 .734-.08.998-.237a1.45 1.45 0 0 0 .595-.689c.13-.3.196-.662.196-1.084 0-.42-.065-.778-.196-1.075a1.426 1.426 0 0 0-.589-.68c-.264-.156-.599-.234-1.005-.234H3.362Zm.791.645h.563c.248 0 .45.05.609.152a.89.89 0 0 1 .354.454c.079.201.118.452.118.753a2.3 2.3 0 0 1-.068.592 1.14 1.14 0 0 1-.196.422.8.8 0 0 1-.334.252 1.298 1.298 0 0 1-.483.082h-.563v-2.707Zm3.743 1.763v1.591h-.79V11.85h2.548v.653H7.896v1.117h1.606v.638H7.896Z"/>
+                    </svg>
+                </button>
+
+            </div>
+
+        </div>
 
     </main>
 

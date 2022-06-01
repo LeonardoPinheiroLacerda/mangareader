@@ -35,6 +35,30 @@
     color: var(--bs-light) !important;
 }
 
+.badge.bg-primary:hover{
+    background-color: #0b5ed7 !important;
+}
+
+#manga-cover{
+    width: 220px !important;
+}
+
+#manga-source{
+    width: 232px !important;
+}
+
+#chapters > div:nth-child(even) {
+    background-color: var(--bs-gray-dark);
+}
+
+#chapters > div:hover {
+    background-color: var(--bs-primary);
+}
+
+#chapters span {
+    font-size: 14px !important;
+}
+
 @media (max-width:530px) {
     
     body.vh-100 {
