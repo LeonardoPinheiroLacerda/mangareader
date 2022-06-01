@@ -1,17 +1,18 @@
 # Manga Reader
 
-This application uses the 8080 port.
+This application uses the 8000 port when using docker.
 
 ## Instalation
 
 ### Requirements
 
 - Docker
-- Java 11
 
 ### Commands
 
 ~~~ terminal
-docker-compose up -d
-./mvnw spring-boot:run
+git clone https://github.com/LeonardoPinheiroLacerda/mangareader.git
+cd mangareader
+sudo chmod +x build.sh
+./build.sh
 ~~~
