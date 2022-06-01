@@ -59,6 +59,10 @@
     font-size: 14px !important;
 }
 
+.toast {
+    opacity: .9;
+}
+
 @media (max-width:530px) {
     
     body.vh-100 {

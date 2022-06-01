@@ -1,13 +1,18 @@
 var toastElement;
 
 function constructToast(){
-    const toast = document.createElement('div');
 
+    const toast = document.createElement('div');
     toast.classList.add('toast');
+    toast.classList.add('align-items-center');
+    toast.classList.add('text-white');
+    toast.classList.add('bg-primary');
+    toast.classList.add('border-0');
     toast.classList.add('position-fixed');
     toast.classList.add('end-0');
-    toast.classList.add('bottom-0');
+    toast.classList.add('top-0');
     toast.classList.add('m-3');
+    toast.classList.add('shadow');
 
     toast.id = "toast";
 
@@ -15,25 +20,13 @@ function constructToast(){
     toast.setAttribute('aria-live', 'assertive');
     toast.setAttribute('aria-atomic', 'true');
 
-    const header = document.createElement('div');
+    const content = document.createElement('div');
+    content.classList.add('d-flex');
 
-    header.classList.add('toast-header');
-    header.id = 'toast-header';
+    const body = document.createElement('div');
+    body.classList.add('toast-body');
 
-    const icon = document.createElement('img');
-
-    icon.id = 'toast-icon';
-
-    icon.classList.add('me-2');
-
-    icon.style.width="25px";
-    icon.style.height="25px";
-
-    const headerText = document.createElement('strong');
-    headerText.classList.add('me-auto');
-    headerText.classList.add('text-light');
-    
-    headerText.innerHTML = 'Manga Reader';
+    body.id = "toast-body";
 
     const closeBtn = document.createElement('button');
     closeBtn.type = 'button';
@@ -42,22 +35,13 @@ function constructToast(){
 
     closeBtn.classList.add('btn-close');
     closeBtn.classList.add('btn-close-white');
+    closeBtn.classList.add("me-2");
+    closeBtn.classList.add("m-auto");
 
-    toast.setAttribute('data-bs-dismiss', 'toast');
-    toast.setAttribute('aria-label', 'Close');
-    
-    const body = document.createElement('div');
+    content.appendChild(body);
+    content.appendChild(closeBtn);
 
-    body.id = 'toast-body';
-
-    body.classList.add('toast-body');
-
-    header.appendChild(icon);
-    header.appendChild(headerText);
-    header.appendChild(closeBtn);
-
-    toast.appendChild(header);
-    toast.appendChild(body);
+    toast.appendChild(content);
 
     document.body.appendChild(toast);
 
@@ -73,27 +57,11 @@ function hideToast(){
     toastElement.hide();
 }
 
-function setToastIconColor(color) {
-    const icon = document.querySelector('#toast-icon');
-
-    switch(color) {
-        case "danger":
-            icon.src = "/assets/icon-red-small.png";
-            break;
-        case "light":
-            icon.src = "/assets/icon-white-small.png";
-            break;
-        default:
-            icon.src = "/assets/icon-blue-small.png";
-            break;
-    }
-}
-
-function setToastHeaderColor(color) {
-    const header = document.querySelector('#toast-header');
+function setToastBodyColor(color) {
+    const header = document.querySelector('#toast');
 
     header.classList.remove('bg-danger');
-    header.classList.remove('bg-primary');
+    header.classList.remove('bg-success');
     header.classList.remove('bg-light');
 
     switch(color) {
@@ -104,7 +72,7 @@ function setToastHeaderColor(color) {
             header.classList.add('bg-light');
             break;
         default:
-            header.classList.add('bg-primary');
+            header.classList.add('bg-success');
             break;
     }
 }
@@ -115,16 +83,14 @@ function setToastBodyText(text){
 }
 
 function showSuccessToast(text){
-    setToastIconColor('light');
-    setToastHeaderColor('primary');
+    setToastBodyColor('success');
     setToastBodyText(text);
-    
+
     showToast();
 }
 
 function showDangerToast(text){
-    setToastIconColor('light');
-    setToastHeaderColor('danger');
+    setToastBodyColor('danger');
     setToastBodyText(text);
     
     showToast();
