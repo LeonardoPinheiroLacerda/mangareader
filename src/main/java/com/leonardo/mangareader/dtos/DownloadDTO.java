@@ -15,6 +15,7 @@ import lombok.ToString;
 public class DownloadDTO {
     
     private String fileName;
-    private String filePath;
+    private byte[] file;
+
 
 }

@@ -22,13 +22,13 @@ public class DownloadResource {
     private final PDFService pdfService;
 
     @GetMapping("/chapter")
-    public FileSystemResource donwloadChapterPDF(HttpServletResponse response, @RequestParam String url){        
+    public byte[] donwloadChapterPDF(HttpServletResponse response, @RequestParam String url){        
         DownloadDTO download = pdfService.getFromUrl(url);
         
         response.setContentType("application/pdf");      
         response.setHeader("Content-Disposition", "attachment; filename=\"" + download.getFileName() + "\"");
         
-        return new FileSystemResource(download.getFilePath()); 
+        return download.getFile(); 
     }
 
 }

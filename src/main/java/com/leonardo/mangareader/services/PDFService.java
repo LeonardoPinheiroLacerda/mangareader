@@ -1,5 +1,6 @@
 package com.leonardo.mangareader.services;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -28,13 +29,13 @@ public class PDFService {
         DetailedChapterDTO chapter = chapterGetterFactoryService.getInstance(url).getFromUrl();
 
         String fileName = chapter.getTitle().replaceAll(" ", "_") + "_" + chapter.getCurrentChapter() + ".pdf";
-        String path = "./temp/" + fileName;
 
         Document document = new Document();
 
-        try {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-            PdfWriter.getInstance(document, new FileOutputStream(path));
+        try {
+            PdfWriter.getInstance(document, baos);
 
             document.open();
 
@@ -54,10 +55,11 @@ public class PDFService {
         } catch (DocumentException | IOException de) {
             System.err.println(de.getMessage());
         } finally {
+
             document.close();
         }
 
-        return new DownloadDTO(fileName, path);
+        return new DownloadDTO(fileName, baos.toByteArray());
 
     }
 
