@@ -1,6 +1,6 @@
 package com.leonardo.mangareader.resources;
 
-import com.leonardo.mangareader.dtos.ChapterPagesDTO;
+import com.leonardo.mangareader.dtos.DetailedChapterDTO;
 import com.leonardo.mangareader.services.ChapterService;
 
 import org.springframework.http.ResponseEntity;
@@ -20,7 +20,7 @@ public class ChapterResource {
     private final ChapterService service;
 
     @GetMapping
-    public ResponseEntity<ChapterPagesDTO> getFromUrl(@RequestParam String url){
+    public ResponseEntity<DetailedChapterDTO> getFromUrl(@RequestParam String url){
         return ResponseEntity.ok(service.getFromUrl(url));
     }
 

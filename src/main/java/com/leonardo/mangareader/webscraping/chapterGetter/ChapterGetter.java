@@ -1,9 +1,9 @@
 package com.leonardo.mangareader.webscraping.chapterGetter;
 
-import com.leonardo.mangareader.dtos.ChapterPagesDTO;
+import com.leonardo.mangareader.dtos.DetailedChapterDTO;
 
 public interface ChapterGetter {
     
-    public ChapterPagesDTO getFromUrl();
+    public DetailedChapterDTO getFromUrl();
 
 }

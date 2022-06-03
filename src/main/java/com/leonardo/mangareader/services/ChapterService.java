@@ -1,6 +1,6 @@
 package com.leonardo.mangareader.services;
 
-import com.leonardo.mangareader.dtos.ChapterPagesDTO;
+import com.leonardo.mangareader.dtos.DetailedChapterDTO;
 
 import org.springframework.stereotype.Service;
 
@@ -13,7 +13,7 @@ public class ChapterService {
 
     private final ChapterGetterFactoryService factoryService;
 
-    public ChapterPagesDTO getFromUrl(String url) {
+    public DetailedChapterDTO getFromUrl(String url) {
         return factoryService
             .getInstance(url)
             .getFromUrl();
