@@ -34,7 +34,7 @@ public class GoldenMangasGetter implements MangaGetter{
 
             Integer count = 1;
 
-
+            
             //-------------------------TITLE-------------------------
             Elements titleEl = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h2:nth-child(" + count + ")");
             String title = titleEl.text();
@@ -42,7 +42,6 @@ public class GoldenMangasGetter implements MangaGetter{
             if(!title.equals("")){
                 count+=1;
             }
-
 
             //-------------------------SCORE-------------------------
             Elements scoreEl = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h2:nth-child(" + count + ")");
@@ -60,7 +59,7 @@ public class GoldenMangasGetter implements MangaGetter{
                 count+=1;
             }catch(IndexOutOfBoundsException e){}
 
-
+            
             //-------------------------GENRE-------------------------
             Elements genreEl = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h5:nth-child(" + count + ")");
             Elements genresEls = genreEl.get(0).children();
@@ -77,7 +76,7 @@ public class GoldenMangasGetter implements MangaGetter{
                 dto.getGenres().add(new GenreDTO(genreUrl, genreLink));
             }
 
-            if(dto.getGenres().size() > 0){
+            if(genreEl != null){
                 count+=1;    
             }
 
@@ -89,10 +88,10 @@ public class GoldenMangasGetter implements MangaGetter{
             String authorName = authorEl.text();
             String authorHref = URL_PREFIX + authorEl.attr("href");        
             
-            if(!authorName.equals("") && !authorHref.equals("")){
+            if(authorEl != null){
                 count+=1;
             }
-            
+
             
             //-------------------------ARTIST-------------------------
             Elements artistEl = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h5:nth-child(" + count + ") > a");
@@ -101,7 +100,7 @@ public class GoldenMangasGetter implements MangaGetter{
             String artistName = artistEl.text();
             String artistHref = URL_PREFIX + artistEl.attr("href");
             
-            if(!artistName.equals("") && !artistHref.equals("")){
+            if(artistEl != null){
                 count+=1;
             }
 
