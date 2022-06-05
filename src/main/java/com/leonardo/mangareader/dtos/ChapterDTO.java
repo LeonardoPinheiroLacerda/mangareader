@@ -14,7 +14,7 @@ public class ChapterDTO {
     
     private String url;
     private String description;
-    private String apiUrl;
+    private String appUrl;
     private String apiDownloadUrl;
 
 }

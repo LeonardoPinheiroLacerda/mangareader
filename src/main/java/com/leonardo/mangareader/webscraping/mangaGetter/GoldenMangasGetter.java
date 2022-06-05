@@ -136,10 +136,10 @@ public class GoldenMangasGetter implements MangaGetter{
                 
                 String chapterUrl = URL_PREFIX + document.select("#capitulos > li:nth-child(" + i + ") > a").attr("href");                
                 String chapterNumber = document.select("#capitulos > li:nth-child(" + i + ") > a > div.col-sm-5").text();
-                String chapterApiUrl = MangareaderApplication.API_CHAPTER_URL_PREFIX + chapterUrl;
+                String chapterAppUrl = "/reader?url=" + chapterUrl;
                 String chapterApiDownloadUrl = MangareaderApplication.API_CHAPTER_DOWNLOAD_URL_PREFIX + chapterUrl;
 
-                dto.getChapters().add(new ChapterDTO(chapterUrl, chapterNumber, chapterApiUrl, chapterApiDownloadUrl));
+                dto.getChapters().add(new ChapterDTO(chapterUrl, chapterNumber, chapterAppUrl, chapterApiDownloadUrl));
             }
 
             
