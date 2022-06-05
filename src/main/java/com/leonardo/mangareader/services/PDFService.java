@@ -10,6 +10,7 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.leonardo.mangareader.dtos.DetailedChapterDTO;
 import com.leonardo.mangareader.dtos.DownloadDTO;
@@ -64,7 +65,7 @@ public class PDFService {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
         try {
-            PdfWriter.getInstance(document, baos);
+            PdfWriter writer = PdfWriter.getInstance(document, baos);
 
             document.open();
 
@@ -76,12 +77,22 @@ public class PDFService {
 
                 Image page = Image.getInstance(pageUrl);
 
-                document.setPageSize(new Rectangle(page.getWidth(), page.getHeight()));
-                document.newPage();
-                
-                log.info(pageUrl + " was processed to download.");
+                if(page.getHeight() > 14400){
+                    
+                    Image cropped1 = cropImage(page, writer, 0, page.getHeight() - 14400, page.getWidth(), 14400);
+                    Image cropped2 = cropImage(page, writer, 0, 0, page.getWidth(), page.getHeight() - 14400);
 
-                document.add(page);
+                    appendImage(document, cropped1);
+                    appendImage(document, cropped2);
+                    
+                    log.info(pageUrl + " was cropped and processed to download.");
+
+                    continue;
+                }
+
+                appendImage(document, page);
+
+                log.info(pageUrl + " was processed to download.");
 
             }
 
@@ -99,7 +110,18 @@ public class PDFService {
 
     }
 
+    private Image cropImage(Image image, PdfWriter writer, float x, float y, float width, float height) throws DocumentException {
+        PdfTemplate t = writer.getDirectContent().createTemplate(width, height);
+        float origWidth = image.getScaledWidth();
+        float origHeight = image.getScaledHeight();
+        t.addImage(image, origWidth, 0, 0, origHeight, -x, -y);
+        return Image.getInstance(t);
+    }
 
-
+    private void appendImage(Document document, Image page) throws DocumentException{
+        document.setPageSize(new Rectangle(page.getWidth(), page.getHeight()));
+        document.newPage();
+        document.add(page);
+    }
 
 }
