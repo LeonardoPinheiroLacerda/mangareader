@@ -2,6 +2,10 @@ package com.leonardo.mangareader.webscraping.mangaGetter;
 
 import java.io.IOException;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
+
 import com.leonardo.mangareader.MangareaderApplication;
 import com.leonardo.mangareader.dtos.AuthorDTO;
 import com.leonardo.mangareader.dtos.ChapterDTO;
@@ -10,10 +14,6 @@ import com.leonardo.mangareader.dtos.MangaDTO;
 import com.leonardo.mangareader.dtos.StatusDTO;
 import com.leonardo.mangareader.dtos.enums.StatusEnumDTO;
 import com.leonardo.mangareader.exceptions.SourceException;
-
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 
 import lombok.AllArgsConstructor;
 
@@ -34,7 +34,6 @@ public class GoldenMangasGetter implements MangaGetter{
 
             Integer count = 1;
 
-            
             //-------------------------TITLE-------------------------
             Elements titleEl = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h2:nth-child(" + count + ")");
             String title = titleEl.text();
@@ -42,6 +41,7 @@ public class GoldenMangasGetter implements MangaGetter{
             if(!title.equals("")){
                 count+=1;
             }
+
 
             //-------------------------SCORE-------------------------
             Elements scoreEl = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h2:nth-child(" + count + ")");
@@ -57,9 +57,10 @@ public class GoldenMangasGetter implements MangaGetter{
                 score = scoreSplited[0].replace("#", "");
                 scoredBy = scoreSplited[1];
                 count+=1;
-            }catch(IndexOutOfBoundsException e){}
+            }catch(IndexOutOfBoundsException e){
+            }
 
-            
+
             //-------------------------GENRE-------------------------
             Elements genreEl = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h5:nth-child(" + count + ")");
             Elements genresEls = genreEl.get(0).children();
@@ -76,7 +77,7 @@ public class GoldenMangasGetter implements MangaGetter{
                 dto.getGenres().add(new GenreDTO(genreUrl, genreLink));
             }
 
-            if(genreEl != null){
+            if(dto.getGenres().size() > 0){
                 count+=1;    
             }
 
@@ -84,23 +85,23 @@ public class GoldenMangasGetter implements MangaGetter{
             //-------------------------AUTHOR-------------------------
             Elements authorEl = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h5:nth-child(" + count + ") > a");
 
-            authorEl = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h5:nth-child(4) > a");
+            authorEl = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h5:nth-child(" + count + ") > a");
             String authorName = authorEl.text();
             String authorHref = URL_PREFIX + authorEl.attr("href");        
             
-            if(authorEl != null){
+            if(!authorHref.equals("")){
                 count+=1;
             }
-
+            
             
             //-------------------------ARTIST-------------------------
             Elements artistEl = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h5:nth-child(" + count + ") > a");
 
-            artistEl = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h5:nth-child(5) > a");
+            artistEl = document.select("body > article > div.container.manga > div.row > div.col-sm-8 > div.row > div.col-sm-8 > h5:nth-child( " + count + " ) > a");
             String artistName = artistEl.text();
             String artistHref = URL_PREFIX + artistEl.attr("href");
             
-            if(artistEl != null){
+            if(!artistHref.equals("")){
                 count+=1;
             }
 
