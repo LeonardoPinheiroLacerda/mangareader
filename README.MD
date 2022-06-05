@@ -7,6 +7,7 @@ This application uses the 8000 port when using docker.
 ### Requirements
 
 - Git
+- Java 11
 - Docker
 
 ### Commands
@@ -32,5 +33,5 @@ sudo chmod +x run.sh
 Run run.sh file to build and run the project
 
 ~~~terminal
-./run.sh
+sudo ./run.sh
 ~~~
