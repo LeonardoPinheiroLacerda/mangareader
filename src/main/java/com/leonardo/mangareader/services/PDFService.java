@@ -13,8 +13,14 @@ import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.leonardo.mangareader.dtos.DetailedChapterDTO;
 import com.leonardo.mangareader.dtos.DownloadDTO;
+import com.leonardo.mangareader.exceptions.DownloadException;
+import com.leonardo.mangareader.models.User;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 @AllArgsConstructor
@@ -25,8 +31,29 @@ import lombok.extern.slf4j.Slf4j;
 public class PDFService {
 
     private final ChapterGetterFactoryService chapterGetterFactoryService;
+    private final ParallelDownloadsCheckService parallelDownloadsCheckService;
+    private final UserService userService;
 
-    public DownloadDTO getFromUrl(String url) {
+    @RequiredArgsConstructor
+    @Getter
+    @Setter
+    @EqualsAndHashCode(of = "user")
+    public class UserDownload {
+        private final String user;
+        private Integer count = 0;
+    }
+
+    public DownloadDTO getFromUrl(String url) {  
+
+        User user = userService.getLogged();
+    
+        UserDownload checkedUserDownload = parallelDownloadsCheckService.checkParallelDownloads(new UserDownload(user.getUsername()));
+
+        if(checkedUserDownload == null){
+            throw new DownloadException("Só é possível fazer até " + parallelDownloadsCheckService.getParallelDownloadsLimit() + " downloads simutânios.");
+        }
+
+        parallelDownloadsCheckService.increaseDownloadCount(checkedUserDownload);
 
         DetailedChapterDTO chapter = chapterGetterFactoryService.getInstance(url).getFromUrl();
 
@@ -59,16 +86,20 @@ public class PDFService {
             }
 
         } catch (DocumentException | IOException de) {
-            System.err.println(de.getMessage());
+            throw new DownloadException("Algo de errado está acontecendo na construção do PDF.");
         } finally {
-
             document.close();
         }
 
         log.info("Your download is ready!!!");
 
+        parallelDownloadsCheckService.decreaseDownloadCount(checkedUserDownload);
+
         return new DownloadDTO(fileName, baos.toByteArray());
 
     }
+
+
+
 
 }

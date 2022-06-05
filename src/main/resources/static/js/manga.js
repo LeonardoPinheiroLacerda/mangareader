@@ -30,22 +30,28 @@ for(let i = 0; i < downloadElements.length; i ++){
 
             const req = await downloadRequest();
 
-            const blob = await req.blob();
+            if(req.status == 200){
+                const blob = await req.blob();
 
-            const fileName = () => {
-                let name = req.headers.get('Content-Disposition');
-                name = name.substring(22, name.length -1);
-                return name;
+                const fileName = () => {
+                    let name = req.headers.get('Content-Disposition');
+                    name = name.substring(22, name.length -1);
+                    return name;
+                }
+    
+                var url = window.URL.createObjectURL(blob);
+    
+                var a = document.createElement('a');
+                a.href = url;
+                a.download = fileName();
+                document.body.appendChild(a);
+                a.click();    
+                a.remove();
+
+            }else{
+                const json = await req.json();
+                showDangerToast(json.message);
             }
-
-            var url = window.URL.createObjectURL(blob);
-
-            var a = document.createElement('a');
-            a.href = url;
-            a.download = fileName();
-            document.body.appendChild(a);
-            a.click();    
-            a.remove();
 
             enablePdfDownloadButton(downloadElement);
 

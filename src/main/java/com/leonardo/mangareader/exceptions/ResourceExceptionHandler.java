@@ -93,4 +93,18 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
 	}
 
+    @ExceptionHandler(DownloadException.class)
+	public ResponseEntity<StandardError> downloadException(DownloadException e, HttpServletRequest request){
+
+		StandardError err = new StandardError(
+			System.currentTimeMillis(),
+			HttpStatus.BAD_REQUEST.value(),
+			"Erro ao realizar o download.",
+			e.getMessage(),
+			request.getRequestURI()
+		);
+
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(err);
+	}
+
 }
