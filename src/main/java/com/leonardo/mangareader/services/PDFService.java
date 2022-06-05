@@ -1,7 +1,6 @@
 package com.leonardo.mangareader.services;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 
@@ -16,8 +15,11 @@ import com.leonardo.mangareader.dtos.DetailedChapterDTO;
 import com.leonardo.mangareader.dtos.DownloadDTO;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @AllArgsConstructor
+
+@Slf4j
 
 @Service
 public class PDFService {
@@ -43,10 +45,14 @@ public class PDFService {
 
             for (String imgUrl : chapter.getPages()) {
 
-                Image page = Image.getInstance(new URL(imgUrl));
+                URL pageUrl = new URL(imgUrl);
+
+                Image page = Image.getInstance(pageUrl);
 
                 document.setPageSize(new Rectangle(page.getWidth(), page.getHeight()));
                 document.newPage();
+                
+                log.info(pageUrl + " was processed to download.");
 
                 document.add(page);
 
@@ -58,6 +64,8 @@ public class PDFService {
 
             document.close();
         }
+
+        log.info("Your download is ready!!!");
 
         return new DownloadDTO(fileName, baos.toByteArray());
 

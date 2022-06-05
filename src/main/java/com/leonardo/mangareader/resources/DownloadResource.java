@@ -2,7 +2,6 @@ package com.leonardo.mangareader.resources;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.core.io.FileSystemResource;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
