@@ -17,7 +17,7 @@ public class ChapterGetterFactoryService {
             return new GoldenMangasChapterGetter(url);
         } 
 
-        throw new NotSuportedSourceException("Source não suportada, acesse a página /help para consultar os sources válidos.");
+        throw new NotSuportedSourceException("Source não suportada.");
 
     }
 

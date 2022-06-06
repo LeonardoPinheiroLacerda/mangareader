@@ -16,6 +16,7 @@ import com.leonardo.mangareader.dtos.DetailedChapterDTO;
 import com.leonardo.mangareader.dtos.DownloadDTO;
 import com.leonardo.mangareader.exceptions.DownloadException;
 import com.leonardo.mangareader.models.User;
+import com.leonardo.mangareader.webscraping.chapterGetter.ChapterGetter;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -46,6 +47,8 @@ public class PDFService {
 
     public DownloadDTO getFromUrl(String url) {  
 
+        ChapterGetter getter = chapterGetterFactoryService.getInstance(url);
+
         User user = userService.getLogged();
     
         UserDownload checkedUserDownload = parallelDownloadsCheckService.checkParallelDownloads(new UserDownload(user.getUsername()));
@@ -56,7 +59,7 @@ public class PDFService {
 
         parallelDownloadsCheckService.increaseDownloadCount(checkedUserDownload);
 
-        DetailedChapterDTO chapter = chapterGetterFactoryService.getInstance(url).getFromUrl();
+        DetailedChapterDTO chapter = getter.getFromUrl();
 
         String fileName = chapter.getTitle().replaceAll(" ", "_") + "_" + chapter.getCurrentChapter() + ".pdf";
 

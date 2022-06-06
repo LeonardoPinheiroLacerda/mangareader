@@ -44,15 +44,18 @@
                 </p>
                 <p class="my-3 manga-tag-row" th:if='${!manga.getAuthor().equals("")}'>
                     <b>Autor: </b>
-                    <a target="_blank" class="badge bg-primary fw-normal text-decoration-none text-reset" th:href="${manga.getAuthor().getUrl()}" th:text="${manga.getAuthor().getName()}"></a>
+                    <a target="_blank" th:if="${manga.getAuthor().getUrl() != null}" class="badge bg-primary fw-normal text-decoration-none text-reset" th:href="${manga.getAuthor().getUrl()}" th:text="${manga.getAuthor().getName()}"></a>
+                    <span target="_blank" th:if="${manga.getAuthor().getUrl() == null}" class="badge bg-secondary fw-normal text-decoration-none text-reset" th:text="${manga.getAuthor().getName()}"></span>
                 </p>
                 <p class="my-3 manga-tag-row" th:if='${!manga.getArtist().equals("")}'>
                     <b>Artista: </b>
-                    <a target="_blank" class="badge bg-primary fw-normal text-decoration-none text-reset" th:href="${manga.getArtist().getUrl()}" th:text="${manga.getArtist().getName()}"></a>
+                    <a target="_blank" th:if="${manga.getArtist().getUrl() != null}" class="badge bg-primary fw-normal text-decoration-none text-reset" th:href="${manga.getArtist().getUrl()}" th:text="${manga.getArtist().getName()}"></a>
+                    <span target="_blank" th:if="${manga.getArtist().getUrl() == null}" class="badge bg-secondary fw-normal text-decoration-none text-reset" th:text="${manga.getArtist().getName()}"></span>
                 </p>
                 <p class="my-3 manga-tag-row" th:if='${!manga.getStatus().equals("")}'>
                     <b>Status: </b>
-                    <a target="_blank" class="badge bg-primary fw-normal text-decoration-none text-reset" th:href="${manga.getStatus().getUrl()}" th:text="${manga.getStatus().getStatus().getFriendlyName()}"></a>
+                    <a target="_blank" th:if="${manga.getStatus().getUrl() != null}" class="badge bg-primary fw-normal text-decoration-none text-reset" th:href="${manga.getStatus().getUrl()}" th:text="${manga.getStatus().getStatus().getFriendlyName()}"></a>
+                    <span target="_blank" th:if="${manga.getStatus().getUrl() == null}" class="badge bg-secondary fw-normal text-decoration-none text-reset" th:text="${manga.getStatus().getStatus().getFriendlyName()}"></span>
                 </p>
     
                 <p class="mt-4 manga-tag-row" th:if='${!manga.getSynopsis().equals("")}' th:text="${manga.getSynopsis()}"></p>
@@ -60,9 +63,9 @@
             </div>
         </div>
         
-        <div class="d-flex justify-content-end my-5">
+        <!-- <div class="d-flex justify-content-end my-5">
             <button class="btn btn-primary mx-3">Ler primeiro capítulo</button>
-        </div>
+        </div> -->
 
         <div id="chapters" class="my-5 d-flex flex-column">
             <h3 class="text-light text-center mb-4">Capítulos</h3>

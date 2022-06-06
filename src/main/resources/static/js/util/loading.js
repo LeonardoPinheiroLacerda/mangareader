@@ -1,4 +1,4 @@
-let loadingGif;
+var loadingGif;
 
 function constructLoadingAnimation(){
 

@@ -151,24 +151,3 @@
     }
 
 }
-
-::-webkit-scrollbar {
-    width: 7px;
-    height: 7px;
-}
-::-webkit-scrollbar-track {
-    background: var(--bs-gray-700);
-}
-::-webkit-scrollbar-thumb {
-    background: var(--bs-gray-600); 
-    border-radius: 5px;
-}
-::-webkit-scrollbar-thumb:hover {
-    background: var(--bs-gray-500); 
-}
-::-webkit-scrollbar-thumb:active {
-    background: var(--bs-gray-400); 
-}
-::-webkit-scrollbar-corner{
-    display: none;
-}

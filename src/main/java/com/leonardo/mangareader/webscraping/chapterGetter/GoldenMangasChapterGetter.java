@@ -28,7 +28,7 @@ public class GoldenMangasChapterGetter implements ChapterGetter{
 
             DetailedChapterDTO dto = new DetailedChapterDTO();
 
-            Elements pages = document.select("#capitulos_images > center").get(0).children();
+            Elements pages = document.select("#leitor_full > div:nth-child(6) > center").get(0).children();        
 
             for(int i = 0; i < pages.size(); i ++){
                 dto.getPages().add(URL_PREFIX + pages.get(i).attr("src"));
