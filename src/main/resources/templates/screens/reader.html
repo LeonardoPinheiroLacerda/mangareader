@@ -8,7 +8,6 @@
     
     <title>Manga Reader</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <link rel="stylesheet" th:href="@{/css/custom.css}">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </head>
 <body class="bg-dark d-flex vh-100 flex-column p-0">
@@ -17,7 +16,7 @@
 
         <div id="center-panel" class="w-100 overflow-auto mb-5 d-flex align-items-center flex-column">
             
-            <img th:src="${page}" th:each="page : ${chapter.getPages()}" class="h-100 p-2"/>
+            <img th:src="${page}" th:each="page,iter : ${chapter.getPages()}" th:id="${iter.index + 1}" class="h-100 p-2"/>
 
         </div>
 
