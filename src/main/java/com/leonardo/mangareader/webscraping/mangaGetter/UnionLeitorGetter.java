@@ -102,7 +102,7 @@ public class UnionLeitorGetter implements MangaGetter{
 
             String status = statusEl.get(0).getElementsByClass("label").text();
 
-            StatusEnumDTO statusEnum = (status.equals("Ativo")) ? StatusEnumDTO.ATIVO : StatusEnumDTO.COMPLETO;
+            StatusEnumDTO statusEnum = (status.toLowerCase().equals("Ativo".toLowerCase())) ? StatusEnumDTO.ATIVO : StatusEnumDTO.COMPLETO;
             
 
             //-------------------------SYNOPSIS-------------------------

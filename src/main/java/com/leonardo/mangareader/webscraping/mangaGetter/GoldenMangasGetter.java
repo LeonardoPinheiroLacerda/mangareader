@@ -114,9 +114,9 @@ public class GoldenMangasGetter implements MangaGetter{
 
             StatusEnumDTO statusEnum = null;
            
-            if(status.equals("Ativo")){
+            if(status.toLowerCase().equals("Ativo".toLowerCase())){
                 statusEnum = StatusEnumDTO.ATIVO;
-            }else if(status.equals("Completo")){
+            }else if(status.toLowerCase().equals("Completo".toLowerCase())){
                 statusEnum = StatusEnumDTO.COMPLETO;
             }
 
