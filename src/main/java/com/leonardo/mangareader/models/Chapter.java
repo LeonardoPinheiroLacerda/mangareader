@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -39,14 +40,13 @@ public class Chapter {
     @Column(nullable = false)
     private String number;
 
-    @Column(nullable = false)
     @ManyToOne
     private Manga manga;
 
-    @Column(nullable = true)
+    @OneToOne
     private Chapter previous;
 
-    @Column(nullable = true)
+    @OneToOne
     private Chapter next;
 
     @Column(nullable = false)
