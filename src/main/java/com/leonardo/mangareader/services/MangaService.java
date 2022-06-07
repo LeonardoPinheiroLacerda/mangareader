@@ -25,7 +25,7 @@ public class MangaService {
     public List<SimpleMangaDTO> findAll() {
         return repository.findAll()
                 .stream()
-                .map(manga -> dtoMapperService.mangaTSimpleMangaDTO(manga, MangareaderApplication.API_MANGA_URL_PREFIX))
+                .map(manga -> dtoMapperService.mangaToSimpleMangaDTO(manga, MangareaderApplication.API_MANGA_URL_PREFIX))
                 .collect(Collectors.toList());
     }
 

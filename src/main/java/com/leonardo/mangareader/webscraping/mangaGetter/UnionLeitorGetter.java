@@ -13,8 +13,8 @@ import com.leonardo.mangareader.dtos.ChapterDTO;
 import com.leonardo.mangareader.dtos.GenreDTO;
 import com.leonardo.mangareader.dtos.MangaDTO;
 import com.leonardo.mangareader.dtos.StatusDTO;
-import com.leonardo.mangareader.dtos.enums.StatusEnumDTO;
 import com.leonardo.mangareader.exceptions.SourceException;
+import com.leonardo.mangareader.models.enums.Status;
 
 import lombok.AllArgsConstructor;
 
@@ -102,7 +102,7 @@ public class UnionLeitorGetter implements MangaGetter{
 
             String status = statusEl.get(0).getElementsByClass("label").text();
 
-            StatusEnumDTO statusEnum = (status.toLowerCase().equals("Ativo".toLowerCase())) ? StatusEnumDTO.ATIVO : StatusEnumDTO.COMPLETO;
+            Status statusEnum = (status.toLowerCase().equals("Ativo".toLowerCase())) ? Status.ATIVO : Status.COMPLETO;
             
 
             //-------------------------SYNOPSIS-------------------------

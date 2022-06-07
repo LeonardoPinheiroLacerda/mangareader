@@ -12,8 +12,8 @@ import com.leonardo.mangareader.dtos.ChapterDTO;
 import com.leonardo.mangareader.dtos.GenreDTO;
 import com.leonardo.mangareader.dtos.MangaDTO;
 import com.leonardo.mangareader.dtos.StatusDTO;
-import com.leonardo.mangareader.dtos.enums.StatusEnumDTO;
 import com.leonardo.mangareader.exceptions.SourceException;
+import com.leonardo.mangareader.models.enums.Status;
 
 import lombok.AllArgsConstructor;
 
@@ -112,12 +112,12 @@ public class GoldenMangasGetter implements MangaGetter{
             String status = statusEl.text();
             String statusHref = URL_PREFIX + statusEl.attr("href");
 
-            StatusEnumDTO statusEnum = null;
+            Status statusEnum = null;
            
             if(status.toLowerCase().equals("Ativo".toLowerCase())){
-                statusEnum = StatusEnumDTO.ATIVO;
+                statusEnum = Status.ATIVO;
             }else if(status.toLowerCase().equals("Completo".toLowerCase())){
-                statusEnum = StatusEnumDTO.COMPLETO;
+                statusEnum = Status.COMPLETO;
             }
 
 

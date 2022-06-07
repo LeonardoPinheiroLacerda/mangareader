@@ -1,4 +1,4 @@
-package com.leonardo.mangareader.dtos.enums;
+package com.leonardo.mangareader.models.enums;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -6,7 +6,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 
-public enum StatusEnumDTO {
+public enum Status {
     ATIVO ("Ativo"),
     COMPLETO ("Completo");
 

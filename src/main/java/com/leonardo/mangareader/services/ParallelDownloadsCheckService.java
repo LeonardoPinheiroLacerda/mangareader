@@ -18,8 +18,6 @@ public class ParallelDownloadsCheckService {
         if(USER_DOWNLOADS_LIST.contains(userDownload)){
 
             userDownload = getFromList(userDownload);
-
-            System.out.println(userDownload);
             
             if(userDownload.getCount() >= PARALLEL_DOWNLOADS){
                 return null;

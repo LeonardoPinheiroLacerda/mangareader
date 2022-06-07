@@ -1,20 +1,18 @@
 package com.leonardo.mangareader.dtos;
 
-import com.leonardo.mangareader.models.enums.Status;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.Setter;
 
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Getter
-@ToString
+@Setter
 
-public class StatusDTO {
+public class ArtistDTO {
     
+    private String name;
     private String url;
-    private Status status;
 
 }
