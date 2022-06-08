@@ -9,7 +9,7 @@ for(let i = 0; i < chaptersElements.length; i ++){
     const chaptersElement = chaptersElements[i];
 
     chaptersElement.addEventListener("click", () => {
-        document.location = chaptersElement.getAttribute('chapter-url');
+        document.location = "/reader?url=" + chaptersElement.getAttribute('chapter-url');
     })
 }
 
@@ -21,7 +21,7 @@ for(let i = 0; i < downloadElements.length; i ++){
     downloadElement.addEventListener("click", () => {
         
         const downloadRequest = async () => {
-            return fetch(downloadElement.getAttribute('pdf-download-url'));
+            return fetch("api/downloads/chapter?url=" + downloadElement.getAttribute('pdf-download-url'));
         }
 
         (async() => {

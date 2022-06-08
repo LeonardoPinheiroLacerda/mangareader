@@ -1,9 +1,9 @@
 package com.leonardo.mangareader.webscraping.mangaGetter;
 
-import com.leonardo.mangareader.dtos.MangaDTO;
+import com.leonardo.mangareader.models.Manga;
 
 public interface MangaGetter {
     
-    public MangaDTO getFromUrl();
+    public Manga getFromUrl();
     
 }

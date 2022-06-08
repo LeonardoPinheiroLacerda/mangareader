@@ -3,6 +3,8 @@ package com.leonardo.mangareader.dtos;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.leonardo.mangareader.models.enums.Status;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,15 +22,14 @@ public class MangaDTO {
     private String title;
     private String cover;
     private String url;
-    private String apiUrl;
     private String synopsis;
 
     private AuthorDTO author;
-    private AuthorDTO artist;
+    private ArtistDTO artist;
 
-    private StatusDTO status;
-    private String score;
-    private String scoredBy;
+    private Status status;
+    private Float score;
+    private Integer scoredBy;
 
     private List<GenreDTO> genres = new ArrayList<>();
 

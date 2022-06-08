@@ -20,7 +20,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode(of = {"id", "name"})
 
 @Entity
 @Table(name = "GENRES")

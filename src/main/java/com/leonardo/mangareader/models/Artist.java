@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(of = "id")
+@EqualsAndHashCode()
 
 @Entity
 @Table(name = "ARTISTS")

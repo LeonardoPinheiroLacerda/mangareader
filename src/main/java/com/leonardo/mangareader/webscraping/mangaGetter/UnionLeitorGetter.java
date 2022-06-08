@@ -7,13 +7,13 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import com.leonardo.mangareader.MangareaderApplication;
-import com.leonardo.mangareader.dtos.AuthorDTO;
-import com.leonardo.mangareader.dtos.ChapterDTO;
-import com.leonardo.mangareader.dtos.GenreDTO;
-import com.leonardo.mangareader.dtos.MangaDTO;
-import com.leonardo.mangareader.dtos.StatusDTO;
 import com.leonardo.mangareader.exceptions.SourceException;
+import com.leonardo.mangareader.models.Artist;
+import com.leonardo.mangareader.models.Author;
+import com.leonardo.mangareader.models.Chapter;
+import com.leonardo.mangareader.models.Genre;
+import com.leonardo.mangareader.models.Manga;
+import com.leonardo.mangareader.models.enums.ReadStatus;
 import com.leonardo.mangareader.models.enums.Status;
 
 import lombok.AllArgsConstructor;
@@ -25,12 +25,12 @@ public class UnionLeitorGetter implements MangaGetter{
     private String url;
 
     @Override
-    public MangaDTO getFromUrl() {
+    public Manga getFromUrl() {
         
         try{
             Document document = Jsoup.connect(url).get();
            
-            MangaDTO dto = new MangaDTO();
+            Manga manga = new Manga();
 
             Integer count = 1;
 
@@ -68,14 +68,13 @@ public class UnionLeitorGetter implements MangaGetter{
                 String description = genre.text();
                 String url = genre.attr("href");
 
-                dto.getGenres().add(new GenreDTO(description, url));
+                manga.getGenres().add(new Genre(null, description, url, null));
 
             }
 
-            if(dto.getGenres().size() > 0){
+            if(manga.getGenres().size() > 0){
                 count += 1;
             }
-
 
             
 
@@ -122,28 +121,34 @@ public class UnionLeitorGetter implements MangaGetter{
                 Element a = el.getElementsByTag("a").get(0);
                 Element span = el.getElementsByTag("span").get(1);
 
-                String descrption = a.text() + " " + span.text();
+                String description = a.text() + " " + span.text();
                 String chapterUrl = a.attr("href");
-                String chapterAppUrl = "/reader?url=" + chapterUrl;
-                String chapterApiDownloadUrl = MangareaderApplication.API_CHAPTER_DOWNLOAD_URL_PREFIX + chapterUrl;
+                // String chapterAppUrl = "/reader?url=" + chapterUrl;
+                // String chapterApiDownloadUrl = MangareaderApplication.API_CHAPTER_DOWNLOAD_URL_PREFIX + chapterUrl;
 
-                dto.getChapters().add(new ChapterDTO(chapterUrl, descrption, chapterAppUrl, chapterApiDownloadUrl));                
+                // dto.getChapters().add(new ChapterDTO(chapterUrl, descrption, chapterAppUrl, chapterApiDownloadUrl));                
+
+
+                manga.getChapters().add(new Chapter(null, chapterUrl, description, null, manga, null, null, ReadStatus.NONE));
             }
 
 
+            manga.setTitle(title);
+            manga.setCover(cover);
+            manga.setUrl(url);
+            manga.setSynopsis(synopsis);
 
-            dto.setStatus(new StatusDTO(null, statusEnum));
-            dto.setAuthor(new AuthorDTO(author, null));
-            dto.setArtist(new AuthorDTO(artist, null));
-            dto.setScore(score);
-            dto.setScoredBy(scoredBy);
-            dto.setApiUrl(MangareaderApplication.API_MANGA_URL_PREFIX + url);
-            dto.setUrl(url);
-            dto.setCover(cover);
-            dto.setTitle(title);
-            dto.setSynopsis(synopsis);
+            manga.setScore(Float.parseFloat(score));
+            manga.setScoredBy(Integer.parseInt(scoredBy));
 
-            return dto;
+            manga.setArtist(new Artist(null, artist, null));
+            manga.setAuthor(new Author(null, author, null));
+
+            manga.setStatus(statusEnum);
+
+            // dto.setApiUrl(MangareaderApplication.API_MANGA_URL_PREFIX + url);
+
+            return manga;
         }catch(IOException | NullPointerException e){
             throw new SourceException("Erro ao tentar recuperar o manga de " + url);
         }
