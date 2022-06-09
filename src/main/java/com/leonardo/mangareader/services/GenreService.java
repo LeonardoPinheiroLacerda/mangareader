@@ -30,7 +30,7 @@ public class GenreService {
         Set<Genre> newGenres = new HashSet<>();
 
         for(Genre genre : genres){
-            genres.add(create(genre));
+            newGenres.add(create(genre));
         }
 
         return newGenres;
