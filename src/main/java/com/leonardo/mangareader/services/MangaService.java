@@ -25,6 +25,7 @@ public class MangaService {
 
     private final MangaRepository repository;
     private final ChapterService chapterService;
+    private final GenreService genreService;
     private final DtoMapperService dtoMapperService;
     private final MangaGetterFactoryService factoryService;
 
@@ -65,7 +66,14 @@ public class MangaService {
             repository.save(manga);
             return dtoMapperService.mangaToMangaDTO(manga);
         }else{
-            repository.save(updated);
+
+            manga = updated;
+           
+            manga.setGenres(
+                genreService.createSet(manga.getGenres())
+            );
+
+            repository.save(manga);
             return dtoMapperService.mangaToMangaDTO(updated);
         }
 

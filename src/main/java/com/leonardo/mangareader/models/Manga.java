@@ -73,7 +73,7 @@ public class Manga {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Artist artist;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "MANGA_GENRE",
         joinColumns = @JoinColumn(name = "manga_id"), 
