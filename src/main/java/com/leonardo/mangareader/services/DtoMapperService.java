@@ -40,6 +40,13 @@ public class DtoMapperService {
 
 
     public MangaDTO mangaToMangaDTO(Manga manga){
+
+        manga.setChapters(
+            manga.getChapters()
+                .stream()
+                .sorted((ch1, ch2) -> ch2.getId().compareTo(ch1.getId()))
+                .collect(Collectors.toList())
+        );
         
         MangaDTO dto = new MangaDTO();
 
@@ -87,7 +94,7 @@ public class DtoMapperService {
     }
 
     public ChapterDTO chapterToChapterDTO(Chapter chapter){
-        return new ChapterDTO(chapter.getUrl(), chapter.getTitle());
+        return new ChapterDTO(chapter.getUrl(), chapter.getTitle(), chapter.getReadStatus());
     }
 
 }
