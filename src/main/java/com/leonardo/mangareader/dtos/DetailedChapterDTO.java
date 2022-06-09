@@ -22,6 +22,6 @@ public class DetailedChapterDTO {
     public String title;
     public String apiPreviousUrl;
     public String apiNextUrl;
-    public List<String> pages = new ArrayList<>();;
+    public List<String> pages = new ArrayList<>();
 
 }

@@ -3,12 +3,16 @@ package com.leonardo.mangareader.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.transaction.Transactional;
+
 import org.springframework.stereotype.Service;
 
 import com.leonardo.mangareader.MangareaderApplication;
 import com.leonardo.mangareader.dtos.MangaDTO;
 import com.leonardo.mangareader.dtos.SimpleMangaDTO;
+import com.leonardo.mangareader.models.Chapter;
 import com.leonardo.mangareader.models.Manga;
+import com.leonardo.mangareader.models.enums.ReadStatus;
 import com.leonardo.mangareader.repositories.MangaRepository;
 import com.leonardo.mangareader.webscraping.mangaGetter.MangaGetter;
 
@@ -20,6 +24,7 @@ import lombok.AllArgsConstructor;
 public class MangaService {
 
     private final MangaRepository repository;
+    private final ChapterService chapterService;
     private final DtoMapperService dtoMapperService;
     private final MangaGetterFactoryService factoryService;
 
@@ -30,14 +35,40 @@ public class MangaService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public MangaDTO createFromUrl(String url) {
 
         MangaGetter getter = factoryService.getInstance(url);
 
-        Manga manga = getter.getFromUrl();
+        Manga manga = repository.findByUrl(url).orElse(null);
 
-        return dtoMapperService.mangaToMangaDTO(manga);
-    
+        Manga updated = getter.getFromUrl();
+
+        if(manga != null){
+
+            if(manga.getChapters().size() != updated.getChapters().size()){
+
+                for(Chapter chapter : updated.getChapters()){
+                    if(!manga.getChapters().contains(chapter)){
+
+                        chapter.setManga(manga);
+                        Chapter newChapter = new Chapter(null, chapter.getUrl(), chapter.getTitle(), null, chapter.getManga(), null, null, ReadStatus.NONE);
+
+                        manga.getChapters().add(chapterService.create(newChapter));
+                    }
+                }
+
+            }
+
+            manga.setCover(updated.getCover());
+
+            repository.save(manga);
+            return dtoMapperService.mangaToMangaDTO(manga);
+        }else{
+            repository.save(updated);
+            return dtoMapperService.mangaToMangaDTO(updated);
+        }
+
     }
     
 }

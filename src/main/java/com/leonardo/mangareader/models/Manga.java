@@ -73,7 +73,7 @@ public class Manga {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Artist artist;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
         name = "MANGA_GENRE",
         joinColumns = @JoinColumn(name = "manga_id"), 
@@ -81,7 +81,7 @@ public class Manga {
     )
     Set<Genre> genres = new HashSet<>();
 
-    @OneToMany(mappedBy = "manga", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "manga", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<Chapter> chapters = new ArrayList<>();
 
     @OneToMany(mappedBy = "id.manga", fetch = FetchType.EAGER)

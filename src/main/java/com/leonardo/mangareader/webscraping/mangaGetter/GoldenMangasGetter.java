@@ -132,7 +132,7 @@ public class GoldenMangasGetter implements MangaGetter{
             //-------------------------CHAPTERS-------------------------
             Elements chaptersEls = document.select("#capitulos").first().children();
 
-            for(int i = 1; i <= chaptersEls.size(); i ++){
+            for(int i = chaptersEls.size(); i > 0 ; i --){
                 
                 String chapterUrl = URL_PREFIX + document.select("#capitulos > li:nth-child(" + i + ") > a").attr("href");                
                 String description = document.select("#capitulos > li:nth-child(" + i + ") > a > div.col-sm-5").text();

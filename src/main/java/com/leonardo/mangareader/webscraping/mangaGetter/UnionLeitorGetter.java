@@ -115,19 +115,14 @@ public class UnionLeitorGetter implements MangaGetter{
             //-------------------------CHAPTERS-------------------------
             Elements chaptersEls = document.getElementsByClass("capitulos");
 
-            for(int i = 0; i < chaptersEls.size(); i ++){
+            for(int i = chaptersEls.size() - 1; i >= 0 ; i --){
                 Element el = chaptersEls.get(i);
   
                 Element a = el.getElementsByTag("a").get(0);
                 Element span = el.getElementsByTag("span").get(1);
 
                 String description = a.text() + " " + span.text();
-                String chapterUrl = a.attr("href");
-                // String chapterAppUrl = "/reader?url=" + chapterUrl;
-                // String chapterApiDownloadUrl = MangareaderApplication.API_CHAPTER_DOWNLOAD_URL_PREFIX + chapterUrl;
-
-                // dto.getChapters().add(new ChapterDTO(chapterUrl, descrption, chapterAppUrl, chapterApiDownloadUrl));                
-
+                String chapterUrl = a.attr("href");   
 
                 manga.getChapters().add(new Chapter(null, chapterUrl, description, null, manga, null, null, ReadStatus.NONE));
             }

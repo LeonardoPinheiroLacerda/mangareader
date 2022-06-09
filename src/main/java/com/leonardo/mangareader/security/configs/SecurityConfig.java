@@ -33,8 +33,7 @@ public class SecurityConfig {
     };
 
     private final static String[] POST_WHITELIST = new String[]{
-        "/api/users",
-        "/api/mangas/**"
+        "/api/users"
     };
 
     @Bean

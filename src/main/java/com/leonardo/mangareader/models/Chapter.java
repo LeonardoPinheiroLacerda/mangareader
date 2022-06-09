@@ -16,11 +16,14 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(of = {"id", "url"})
+@EqualsAndHashCode(of = {"url"})
+
+@ToString(exclude = {"manga", "previous", "next"})
 
 @Entity
 @Table(name = "CHAPTERS")
@@ -37,7 +40,7 @@ public class Chapter {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String number;
 
     @ManyToOne
