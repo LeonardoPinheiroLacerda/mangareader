@@ -67,7 +67,7 @@ public class Manga {
     @Column(nullable = true)
     private Integer scoredBy;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne
     private Author author;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
@@ -76,8 +76,8 @@ public class Manga {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
         name = "MANGA_GENRE",
-        joinColumns = @JoinColumn(name = "manga_id"), 
-        inverseJoinColumns = @JoinColumn(name = "genre_id")
+        joinColumns = {@JoinColumn(name = "manga_id", referencedColumnName = "id")}, 
+        inverseJoinColumns = {@JoinColumn(name = "genre_id", referencedColumnName = "id")}
     )
     Set<Genre> genres = new HashSet<>();
 

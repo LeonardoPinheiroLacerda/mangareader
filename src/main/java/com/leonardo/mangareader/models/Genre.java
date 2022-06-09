@@ -8,7 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -37,7 +37,7 @@ public class Genre {
     @Column(nullable = true)
     private String url;
 
-    @OneToMany(mappedBy = "genres")
+    @ManyToMany(mappedBy = "genres")
     private Set<Manga> mangas = new HashSet<>();
 
 }

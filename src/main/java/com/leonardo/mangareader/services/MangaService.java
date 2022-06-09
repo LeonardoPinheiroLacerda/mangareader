@@ -26,6 +26,8 @@ public class MangaService {
     private final MangaRepository repository;
     private final ChapterService chapterService;
     private final GenreService genreService;
+    private final AuthorService authorService;
+    private final ArtistService artistService;
     private final DtoMapperService dtoMapperService;
     private final MangaGetterFactoryService factoryService;
 
@@ -71,6 +73,13 @@ public class MangaService {
            
             manga.setGenres(
                 genreService.createSet(manga.getGenres())
+            );
+
+            manga.setAuthor(
+                authorService.create(manga.getAuthor())
+            );
+            manga.setArtist(
+                artistService.create(manga.getArtist())
             );
 
             repository.save(manga);
