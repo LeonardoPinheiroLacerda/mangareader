@@ -151,3 +151,8 @@
     }
 
 }
+
+.history-info:hover{
+    opacity: .9 !important;
+    transition: .2s !important;
+}

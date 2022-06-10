@@ -1,6 +1,6 @@
 package com.leonardo.mangareader.dtos;
 
-import com.leonardo.mangareader.models.enums.ReadStatus;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,10 +14,10 @@ import lombok.ToString;
 @Setter
 @ToString
 
-public class ChapterDTO {
+public class HistoryDTO {
     
-    private String url;
-    private String description;
-    private ReadStatus status;
+    private MangaMetadataDTO manga;
+    private LocalDateTime lastRead;
+    private ChapterDTO lastChapterRead;
 
 }

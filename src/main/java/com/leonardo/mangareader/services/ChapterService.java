@@ -1,5 +1,7 @@
 package com.leonardo.mangareader.services;
 
+import java.util.Optional;
+
 import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
@@ -34,6 +36,10 @@ public class ChapterService {
         return factoryService
             .getInstance(url)
             .getFromUrl();
+    }
+
+    public Optional<Chapter> findByUrl(String url){
+        return repository.findByUrl(url);
     }
 
     public Chapter create(Chapter chapter){

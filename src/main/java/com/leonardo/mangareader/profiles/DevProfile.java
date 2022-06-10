@@ -28,7 +28,7 @@ public class DevProfile implements CommandLineRunner{
             passwordEncoder.encode("admin")
         );
         
-        userRepository.save(user);
+        //userRepository.save(user);
     }
     
 }

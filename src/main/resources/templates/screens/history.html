@@ -15,12 +15,28 @@
   
     <nav th:replace="fragments/offcanvas :: offcanvas"></nav>
 
-    <main class="container d-flex justify-content-center align-items-center" id="search-section">
+    <main class="container d-flex flex-column pt-5">
 
-       
+        <h3 class="text-center text-light mb-5">Histórico</h3>
+
+        <div class="d-flex flex-row">
+            <div th:each="history : ${history}" class="bg-primary d-flex flex-column p-2 rounded m-2 col-2 position-relative">
+                <img th:src="${history.getManga().getCover()}" class="my-auto">
+                <span class="text-light text-center mt-auto text-truncate h-auto" th:text="${history.getManga().getTitle()}"></span>
+                <a class="text-decoration-none position-absolute bg-primary h-100 w-100 top-0 start-0 rounded opacity-0 history-info p-3" th:href="'/manga?url=' + ${history.getManga().getUrl()}">
+                    <p class=" text-light text-truncate mb-1"><b>Status: </b> <span th:text="${history.getManga().getStatus().getFriendlyName()}"></span></p>
+                    <p class=" text-light mb-1"><b>Gêneros: </b> <span th:each="genre : ${history.getManga().getGenres()}" th:text="${genre.getDescription()} + ' '"></span></p>
+                    <p class=" text-light text-truncate mb-1"><b>Autor: </b> <span th:text="${history.getManga().getAuthor().getName()}"></span></p>
+                    <p class=" text-light text-truncate mb-1"><b>Artista: </b> <span th:text="${history.getManga().getArtist().getName()}"></span></p>
+                </a>
+            </div>
+            
+        </div>
+
+        
 
     </main>
 
-    <script th:src="@{/js/index.js}"></script>
+    <script th:src="@{/js/history.js}"></script>
 </body>
 </html>

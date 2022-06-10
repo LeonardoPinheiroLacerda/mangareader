@@ -8,13 +8,16 @@ import com.leonardo.mangareader.dtos.ArtistDTO;
 import com.leonardo.mangareader.dtos.AuthorDTO;
 import com.leonardo.mangareader.dtos.ChapterDTO;
 import com.leonardo.mangareader.dtos.GenreDTO;
+import com.leonardo.mangareader.dtos.HistoryDTO;
 import com.leonardo.mangareader.dtos.MangaDTO;
+import com.leonardo.mangareader.dtos.MangaMetadataDTO;
 import com.leonardo.mangareader.dtos.SimpleMangaDTO;
 import com.leonardo.mangareader.dtos.UserDTO;
 import com.leonardo.mangareader.models.Artist;
 import com.leonardo.mangareader.models.Author;
 import com.leonardo.mangareader.models.Chapter;
 import com.leonardo.mangareader.models.Genre;
+import com.leonardo.mangareader.models.History;
 import com.leonardo.mangareader.models.Manga;
 import com.leonardo.mangareader.models.User;
 
@@ -80,6 +83,39 @@ public class DtoMapperService {
         return dto;
     }
 
+    public MangaMetadataDTO mangaToMangaMetadataDTO(Manga manga){
+
+        manga.setChapters(
+            manga.getChapters()
+                .stream()
+                .sorted((ch1, ch2) -> ch2.getId().compareTo(ch1.getId()))
+                .collect(Collectors.toList())
+        );
+        
+        MangaMetadataDTO dto = new MangaMetadataDTO();
+
+        dto.setTitle(manga.getTitle());
+        dto.setCover(manga.getCover());
+        dto.setUrl(manga.getUrl());
+        dto.setSynopsis(manga.getSynopsis());
+
+        dto.setStatus(manga.getStatus());
+        dto.setScore(manga.getScore());
+        dto.setScoredBy(manga.getScoredBy());
+
+        dto.setArtist(artistToArtistDTO(manga.getArtist()));
+        dto.setAuthor(authorToAuthorDTO(manga.getAuthor()));
+
+        dto.setGenres(
+            manga.getGenres()
+                .stream()
+                .map(genre -> genreToGenreDTO(genre))
+                .collect(Collectors.toList())
+        );
+
+        return dto;
+    }
+
 
     public AuthorDTO authorToAuthorDTO(Author author){
         return new AuthorDTO(author.getName(), author.getUrl());
@@ -95,6 +131,14 @@ public class DtoMapperService {
 
     public ChapterDTO chapterToChapterDTO(Chapter chapter){
         return new ChapterDTO(chapter.getUrl(), chapter.getTitle(), chapter.getReadStatus());
+    }
+
+    public HistoryDTO historyToHistoryDTO(History history){
+        return new HistoryDTO(
+            mangaToMangaMetadataDTO(history.getId().getManga()), 
+            history.getLastRead(),
+            chapterToChapterDTO(history.getLastChapterRead())
+        );
     }
 
 }

@@ -1,6 +1,7 @@
 package com.leonardo.mangareader.services;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -40,8 +41,23 @@ public class MangaService {
                 .collect(Collectors.toList());
     }
 
+    public Optional<Manga> findByUrl(String url){
+        return repository.findByUrl(url);
+    }
+
     @Transactional
     public MangaDTO createFromUrl(String url) {
+
+        //BUG UNION
+        if(url.contains("pagina-manga")){
+            url = url.replace("pagina-manga", "manga");
+        }
+
+        //BUG GOLDEN
+        if(url.contains("/mangabr/")){
+            url = url.replace("/mangabr/", "/mangas/");
+        }
+
 
         MangaGetter getter = factoryService.getInstance(url);
 

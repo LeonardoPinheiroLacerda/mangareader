@@ -11,11 +11,13 @@ import com.leonardo.mangareader.models.User;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@EqualsAndHashCode(of = {"user", "manga"})
 
 @Embeddable
 public class HistoryPK implements Serializable{
