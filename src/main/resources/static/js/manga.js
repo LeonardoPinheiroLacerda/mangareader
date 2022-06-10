@@ -60,6 +60,39 @@ for(let i = 0; i < downloadElements.length; i ++){
     });
 }
 
+document.querySelector("#cover-field").addEventListener('keyup', (e) => {
+    if(e.keyCode == 13){
+        setCover();
+    }
+});
+
+async function setCover(){
+    var myModalEl = document.querySelector('#set-cover-modal');
+    var modal = bootstrap.Modal.getOrCreateInstance(myModalEl);
+
+    const input = document.querySelector("#cover-field");
+
+    const sourceUrl = document.querySelector("meta[name='source-url']").getAttribute('content');
+
+    const req = await request("/api/mangas/cover", 
+        'POST', 
+        {
+            'url': sourceUrl,
+            'cover': input.value
+        }
+    );
+
+    modal.hide();
+
+    if(req.status == 204){
+        document.location.href = document.location.href;
+    }else{
+        const json = await req.json();
+        showDangerToast(json.message);
+    }
+    
+}
+
 function disablePdfDownloadButton(button){
     
     const tooltip = bootstrap.Tooltip.getInstance(button);

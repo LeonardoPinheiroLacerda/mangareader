@@ -65,6 +65,10 @@ public class MangaService {
 
             }
 
+            manga.setScore(updated.getScore());
+            manga.setScoredBy(updated.getScoredBy());
+            manga.setStatus(updated.getStatus());
+
             repository.save(manga);
             return dtoMapperService.mangaToMangaDTO(manga);
         }else{
@@ -88,6 +92,7 @@ public class MangaService {
 
     }
 
+    @Transactional
     public void setCoverImage(NewCoverDTO dto){
         Manga manga = repository.findByUrl(dto.getUrl()).orElseThrow(() -> new ObjectNotFoundException("Um manga com a seguinte URL não foi localizado."));
         manga.setCover(dto.getCover());
