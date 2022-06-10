@@ -124,7 +124,7 @@ public class UnionLeitorGetter implements MangaGetter{
                 String description = a.text() + " " + span.text();
                 String chapterUrl = a.attr("href");   
 
-                manga.getChapters().add(new Chapter(null, chapterUrl, description, null, manga, null, null, ReadStatus.NONE));
+                manga.getChapters().add(new Chapter(null, chapterUrl, description, manga, ReadStatus.NONE));
             }
 
 

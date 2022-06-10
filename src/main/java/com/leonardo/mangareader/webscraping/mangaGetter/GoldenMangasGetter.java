@@ -137,7 +137,7 @@ public class GoldenMangasGetter implements MangaGetter{
                 String chapterUrl = URL_PREFIX + document.select("#capitulos > li:nth-child(" + i + ") > a").attr("href");                
                 String description = document.select("#capitulos > li:nth-child(" + i + ") > a > div.col-sm-5").text();
 
-                manga.getChapters().add(new Chapter(null, chapterUrl, description, null, manga, null, null, ReadStatus.NONE));
+                manga.getChapters().add(new Chapter(null, chapterUrl, description, manga, ReadStatus.NONE));
             }
 
             

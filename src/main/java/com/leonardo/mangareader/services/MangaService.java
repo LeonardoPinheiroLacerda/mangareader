@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.leonardo.mangareader.MangareaderApplication;
 import com.leonardo.mangareader.dtos.MangaDTO;
+import com.leonardo.mangareader.dtos.NewCoverDTO;
 import com.leonardo.mangareader.dtos.SimpleMangaDTO;
+import com.leonardo.mangareader.exceptions.ObjectNotFoundException;
 import com.leonardo.mangareader.models.Chapter;
 import com.leonardo.mangareader.models.Manga;
 import com.leonardo.mangareader.models.enums.ReadStatus;
@@ -55,15 +57,13 @@ public class MangaService {
                     if(!manga.getChapters().contains(chapter)){
 
                         chapter.setManga(manga);
-                        Chapter newChapter = new Chapter(null, chapter.getUrl(), chapter.getTitle(), null, chapter.getManga(), null, null, ReadStatus.NONE);
+                        Chapter newChapter = new Chapter(null, chapter.getUrl(), chapter.getTitle(), chapter.getManga(), ReadStatus.NONE);
 
                         manga.getChapters().add(chapterService.create(newChapter));
                     }
                 }
 
             }
-
-            manga.setCover(updated.getCover());
 
             repository.save(manga);
             return dtoMapperService.mangaToMangaDTO(manga);
@@ -86,6 +86,12 @@ public class MangaService {
             return dtoMapperService.mangaToMangaDTO(updated);
         }
 
+    }
+
+    public void setCoverImage(NewCoverDTO dto){
+        Manga manga = repository.findByUrl(dto.getUrl()).orElseThrow(() -> new ObjectNotFoundException("Um manga com a seguinte URL não foi localizado."));
+        manga.setCover(dto.getCover());
+        manga = repository.save(manga);
     }
     
 }

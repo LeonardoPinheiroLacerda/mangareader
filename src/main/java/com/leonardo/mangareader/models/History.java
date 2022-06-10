@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.leonardo.mangareader.models.pks.HistoryPK;
@@ -28,7 +28,7 @@ public class History {
 
     private LocalDateTime lastRead;
 
-    @Lob
-    private String chaptersRead;
+    @OneToOne
+    private Chapter lastChapterRead;
     
 }

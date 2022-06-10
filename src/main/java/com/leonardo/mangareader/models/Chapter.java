@@ -2,11 +2,11 @@ package com.leonardo.mangareader.models;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -23,7 +23,7 @@ import lombok.ToString;
 @Data
 @EqualsAndHashCode(of = {"url"})
 
-@ToString(exclude = {"manga", "previous", "next"})
+@ToString(exclude = {"manga"})
 
 @Entity
 @Table(name = "CHAPTERS")
@@ -40,17 +40,8 @@ public class Chapter {
     @Column(nullable = false)
     private String title;
 
-    @Column(nullable = true)
-    private String number;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private Manga manga;
-
-    @OneToOne
-    private Chapter previous;
-
-    @OneToOne
-    private Chapter next;
 
     @Column(nullable = false)
     private ReadStatus readStatus = ReadStatus.NONE;

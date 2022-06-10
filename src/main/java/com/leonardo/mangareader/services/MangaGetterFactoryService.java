@@ -21,7 +21,7 @@ public class MangaGetterFactoryService {
             return new UnionLeitorGetter(url);
         }
 
-        throw new NotSuportedSourceException("Source não suportada.");
+        throw new NotSuportedSourceException("Source não suportada."); 
 
     }
 
