@@ -21,14 +21,18 @@ public class DevProfile implements CommandLineRunner{
 
     @Override
     public void run(String... args) throws Exception {
-        User user = new User(
-            null, 
-            "admin", 
-            "admin@admins.com", 
-            passwordEncoder.encode("admin")
-        );
-        
-        //userRepository.save(user);
+
+        if(userRepository.findByUsername("admin").isEmpty()){
+            User user = new User(
+                null, 
+                "admin", 
+                "admin@admins.com", 
+                passwordEncoder.encode("admin")
+            );
+
+            userRepository.save(user);
+        }
+  
     }
     
 }
