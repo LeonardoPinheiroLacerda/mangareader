@@ -54,6 +54,22 @@ public class HistoryService {
     }
 
     @Transactional
+    public HistoryDTO getMangaHistory(String url){
+        Manga manga = mangaService.findByUrl(url).orElse(null);
+
+        if(manga == null)
+            return null;
+
+        User user = userService.getLogged();
+
+        HistoryPK pk = new HistoryPK(user, manga);
+
+        History history = repository.findById(pk).orElseThrow(() -> new ObjectNotFoundException("Histórico do manga de url " + url + " não pode ser localizado."));
+
+        return dtoMapperService.historyToHistoryDTO(history);
+    }
+
+    @Transactional
     public void doHistory(DetailedChapterDTO dto) {
 
         String chapterUrl = dto.getChapterUrl();

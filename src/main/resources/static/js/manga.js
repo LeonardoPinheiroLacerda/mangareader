@@ -93,6 +93,11 @@ async function setCover(){
     
 }
 
+function continueFromLastRead(btn){
+    const url = btn.getAttribute("last-read-url");
+    document.location = "/reader?url=" + url;
+}
+
 function disablePdfDownloadButton(button){
     
     const tooltip = bootstrap.Tooltip.getInstance(button);
@@ -112,3 +117,4 @@ function togglePdfDownloadButtonIcon(button){
     children[0].classList.toggle("d-none");
     children[1].classList.toggle("d-none");
 }
+
