@@ -19,8 +19,8 @@
 
         <h3 class="text-center text-light mb-5">Histórico</h3>
 
-        <div class="d-flex flex-row">
-            <div th:each="history : ${history}" class="bg-primary d-flex flex-column p-2 rounded m-2 col-2 position-relative">
+        <div class="d-flex flex-row justify-content-center flex-wrap">
+            <div th:each="history : ${history}" class="bg-primary d-flex flex-column p-2 rounded m-2 position-relative history">
                 <img th:src="${history.getManga().getCover()}" class="my-auto">
                 <span class="text-light text-center mt-auto text-truncate h-auto" th:text="${history.getManga().getTitle()}"></span>
                 <a class="text-decoration-none position-absolute bg-primary h-100 w-100 top-0 start-0 rounded opacity-0 history-info p-3" th:href="'/manga?url=' + ${history.getManga().getUrl()}">

@@ -141,6 +141,10 @@
         margin-bottom: 6px;
     }
 
+    .history{
+        width:175px !important
+    }
+
 }
 
 @media (max-width:380px) {
@@ -150,9 +154,17 @@
         margin: 5%;
     }
 
+    .history{
+        width:150px !important
+    }
+
 }
 
 .history-info:hover{
     opacity: .9 !important;
     transition: .2s !important;
+}
+
+.history{
+    width:200px
 }
