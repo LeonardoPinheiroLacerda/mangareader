@@ -25,8 +25,6 @@ public class HistoryController {
 
         List<HistoryDTO> history = service.getUserHistory();
 
-        System.out.println(history);
-
         ModelAndView modelAndView = new ModelAndView("screens/history");
         modelAndView.addObject("history", history);
         return modelAndView;
