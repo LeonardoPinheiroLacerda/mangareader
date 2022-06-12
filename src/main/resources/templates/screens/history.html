@@ -23,12 +23,31 @@
             <div th:each="history : ${history}" class="bg-primary d-flex flex-column p-2 rounded m-2 position-relative history">
                 <img th:src="${history.getManga().getCover()}" class="my-auto">
                 <span class="text-light text-center mt-auto text-truncate h-auto" th:text="${history.getManga().getTitle()}"></span>
-                <a class="text-decoration-none position-absolute bg-primary h-100 w-100 top-0 start-0 rounded opacity-0 history-info p-3" th:href="'/manga?url=' + ${history.getManga().getUrl()}">
+                <div class="text-decoration-none position-absolute bg-primary h-100 w-100 top-0 start-0 rounded opacity-0 history-info p-3">
                     <p class=" text-light text-truncate mb-1"><b>Status: </b> <span th:text="${history.getManga().getStatus().getFriendlyName()}"></span></p>
                     <p class=" text-light mb-1"><b>Gêneros: </b> <span th:each="genre : ${history.getManga().getGenres()}" th:text="${genre.getDescription()} + ' '"></span></p>
                     <p class=" text-light text-truncate mb-1"><b>Autor: </b> <span th:text="${history.getManga().getAuthor().getName()}"></span></p>
                     <p class=" text-light text-truncate mb-1"><b>Artista: </b> <span th:text="${history.getManga().getArtist().getName()}"></span></p>
-                </a>
+
+                    <a class="position-absolute top-0 h-100 w-100 start-0 rounded opacity-0 history-link p-3" th:href="'/manga?url=' + ${history.getManga().getUrl()}"></a>
+
+                    <button class="btn btn-primary history-btn position-absolute end-0 bottom-0 m-2 rounded-circle py-1 px-2"
+                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Abrir último lido"
+                    >    
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bookmark" viewBox="0 0 16 16">
+                            <path d="M2 2a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v13.5a.5.5 0 0 1-.777.416L8 13.101l-5.223 2.815A.5.5 0 0 1 2 15.5V2zm2-1a1 1 0 0 0-1 1v12.566l4.723-2.482a.5.5 0 0 1 .554 0L13 14.566V2a1 1 0 0 0-1-1H4z"/>
+                        </svg>
+                    </button>
+                    <button class="btn btn-primary history-btn position-absolute start-0 bottom-0 m-2 rounded-circle py-1 px-2"
+                        data-bs-toggle="tooltip" data-bs-placement="bottom" title="Remover histórico"
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                            <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                        </svg>
+                    </button>
+                </div>
+                
             </div>
             
         </div>

@@ -168,3 +168,11 @@
 .history{
     width:200px
 }
+
+.history-btn{
+    z-index: 10;
+}
+
+.history-link{
+    z-index: 5;
+}
