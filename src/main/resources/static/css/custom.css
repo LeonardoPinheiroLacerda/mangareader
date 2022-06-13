@@ -141,10 +141,6 @@
         margin-bottom: 6px;
     }
 
-    .history{
-        width:175px !important
-    }
-
 }
 
 @media (max-width:380px) {
@@ -154,8 +150,46 @@
         margin: 5%;
     }
 
-    .history{
-        width:150px !important
+}
+
+@media (max-width:520px) {
+    
+    .history {
+        width:380px !important;
+    }
+
+}
+
+
+@media (max-width:490px) {
+    
+    .history {
+        width:300px !important;
+    }
+
+}
+
+
+@media (max-width:415px) {
+    
+    .history {
+        width:250px !important;
+    }
+
+}
+
+@media (max-width:365px) {
+    
+    .history {
+        width:200px !important;
+    }
+
+}
+
+@media (max-width:315px) {
+    
+    .history {
+        width:150px !important;
     }
 
 }
