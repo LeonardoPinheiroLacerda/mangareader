@@ -5,6 +5,9 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 
 const pointers = document.querySelectorAll("[point-to]");
 
+const modes = ["scroll", "webtoon"];
+var actualMode = 0;
+
 for(let i = 0; i < pointers.length; i ++){
     pointers[i].addEventListener('click', () => {
         document.location.href = "/reader?url=" + pointers[i].getAttribute("point-to");
@@ -30,4 +33,17 @@ function checkDevice() {
 if(checkDevice()) {
     document.querySelector("#zoomout").classList.add("d-none");
     document.querySelector("#zoomin").classList.add("d-none");
+}
+
+function changeMode(){
+    const newMode = (actualMode + 1 < modes.length) ? actualMode + 1 : 0;
+
+    const pages = document.querySelectorAll("." + modes[actualMode]);
+
+    for(let i = 0; i < pages.length; i ++){
+        pages[i].classList.remove(modes[actualMode]);
+        pages[i].classList.add(modes[newMode]);
+    }
+
+    actualMode = newMode;
 }
