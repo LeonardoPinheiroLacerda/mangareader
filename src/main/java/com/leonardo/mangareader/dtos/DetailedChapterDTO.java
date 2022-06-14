@@ -23,8 +23,8 @@ public class DetailedChapterDTO {
     public String mangaUrl;
     public String apiDownloadUrl;
     public String title;
-    public String apiPreviousUrl;
-    public String apiNextUrl;
+    public String previous;
+    public String next;
     public List<String> pages = new ArrayList<>();
 
 }

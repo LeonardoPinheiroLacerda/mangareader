@@ -52,11 +52,11 @@ public class GoldenMangasChapterGetter implements ChapterGetter{
             String next = document.select("#capitulo_trocar > option:nth-child(" + (count + 1) +")").text();
 
             if(!previous.equals("")){
-                dto.setApiPreviousUrl(MangareaderApplication.API_CHAPTER_URL_PREFIX + urlPrefix + previous);
+                dto.setPrevious(urlPrefix + previous);
             }
 
             if(!next.equals("")){
-                dto.setApiNextUrl(MangareaderApplication.API_CHAPTER_URL_PREFIX + urlPrefix + next);
+                dto.setNext(urlPrefix + next);
             }
 
             dto.setCurrentChapter(currentChapter);
