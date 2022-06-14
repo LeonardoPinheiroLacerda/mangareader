@@ -14,6 +14,8 @@ function constructToast(){
     toast.classList.add('m-3');
     toast.classList.add('shadow');
 
+    toast.style.zIndex = 999;
+
     toast.id = "toast";
 
     toast.setAttribute('role', 'alert');
