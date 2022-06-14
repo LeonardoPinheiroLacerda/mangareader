@@ -19,6 +19,29 @@
     display: none;
 }
 
+.tool-btn{
+    height: 40px;
+    width: 40px;
+    padding: 0px !important;
+    transition: .15s !important;
+    margin: 6px !important;
+}
+
+.tool-btn:hover{
+    height: 50px;
+    width: 50px;
+    margin: 2px !important;
+    filter: brightness(90%);
+}
+
+.tool-btn svg{
+    height: 24px;
+    width: 24px;
+    margin: -1px;
+    position: relative;
+    top: -2px
+}
+
 .scroll{
     width: 1200px;
     max-width: 100%;
