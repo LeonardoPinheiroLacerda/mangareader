@@ -50,6 +50,7 @@ public class HistoryService {
         return history
             .stream()
             .map(h -> dtoMapperService.historyToHistoryDTO(h))
+            .sorted((h1, h2) -> h2.getLastRead().compareTo(h1.getLastRead()))
             .collect(Collectors.toList());
     }
 
