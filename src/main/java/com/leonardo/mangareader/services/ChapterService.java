@@ -25,7 +25,19 @@ public class ChapterService {
     @Transactional
     public DetailedChapterDTO getFromUrl(String url) {
 
-        Chapter chapter = repository.findByUrl(url).orElseThrow(() -> new ObjectNotFoundException("O Capítulo não pode ser encontrado, provavelmente o manga ainda não foi importado."));
+        Chapter chapter = repository.findByUrl(url).orElse(null);
+
+        if(chapter == null){
+
+            //Tratando variações de url da UNION MANGAS / UNION LEITOR
+            if(url.contains("https://unionleitor.top/leitor/")){
+                url = url.replace("https://unionleitor.top/leitor/", "http://unionmangas.top/leitor/");
+            }else if(url.contains("http://unionmangas.top/leitor/")){
+                url = url.replace("http://unionmangas.top/leitor/", "https://unionleitor.top/leitor/");
+            }
+
+            chapter = repository.findByUrl(url).orElseThrow(() -> new ObjectNotFoundException("O Capítulo não pode ser encontrado, provavelmente o manga ainda não foi importado."));
+        }
 
         if(chapter.getReadStatus().equals(ReadStatus.NONE)){
             chapter.setReadStatus(ReadStatus.VIEWED);
