@@ -89,4 +89,17 @@ public class HistoryService {
 
     }
 
+    @Transactional
+    public void delete(String url) {
+
+        Manga manga = mangaService.findByUrl(url).orElseThrow(() -> new ObjectNotFoundException("Não foi possível localizar o manga de URL " + url + " para remove-lo do seu histórico"));
+        User user = userService.getLogged();
+
+        HistoryPK pk = new HistoryPK(user, manga);
+
+        History history = repository.findById(pk).orElseThrow(() -> new ObjectNotFoundException("Não foi possível localizar o manga de URL " + url + " no seu histórico"));
+
+        repository.delete(history);
+    }
+
 }
