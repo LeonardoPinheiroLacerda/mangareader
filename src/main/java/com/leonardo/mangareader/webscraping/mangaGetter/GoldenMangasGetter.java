@@ -146,8 +146,13 @@ public class GoldenMangasGetter implements MangaGetter{
             manga.setUrl(url);
             manga.setSynopsis(synopsis);
 
-            manga.setScore(Float.parseFloat(score));
-            manga.setScoredBy(Integer.parseInt(scoredBy));
+            try{
+                manga.setScore(Float.parseFloat(score));
+                manga.setScoredBy(Integer.parseInt(scoredBy));
+            }catch(Exception e){
+                manga.setScore(null);
+                manga.setScoredBy(null);
+            }
 
             manga.setArtist(new Artist(null, artistName, artistHref));
             manga.setAuthor(new Author(null, authorName, authorHref));

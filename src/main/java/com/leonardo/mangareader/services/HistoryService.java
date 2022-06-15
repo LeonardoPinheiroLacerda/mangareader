@@ -58,20 +58,26 @@ public class HistoryService {
     public HistoryDTO getMangaHistory(String url){
         Manga manga = mangaService.findByUrl(url).orElse(null);
 
-        if(manga == null)
-            return null;
+        if(manga == null){
+            //Salva no banco e recupera a URL atualizada
+            url = mangaService.createFromUrl(url).getUrl();
+            manga = mangaService.findByUrl(url).get();
+        }
 
         User user = userService.getLogged();
 
         HistoryPK pk = new HistoryPK(user, manga);
 
-        History history = repository.findById(pk).orElseThrow(() -> new ObjectNotFoundException("Histórico do manga de url " + url + " não pode ser localizado."));
+        History history = repository.findById(pk).orElse(null);
+
+        if(history == null)
+            history = doHistory(pk);
 
         return dtoMapperService.historyToHistoryDTO(history);
     }
 
     @Transactional
-    public void doHistory(DetailedChapterDTO dto) {
+    public History doHistory(DetailedChapterDTO dto) {
 
         String chapterUrl = dto.getChapterUrl();
         String mangaUrl = dto.getMangaUrl();
@@ -84,9 +90,13 @@ public class HistoryService {
         HistoryPK pk = new HistoryPK(logged, manga);
         History history = new History(pk, timesptamp, chapter);
 
-        repository.save(history);
+        return repository.save(history);
+    }
 
-
+    @Transactional
+    public History doHistory(HistoryPK pk) {
+        History history = new History(pk, LocalDateTime.now(), pk.getManga().getChapters().get(pk.getManga().getChapters().size() - 1));
+        return repository.save(history);
     }
 
     @Transactional
