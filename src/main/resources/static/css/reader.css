@@ -34,6 +34,13 @@
     filter: brightness(90%);
 }
 
+.img-placeholder{
+    background-image: url('/assets/load.gif');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 100px 100px;
+}
+
 .tool-btn svg{
     height: 24px;
     width: 24px;
