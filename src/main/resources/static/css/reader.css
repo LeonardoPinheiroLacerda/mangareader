@@ -39,6 +39,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: 100px 100px;
+    min-height: 440px;
 }
 
 .tool-btn svg{

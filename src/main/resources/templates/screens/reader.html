@@ -16,9 +16,10 @@
     <main class="container">
 
         <div class="w-100 d-flex flex-column">
-            <div class="img-placeholder" th:each="page,iter : ${chapter.getPages()}">
+            <div class="img-placeholder d-flex justify-content-center align-items-center" th:each="page,iter : ${chapter.getPages()}">
                 <img  th:id="${iter.index + 1}" class="scroll" th:src="${page}"/>
             </div>
+            
             <br/>
 
             <a th:if="${chapter.getNext() != null}" th:href="${'/reader?url=' + chapter.getNext()}" class="btn btn-secondary m-2 mt-4 d-none" id="btn-next">Ler próximo capitulo</a>
