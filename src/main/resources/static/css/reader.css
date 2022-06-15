@@ -51,7 +51,6 @@
 }
 
 .scroll{
-    width: 1200px;
     max-width: 100%;
     margin: auto !important;
     margin-top: .5rem !important;
@@ -62,4 +61,12 @@
     width: 600px;
     max-width: 100%;
     margin: auto !important;
+}
+
+.single {
+    display: none;
+}
+
+.single.active{
+    display: flex;
 }
