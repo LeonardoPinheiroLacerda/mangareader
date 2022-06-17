@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.leonardo.mangareader.MangareaderApplication;
 import com.leonardo.mangareader.dtos.MangaDTO;
+import com.leonardo.mangareader.dtos.MangaMetadataDTO;
 import com.leonardo.mangareader.dtos.NewCoverDTO;
 import com.leonardo.mangareader.dtos.SimpleMangaDTO;
 import com.leonardo.mangareader.exceptions.ObjectNotFoundException;
@@ -106,6 +107,12 @@ public class MangaService {
             return dtoMapperService.mangaToMangaDTO(updated);
         }
 
+    }
+
+    @Transactional
+    public MangaMetadataDTO getMetadataFromUrl(String url){
+        Manga manga = repository.findByUrl(url).orElseThrow(() -> new ObjectNotFoundException("O manga de URL " + url + " não pode ser encontrado."));
+        return dtoMapperService.mangaToMangaMetadataDTO(manga);
     }
 
     @Transactional

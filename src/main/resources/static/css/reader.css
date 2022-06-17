@@ -19,6 +19,34 @@
     display: none;
 }
 
+#loading{
+    z-index: 99;
+}
+
+#cover{
+    object-fit: cover;
+    z-index: 1;
+    filter:brightness(30%)
+}
+
+#metadata{
+    z-index: 2;
+}
+
+#metadata{
+    transition: .3s !important;
+    opacity: 0.5;
+}
+
+#metadata:hover{
+    opacity: 1 !important;
+}
+
+#container-metadata{
+    width:400px;
+    height:120px;
+}
+
 .tool-btn{
     height: 40px;
     width: 40px;

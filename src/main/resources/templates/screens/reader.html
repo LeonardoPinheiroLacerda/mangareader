@@ -11,9 +11,21 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 </head>
-<body class="bg-dark">
+<body class="bg-dark d-flex flex-column justify-content-center align-items-center pb-5 pt-2">
 
-    <main class="container my-4">
+    <div id="container-metadata" class="bg-dark d-flex shadow rounded my-3 position-relative">
+        <img th:src="${manga.cover}" id="cover" class="rounded position-absolute w-100 h-100">
+
+        <div class="d-flex flex-column justify-content-between align-items-center w-100 my-2" id="metadata">
+            <div class="d-flex flex-column w-100 text-center bg-dark text-light">
+                <label class="fw-bold text-truncate fs-5" th:text="${manga.title}" id="title"></label>
+                <label class="fs-6" th:text="${'Capítulo: ' + chapter.getCurrentChapter()}" id="title"></label>
+            </div>
+            <a class="btn btn-dark btn-manga-series w-75" th:href="${'/manga?url=' + manga.url}">Ver página da série</a>
+        </div>
+    </div>
+
+    <main class="container">
         <div id="pages-container" class="w-100 d-flex flex-column justify-content-center align-items-center"></div>
     </main>
 
@@ -85,7 +97,13 @@
 
     <script th:inline="javascript">
         /*<![CDATA[*/    
-        const pages = /*[[${chapter.pages}]]*/ 'default';
+        const chapter = /*[[${chapter}]]*/ 'default';
+        const manga = /*[[${manga}]]*/ 'default';
+
+        const pages = chapter.pages;
+
+        console.log(manga);
+        console.log(chapter);
         /*]]>*/
     </script>
     <script th:src="@{/js/reader.js}"></script>
