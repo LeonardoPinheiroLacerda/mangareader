@@ -10,12 +10,6 @@ var actualMode = 0;
 
 var actualPage = 0;
 
-for(let i = 0; i < pointers.length; i ++){
-    pointers[i].addEventListener('click', () => {
-        document.location.href = "/reader?url=" + pointers[i].getAttribute("point-to");
-    });
-}
-
 function checkDevice() {
     if (navigator.userAgent.match(/Android/i)
         || navigator.userAgent.match(/webOS/i)
@@ -32,9 +26,8 @@ function checkDevice() {
     }
 }
 
-function next(){
-console.log(document.querySelector("#page-" + (parseInt(actualPage) + 1)));
-
+function next(btn){
+    bootstrap.Tooltip.getInstance(btn).hide();
 
     if(document.querySelector("#page-" + (parseInt(actualPage) + 1)) != undefined){
         actualPage += 1;
@@ -42,7 +35,9 @@ console.log(document.querySelector("#page-" + (parseInt(actualPage) + 1)));
     }    
 }
 
-function previous(){
+function previous(btn){
+    bootstrap.Tooltip.getInstance(btn).hide();
+
     if(actualPage != 0){
         actualPage -= 1;
         document.location.href = getUrlWithFragment(actualPage);
@@ -57,29 +52,101 @@ function getUrlWithFragment(fragment){
     return url + "#page-" + fragment;
 }
 
+function changeMode(btn){
+    bootstrap.Tooltip.getInstance(btn).hide();
+
+    actualMode = (actualMode + 1 < modes.length) ? actualMode + 1 : 0;
+
+    scrollTo(0, 0);
+    actualPage = 0;
+    document.location.href = getUrlWithFragment(actualPage);
+
+    if(modes[actualMode] == 'webtoon'){
+        document.querySelector("#previous").classList.add("d-none");
+        document.querySelector("#next").classList.add("d-none");
+    }else{
+        document.querySelector("#previous").classList.remove("d-none");
+        document.querySelector("#next").classList.remove("d-none");
+    }
+
+    if(actualMode < 2){
+        buildGenericMode(modes[actualMode]);
+    }
+} 
+
+function zoomin(btn){
+    bootstrap.Tooltip.getInstance(btn).hide();
+}
+
+function zoomout(btn){
+    bootstrap.Tooltip.getInstance(btn).hide();
+}
+
+function clearPages(){
+    const container = document.querySelector("#pages-container");
+    container.innerHTML = "";
+}
+
+function buildGenericMode(mode){
+    clearPages();
+
+    const loading = document.querySelector("#loading");
+    loading.classList.remove("d-none");
+
+    var index = 0;
+
+    const container = document.querySelector("#pages-container");
+    
+    const buildImageDiv = () => {
+        const div = document.createElement("div");
+        div.classList.add("image-placeholder", "d-flex", "justify-content-center", "align-items-center");
+
+        return div;
+    }
+
+    loadImages(container, pages, index, mode, buildImageDiv);
+}
 
 
+function loadImages(container, pages, index, mode, imageDivBuilder = null) {      
+    const image = new Image();
+    image.src = pages[index];
+    image.id = "page-" + index;
+    image.classList.add("page", mode);
 
+    image.onload = () => {
+        if(imageDivBuilder != null){
+            const div = imageDivBuilder();
+            div.appendChild(image);
+            container.appendChild(div);
+        }else{
+            container.appendChild(image);
+        }
+        
+        index += 1;
+        loadImages(container, pages, index, mode, imageDivBuilder);
+    }
+
+    image.onerror = () => {
+        const loading = document.querySelector("#loading");
+        loading.classList.add("d-none");
+    }
+}
 
 if(checkDevice()) {
     document.querySelector("#zoomout").classList.add("d-none");
     document.querySelector("#zoomin").classList.add("d-none");
 }
 
-function changeMode(){
-    const newMode = (actualMode + 1 < modes.length) ? actualMode + 1 : 0;
-
-    const pages = document.querySelectorAll("." + modes[actualMode]);
-
-    for(let i = 0; i < pages.length; i ++){
-        pages[i].classList.remove(modes[actualMode]);
-        pages[i].classList.add(modes[newMode]);
-    }
-
-    actualMode = newMode;
-} 
+for(let i = 0; i < pointers.length; i ++){
+    pointers[i].addEventListener('click', () => {
+        document.location.href = "/reader?url=" + pointers[i].getAttribute("point-to");
+    });
+}
 
 onload = () => {
+    buildGenericMode(modes[actualMode]);
+
     document.querySelector("#previous").disabled = false;
     document.querySelector("#next").disabled = false;
 }
