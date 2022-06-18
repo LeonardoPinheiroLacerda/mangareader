@@ -93,8 +93,10 @@
 
 .single {
     display: none;
+    max-width: 100%;
+    max-height: calc(100vh - 235px);
 }
 
 .single.active{
-    display: flex;
+    display: block;
 }

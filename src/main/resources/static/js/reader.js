@@ -5,8 +5,8 @@ var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
 
 const pointers = document.querySelectorAll("[point-to]");
 
-const modes = ["scroll", "webtoon"];
-var actualMode = 0;
+const modes = ["single", "scroll", "webtoon"];
+var actualMode = modes.length - 1;
 
 var actualPage = 0;
 
@@ -30,6 +30,14 @@ function next(btn){
     bootstrap.Tooltip.getInstance(btn).hide();
 
     if(document.querySelector("#page-" + (parseInt(actualPage) + 1)) != undefined){
+
+        if(modes[actualMode] == "single"){
+            document.querySelector("#page-" + (parseInt(actualPage))).classList.remove("active");
+            actualPage += 1;
+            document.querySelector("#page-" + (parseInt(actualPage))).classList.add("active");
+            return;
+        }
+
         actualPage += 1;
         document.location.href = getUrlWithFragment(actualPage);
     }    
@@ -39,6 +47,14 @@ function previous(btn){
     bootstrap.Tooltip.getInstance(btn).hide();
 
     if(actualPage != 0){
+
+        if(modes[actualMode] == "single"){
+            document.querySelector("#page-" + (parseInt(actualPage))).classList.remove("active");
+            actualPage -= 1;
+            document.querySelector("#page-" + (parseInt(actualPage))).classList.add("active");
+            return;
+        }
+
         actualPage -= 1;
         document.location.href = getUrlWithFragment(actualPage);
     }
@@ -55,11 +71,10 @@ function getUrlWithFragment(fragment){
 function changeMode(btn){
     bootstrap.Tooltip.getInstance(btn).hide();
 
-    actualMode = (actualMode + 1 < modes.length) ? actualMode + 1 : 0;
+    const loading = document.querySelector("#loading");
+    loading.classList.remove("d-none");
 
-    scrollTo(0, 0);
-    actualPage = 0;
-    document.location.href = getUrlWithFragment(actualPage);
+    actualMode = (actualMode + 1 < modes.length) ? actualMode + 1 : 0;
 
     if(modes[actualMode] == 'webtoon'){
         document.querySelector("#previous").classList.add("d-none");
@@ -69,9 +84,15 @@ function changeMode(btn){
         document.querySelector("#next").classList.remove("d-none");
     }
 
-    if(actualMode < 2){
+    if(modes[actualMode] == 'scroll' || modes[actualMode]  == 'webtoon'){
         buildGenericMode(modes[actualMode]);
+    }else{
+        buildSinglePageMode();
     }
+
+    scrollTo(0, 0);
+    actualPage = 0;
+    document.location.href = getUrlWithFragment(actualPage);
 } 
 
 function zoomin(btn){
@@ -90,8 +111,12 @@ function clearPages(){
 function buildGenericMode(mode){
     clearPages();
 
-    const loading = document.querySelector("#loading");
-    loading.classList.remove("d-none");
+    const mainContainer = document.querySelector("#main");
+    mainContainer.classList.remove("d-flex", "my-2", "flex-grow-1", "w-100");
+    mainContainer.classList.add("container");
+
+    const body = document.body;
+    body.classList.remove("vh-100");
 
     var index = 0;
 
@@ -107,8 +132,32 @@ function buildGenericMode(mode){
     loadImages(container, pages, index, mode, buildImageDiv);
 }
 
+function buildSinglePageMode(){
+    clearPages();
 
-function loadImages(container, pages, index, mode, imageDivBuilder = null) {      
+    const mainContainer = document.querySelector("#main");
+    mainContainer.classList.add("d-flex", "my-2", "flex-grow-1", "w-100");
+    mainContainer.classList.remove("container");
+
+    const body = document.body;
+    body.classList.add("vh-100");
+
+    const container = document.querySelector("#pages-container");
+
+    loadImages(container, pages, 0, "single", null, 
+        //callback 
+        (image) => {
+
+        }, 
+        //firstpagecallback
+        (image) => {
+            image.classList.add("active")
+        }
+    );
+
+}
+
+function loadImages(container, pages, index, mode, imageDivBuilder = null, callback = null, firstPageCallback = null) {      
     const image = new Image();
     image.src = pages[index];
     image.id = "page-" + index;
@@ -123,8 +172,16 @@ function loadImages(container, pages, index, mode, imageDivBuilder = null) {
             container.appendChild(image);
         }
         
+        
+        if(callback != null){
+            callback(image);
+        }
+
+        if(firstPageCallback != null){
+            firstPageCallback(image);
+        }
         index += 1;
-        loadImages(container, pages, index, mode, imageDivBuilder);
+        loadImages(container, pages, index, mode, imageDivBuilder, callback);
     }
 
     image.onerror = () => {
@@ -145,7 +202,7 @@ for(let i = 0; i < pointers.length; i ++){
 }
 
 onload = () => {
-    buildGenericMode(modes[actualMode]);
+    changeMode(document.querySelector("#change"));
 
     document.querySelector("#previous").disabled = false;
     document.querySelector("#next").disabled = false;
