@@ -13,19 +13,20 @@
 </head>
 <body class="bg-dark d-flex flex-column justify-content-center align-items-center pb-5 pt-2">
 
-    <div id="container-metadata" class="bg-dark d-flex shadow rounded my-3 position-relative">
-        <img th:src="${manga.cover}" id="cover" class="rounded position-absolute w-100 h-100">
-
-        <div class="d-flex flex-column justify-content-between align-items-center w-100 my-2" id="metadata">
-            <div class="d-flex flex-column w-100 text-center bg-dark text-light">
-                <label class="fw-bold text-truncate fs-5" th:text="${manga.title}" id="title"></label>
-                <label class="fs-6" th:text="${'Capítulo: ' + chapter.getCurrentChapter()}" id="title"></label>
-            </div>
-            <a class="btn btn-dark btn-manga-series w-75" th:href="${'/manga?url=' + manga.url}">Ver página da série</a>
-        </div>
-    </div>
 
     <main class="container" id="main">
+        <div id="container-metadata" class="bg-dark shadow rounded my-3 position-relative w-100">
+            <img th:src="${manga.cover}" id="cover" class="rounded position-absolute w-100 h-100">
+    
+            <div class="d-flex flex-column justify-content-between align-items-center w-100 my-2" id="metadata">
+                <div class="d-flex flex-column w-100 text-center bg-dark text-light">
+                    <label class="fw-bold text-truncate fs-5" th:text="${manga.title}" id="title"></label>
+                    <label class="fs-6" th:text="${'Capítulo: ' + chapter.getCurrentChapter()}" id="title"></label>
+                </div>
+                <a class="btn btn-dark btn-manga-series w-75" th:href="${'/manga?url=' + manga.url}">Ver página da série</a>
+            </div>
+        </div>
+
         <div id="pages-container" class="w-100 d-flex flex-column justify-content-center align-items-center"></div>
     </main>
 

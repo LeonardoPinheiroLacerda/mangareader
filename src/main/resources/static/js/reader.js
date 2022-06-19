@@ -115,6 +115,9 @@ function buildGenericMode(mode){
     mainContainer.classList.remove("d-flex", "my-2", "flex-grow-1", "w-100");
     mainContainer.classList.add("container");
 
+    const metadataContainer = document.querySelector("#container-metadata");
+    metadataContainer.classList.remove("container-metadata-single-mode");
+
     const body = document.body;
     body.classList.remove("vh-100");
 
@@ -138,6 +141,9 @@ function buildSinglePageMode(){
     const mainContainer = document.querySelector("#main");
     mainContainer.classList.add("d-flex", "my-2", "flex-grow-1", "w-100");
     mainContainer.classList.remove("container");
+
+    const metadataContainer = document.querySelector("#container-metadata");
+    metadataContainer.classList.add("container-metadata-single-mode");
 
     const body = document.body;
     body.classList.add("vh-100");

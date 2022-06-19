@@ -45,6 +45,7 @@
 #container-metadata{
     width:400px;
     height:120px;
+    display: flex;
 }
 
 .tool-btn{
@@ -99,4 +100,16 @@
 
 .single.active{
     display: block;
+}
+
+/* only cellphone */
+@media only screen and (hover: none) and (pointer: coarse){
+
+    .single {
+        max-height: calc(100vh - 90px);
+    }
+    .container-metadata-single-mode{
+        display: none !important;
+    }
+    
 }
