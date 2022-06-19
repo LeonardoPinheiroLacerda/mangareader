@@ -102,14 +102,15 @@
     display: block;
 }
 
+.container-metadata-single-mode{
+    display: none !important;
+}
+
 /* only cellphone */
 @media only screen and (hover: none) and (pointer: coarse){
 
     .single {
         max-height: calc(100vh - 90px);
-    }
-    .container-metadata-single-mode{
-        display: none !important;
     }
     
 }
