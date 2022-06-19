@@ -118,6 +118,9 @@ function buildGenericMode(mode){
     const metadataContainer = document.querySelector("#container-metadata");
     metadataContainer.classList.remove("container-metadata-single-mode");
 
+    const backToManga = document.querySelector("#back-to-manga-link");
+    backToManga.classList.add("d-none");
+
     const body = document.body;
     body.classList.remove("vh-100");
 
@@ -144,6 +147,9 @@ function buildSinglePageMode(){
 
     const metadataContainer = document.querySelector("#container-metadata");
     metadataContainer.classList.add("container-metadata-single-mode");
+
+    const backToManga = document.querySelector("#back-to-manga-link");
+    backToManga.classList.remove("d-none");
 
     const body = document.body;
     body.classList.add("vh-100");
