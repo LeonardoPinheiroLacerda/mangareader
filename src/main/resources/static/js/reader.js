@@ -27,7 +27,7 @@ function checkDevice() {
 }
 
 function next(btn){
-    bootstrap.Tooltip.getInstance(btn).hide();
+    if(btn) bootstrap.Tooltip.getInstance(btn).hide();
 
     if(document.querySelector("#page-" + (parseInt(actualPage) + 1)) != undefined){
 
@@ -44,7 +44,7 @@ function next(btn){
 }
 
 function previous(btn){
-    bootstrap.Tooltip.getInstance(btn).hide();
+    if(btn) bootstrap.Tooltip.getInstance(btn).hide();
 
     if(actualPage != 0){
 
@@ -201,6 +201,17 @@ function loadImages(container, pages, index, mode, imageDivBuilder = null, callb
         loading.classList.add("d-none");
     }
 }
+
+addEventListener('keyup', (evt) => {
+    switch(evt.key){
+        case "ArrowRight":
+            next();
+            break;
+        case "ArrowLeft":
+            previous();
+            break;
+    }
+});
 
 //if(checkDevice()) {
     document.querySelector("#zoomout").classList.add("d-none");
