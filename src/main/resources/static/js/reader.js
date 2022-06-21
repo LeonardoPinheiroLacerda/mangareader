@@ -159,7 +159,7 @@ function buildSinglePageMode(){
     loadImages(container, pages, 0, "single", null, 
         //callback 
         (image) => {
-
+            
         }, 
         //firstpagecallback
         (image) => {
