@@ -202,10 +202,10 @@ function loadImages(container, pages, index, mode, imageDivBuilder = null, callb
     }
 }
 
-if(checkDevice()) {
+//if(checkDevice()) {
     document.querySelector("#zoomout").classList.add("d-none");
     document.querySelector("#zoomin").classList.add("d-none");
-}
+//}
 
 for(let i = 0; i < pointers.length; i ++){
     pointers[i].addEventListener('click', () => {
