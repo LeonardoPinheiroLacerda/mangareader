@@ -12,7 +12,7 @@ import com.leonardo.mangareader.models.Author;
 import com.leonardo.mangareader.models.Chapter;
 import com.leonardo.mangareader.models.Genre;
 import com.leonardo.mangareader.models.Manga;
-import com.leonardo.mangareader.models.enums.ReadStatus;
+import com.leonardo.mangareader.models.enums.Source;
 import com.leonardo.mangareader.models.enums.Status;
 
 import lombok.AllArgsConstructor;
@@ -137,7 +137,7 @@ public class GoldenMangasGetter implements MangaGetter{
                 String chapterUrl = URL_PREFIX + document.select("#capitulos > li:nth-child(" + i + ") > a").attr("href");                
                 String description = document.select("#capitulos > li:nth-child(" + i + ") > a > div.col-sm-5").text();
 
-                manga.getChapters().add(new Chapter(null, chapterUrl, description, manga, ReadStatus.NONE));
+                manga.getChapters().add(new Chapter(null, 0L, chapterUrl, description, manga));
             }
 
             
@@ -158,6 +158,9 @@ public class GoldenMangasGetter implements MangaGetter{
             manga.setAuthor(new Author(null, authorName, authorHref));
 
             manga.setStatus(statusEnum);
+
+            manga.setVisits(0L);
+            manga.setSource(Source.GOLDEN_MANGAS);
 
             return manga;
         }catch(IOException | NullPointerException e){

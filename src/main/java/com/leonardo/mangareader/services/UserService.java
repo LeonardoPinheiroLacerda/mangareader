@@ -9,6 +9,7 @@ import com.leonardo.mangareader.repositories.UserRepository;
 import com.leonardo.mangareader.security.AppUserDetails;
 
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import lombok.AllArgsConstructor;
@@ -19,11 +20,17 @@ import lombok.AllArgsConstructor;
 public class UserService {
     
     private final UserRepository repository;
-    private final ModelMapperService modelService;
     private final DtoMapperService dtoService;
+    private final PasswordEncoder passwordEncoder;
 
     public UserDTO create(SigninCredentialsDTO dto){
-        User user = modelService.SigninCredentialsToUser(dto);
+        User user = new User(
+            null, 
+            dto.getUsername(), 
+            dto.getEmail(), 
+            passwordEncoder.encode(dto.getPassword())
+        );
+        
         try{
             user = repository.save(user);
         }catch(Exception e){

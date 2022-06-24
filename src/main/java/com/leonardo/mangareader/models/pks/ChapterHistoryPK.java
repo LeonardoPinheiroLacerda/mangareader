@@ -6,7 +6,7 @@ import javax.persistence.Embeddable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import com.leonardo.mangareader.models.Manga;
+import com.leonardo.mangareader.models.Chapter;
 import com.leonardo.mangareader.models.User;
 
 import lombok.AllArgsConstructor;
@@ -17,16 +17,16 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@EqualsAndHashCode(of = {"user", "manga"})
+@EqualsAndHashCode(of = {"user", "chapter"})
 
 @Embeddable
-public class HistoryPK implements Serializable{
+public class ChapterHistoryPK implements Serializable{
     private static final long serialVersionUID = 1L;
 
     @OneToOne
     private User user;
 
     @ManyToOne
-    private Manga manga;
+    private Chapter chapter;
 
 }

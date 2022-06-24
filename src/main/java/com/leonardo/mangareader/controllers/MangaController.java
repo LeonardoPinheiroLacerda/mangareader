@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.leonardo.mangareader.exceptions.NotSuportedSourceException;
 import com.leonardo.mangareader.exceptions.SourceException;
-import com.leonardo.mangareader.services.HistoryService;
+import com.leonardo.mangareader.services.MangaHistoryService;
 import com.leonardo.mangareader.services.MangaService;
 
 import lombok.AllArgsConstructor;
@@ -20,7 +20,7 @@ import lombok.AllArgsConstructor;
 public class MangaController {
 
     private final MangaService mangaService;
-    private final HistoryService historyService;
+    private final MangaHistoryService historyService;
 
     @GetMapping
     public ModelAndView index(@RequestParam String url) {

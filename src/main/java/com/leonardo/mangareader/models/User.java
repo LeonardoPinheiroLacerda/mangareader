@@ -37,8 +37,11 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = true)
+    private String passwordRecoveryCode;
+
     @OneToOne(mappedBy = "id.user")
-    private History history;
+    private MangaHistory history;
 
     public User(Integer id, String username, String email, String password) {
         this.id = id;

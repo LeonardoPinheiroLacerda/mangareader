@@ -4,10 +4,10 @@ import java.time.LocalDateTime;
 
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.leonardo.mangareader.models.pks.HistoryPK;
+import com.leonardo.mangareader.models.pks.MangaHistoryPK;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,15 +20,15 @@ import lombok.NoArgsConstructor;
 @EqualsAndHashCode(of = "id")
 
 @Entity
-@Table(name = "HISTORIES")
-public class History {
+@Table(name = "MANGA_HISTORIES")
+public class MangaHistory {
 
     @EmbeddedId
-    private HistoryPK id;
+    private MangaHistoryPK id;
 
-    private LocalDateTime lastRead;
+    private LocalDateTime lastReadAt;
 
-    @OneToOne
+    @ManyToOne
     private Chapter lastChapterRead;
     
 }

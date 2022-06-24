@@ -16,6 +16,7 @@ import com.leonardo.mangareader.dtos.DetailedChapterDTO;
 import com.leonardo.mangareader.dtos.DownloadDTO;
 import com.leonardo.mangareader.exceptions.DownloadException;
 import com.leonardo.mangareader.models.User;
+import com.leonardo.mangareader.services.factories.ChapterGetterFactoryService;
 import com.leonardo.mangareader.webscraping.chapterGetter.ChapterGetter;
 
 import lombok.AllArgsConstructor;

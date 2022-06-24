@@ -1,4 +1,4 @@
-package com.leonardo.mangareader.services;
+package com.leonardo.mangareader.services.factories;
 
 import com.leonardo.mangareader.exceptions.NotSuportedSourceException;
 import com.leonardo.mangareader.webscraping.mangaGetter.GoldenMangasGetter;

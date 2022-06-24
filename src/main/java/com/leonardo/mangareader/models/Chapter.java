@@ -10,29 +10,27 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.leonardo.mangareader.models.enums.ReadStatus;
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @EqualsAndHashCode(of = {"url"})
 
-@ToString(exclude = {"manga"})
-
 @Entity
 @Table(name = "CHAPTERS")
 public class Chapter {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "chapter_seq")
-    @SequenceGenerator(name = "chapter_seq", sequenceName = "chapter_seq", initialValue = 1, allocationSize = 1)
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "chapters_seq")
+    @SequenceGenerator(name = "chapters_seq", sequenceName = "chapters_seq", initialValue = 1, allocationSize = 1)
+    private Long id;
+
+    @Column(nullable = false)
+    private Long visits;
 
     @Column(nullable = false, unique = true)
     private String url;
@@ -42,8 +40,5 @@ public class Chapter {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Manga manga;
-
-    @Column(nullable = false)
-    private ReadStatus readStatus = ReadStatus.NONE;
     
 }

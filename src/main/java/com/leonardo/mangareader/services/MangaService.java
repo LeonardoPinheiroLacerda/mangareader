@@ -16,8 +16,8 @@ import com.leonardo.mangareader.dtos.SimpleMangaDTO;
 import com.leonardo.mangareader.exceptions.ObjectNotFoundException;
 import com.leonardo.mangareader.models.Chapter;
 import com.leonardo.mangareader.models.Manga;
-import com.leonardo.mangareader.models.enums.ReadStatus;
 import com.leonardo.mangareader.repositories.MangaRepository;
+import com.leonardo.mangareader.services.factories.MangaGetterFactoryService;
 import com.leonardo.mangareader.webscraping.mangaGetter.MangaGetter;
 
 import lombok.AllArgsConstructor;
@@ -74,7 +74,7 @@ public class MangaService {
                     if(!manga.getChapters().contains(chapter)){
 
                         chapter.setManga(manga);
-                        Chapter newChapter = new Chapter(null, chapter.getUrl(), chapter.getTitle(), chapter.getManga(), ReadStatus.NONE);
+                        Chapter newChapter = new Chapter(null, 0L, chapter.getUrl(), chapter.getTitle(), chapter.getManga());
 
                         manga.getChapters().add(chapterService.create(newChapter));
                     }

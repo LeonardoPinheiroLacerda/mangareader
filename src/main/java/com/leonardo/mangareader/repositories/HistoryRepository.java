@@ -7,14 +7,14 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.leonardo.mangareader.models.History;
+import com.leonardo.mangareader.models.MangaHistory;
 import com.leonardo.mangareader.models.User;
-import com.leonardo.mangareader.models.pks.HistoryPK;
+import com.leonardo.mangareader.models.pks.MangaHistoryPK;
 
 @Repository
-public interface HistoryRepository extends JpaRepository<History, HistoryPK> {
+public interface HistoryRepository extends JpaRepository<MangaHistory, MangaHistoryPK> {
 
-    @Query("SELECT h FROM History h WHERE h.id.user = ?1")
-    public Optional<List<History>> findUserHistory(User user);
+    @Query("SELECT h FROM MangaHistory h WHERE h.id.user = ?1")
+    public Optional<List<MangaHistory>> findUserHistory(User user);
 
 }

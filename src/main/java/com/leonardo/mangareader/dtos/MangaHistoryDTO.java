@@ -14,7 +14,7 @@ import lombok.ToString;
 @Setter
 @ToString
 
-public class HistoryDTO {
+public class MangaHistoryDTO {
     
     private MangaMetadataDTO manga;
     private LocalDateTime lastRead;

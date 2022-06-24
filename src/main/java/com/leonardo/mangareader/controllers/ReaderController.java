@@ -9,7 +9,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.leonardo.mangareader.dtos.DetailedChapterDTO;
 import com.leonardo.mangareader.dtos.MangaMetadataDTO;
 import com.leonardo.mangareader.services.ChapterService;
-import com.leonardo.mangareader.services.HistoryService;
+import com.leonardo.mangareader.services.MangaHistoryService;
 import com.leonardo.mangareader.services.MangaService;
 
 import lombok.AllArgsConstructor;
@@ -21,7 +21,7 @@ import lombok.AllArgsConstructor;
 public class ReaderController {
  
     private final ChapterService chapterService;
-    private final HistoryService historyService;
+    private final MangaHistoryService historyService;
     private final MangaService MangaService;
 
     @GetMapping

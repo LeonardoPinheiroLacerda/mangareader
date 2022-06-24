@@ -4,7 +4,6 @@ public enum ReadStatus {
     
     NONE,
     VIEWED,
-    READ,
-    DOWNLOADED
+    READ
 
 }

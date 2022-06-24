@@ -9,13 +9,13 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.leonardo.mangareader.dtos.DetailedChapterDTO;
-import com.leonardo.mangareader.dtos.HistoryDTO;
+import com.leonardo.mangareader.dtos.MangaHistoryDTO;
 import com.leonardo.mangareader.exceptions.ObjectNotFoundException;
 import com.leonardo.mangareader.models.Chapter;
-import com.leonardo.mangareader.models.History;
 import com.leonardo.mangareader.models.Manga;
+import com.leonardo.mangareader.models.MangaHistory;
 import com.leonardo.mangareader.models.User;
-import com.leonardo.mangareader.models.pks.HistoryPK;
+import com.leonardo.mangareader.models.pks.MangaHistoryPK;
 import com.leonardo.mangareader.repositories.HistoryRepository;
 
 import lombok.AllArgsConstructor;
@@ -23,7 +23,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 
 @Service 
-public class HistoryService {
+public class MangaHistoryService {
     
     private final HistoryRepository repository;
     private final MangaService mangaService;
@@ -32,30 +32,30 @@ public class HistoryService {
     private final DtoMapperService dtoMapperService;
     
     @Transactional
-    public HistoryDTO findById(HistoryPK id){
-        History obj = repository.findById(id).orElseGet(null);
+    public MangaHistoryDTO findById(MangaHistoryPK id){
+        MangaHistory obj = repository.findById(id).orElseGet(null);
         
         if(obj == null){
             return null;
         }
 
-        return dtoMapperService.historyToHistoryDTO(obj);
+        return dtoMapperService.mangaHistoryToMangaHistoryDTO(obj);
     }
     @Transactional
-    public List<HistoryDTO> getUserHistory(){
-        List<History> history =  repository
+    public List<MangaHistoryDTO> getUserHistory(){
+        List<MangaHistory> history =  repository
             .findUserHistory(userService.getLogged())
             .get();
         
         return history
             .stream()
-            .map(h -> dtoMapperService.historyToHistoryDTO(h))
+            .map(h -> dtoMapperService.mangaHistoryToMangaHistoryDTO(h))
             .sorted((h1, h2) -> h2.getLastRead().compareTo(h1.getLastRead()))
             .collect(Collectors.toList());
     }
 
     @Transactional
-    public HistoryDTO getMangaHistory(String url){
+    public MangaHistoryDTO getMangaHistory(String url){
         Manga manga = mangaService.findByUrl(url).orElse(null);
 
         if(manga == null){
@@ -66,18 +66,18 @@ public class HistoryService {
 
         User user = userService.getLogged();
 
-        HistoryPK pk = new HistoryPK(user, manga);
+        MangaHistoryPK pk = new MangaHistoryPK(user, manga);
 
-        History history = repository.findById(pk).orElse(null);
+        MangaHistory history = repository.findById(pk).orElse(null);
 
         if(history == null)
             history = doHistory(pk);
 
-        return dtoMapperService.historyToHistoryDTO(history);
+        return dtoMapperService.mangaHistoryToMangaHistoryDTO(history);
     }
 
     @Transactional
-    public History doHistory(DetailedChapterDTO dto) {
+    public MangaHistory doHistory(DetailedChapterDTO dto) {
 
         String chapterUrl = dto.getChapterUrl();
         String mangaUrl = dto.getMangaUrl();
@@ -87,15 +87,15 @@ public class HistoryService {
         LocalDateTime timesptamp = LocalDateTime.now();
         Chapter chapter = chapterService.findByUrl(chapterUrl).orElseThrow(() -> new ObjectNotFoundException("Capítulo de link: " + chapterUrl + " não pode ser encontrado para registrar um histórico de leitura."));
 
-        HistoryPK pk = new HistoryPK(logged, manga);
-        History history = new History(pk, timesptamp, chapter);
+        MangaHistoryPK pk = new MangaHistoryPK(logged, manga);
+        MangaHistory history = new MangaHistory(pk, timesptamp, chapter);
 
         return repository.save(history);
     }
 
     @Transactional
-    public History doHistory(HistoryPK pk) {
-        History history = new History(pk, LocalDateTime.now(), pk.getManga().getChapters().get(pk.getManga().getChapters().size() - 1));
+    public MangaHistory doHistory(MangaHistoryPK pk) {
+        MangaHistory history = new MangaHistory(pk, LocalDateTime.now(), pk.getManga().getChapters().get(pk.getManga().getChapters().size() - 1));
         return repository.save(history);
     }
 
@@ -105,9 +105,9 @@ public class HistoryService {
         Manga manga = mangaService.findByUrl(url).orElseThrow(() -> new ObjectNotFoundException("Não foi possível localizar o manga de URL " + url + " para remove-lo do seu histórico"));
         User user = userService.getLogged();
 
-        HistoryPK pk = new HistoryPK(user, manga);
+        MangaHistoryPK pk = new MangaHistoryPK(user, manga);
 
-        History history = repository.findById(pk).orElseThrow(() -> new ObjectNotFoundException("Não foi possível localizar o manga de URL " + url + " no seu histórico"));
+        MangaHistory history = repository.findById(pk).orElseThrow(() -> new ObjectNotFoundException("Não foi possível localizar o manga de URL " + url + " no seu histórico"));
 
         repository.delete(history);
     }

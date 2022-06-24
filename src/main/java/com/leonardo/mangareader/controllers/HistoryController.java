@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.leonardo.mangareader.dtos.HistoryDTO;
-import com.leonardo.mangareader.services.HistoryService;
+import com.leonardo.mangareader.dtos.MangaHistoryDTO;
+import com.leonardo.mangareader.services.MangaHistoryService;
 
 import lombok.AllArgsConstructor;
 
@@ -18,12 +18,12 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/history")
 public class HistoryController {
     
-    private final HistoryService service;
+    private final MangaHistoryService service;
 
     @GetMapping
     public ModelAndView index(){
 
-        List<HistoryDTO> history = service.getUserHistory();
+        List<MangaHistoryDTO> history = service.getUserHistory();
 
         ModelAndView modelAndView = new ModelAndView("screens/history");
         modelAndView.addObject("history", history);

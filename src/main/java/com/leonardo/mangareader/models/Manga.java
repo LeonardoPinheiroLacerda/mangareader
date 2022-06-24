@@ -23,6 +23,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import com.leonardo.mangareader.models.enums.Source;
 import com.leonardo.mangareader.models.enums.Status;
 
 import lombok.AllArgsConstructor;
@@ -42,7 +43,14 @@ public class Manga {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "manga_seq")
     @SequenceGenerator(name = "manga_seq", sequenceName = "manga_seq", initialValue = 1, allocationSize = 1)
-    private Integer id;
+    private Long id;
+
+    @Column(nullable = false)
+    private Long visits;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Source source;
 
     @Column(nullable = false)
     private String title;
@@ -85,7 +93,7 @@ public class Manga {
     private List<Chapter> chapters = new ArrayList<>();
 
     @OneToMany(mappedBy = "id.manga", fetch = FetchType.EAGER)
-    private Set<History> histories = new HashSet<>();
+    private Set<MangaHistory> histories = new HashSet<>();
 
 }
 

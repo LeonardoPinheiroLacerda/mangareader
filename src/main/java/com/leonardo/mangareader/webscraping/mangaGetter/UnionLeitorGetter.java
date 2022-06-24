@@ -13,7 +13,7 @@ import com.leonardo.mangareader.models.Author;
 import com.leonardo.mangareader.models.Chapter;
 import com.leonardo.mangareader.models.Genre;
 import com.leonardo.mangareader.models.Manga;
-import com.leonardo.mangareader.models.enums.ReadStatus;
+import com.leonardo.mangareader.models.enums.Source;
 import com.leonardo.mangareader.models.enums.Status;
 
 import lombok.AllArgsConstructor;
@@ -124,7 +124,7 @@ public class UnionLeitorGetter implements MangaGetter{
                 String description = a.text() + " " + span.text();
                 String chapterUrl = a.attr("href");   
 
-                manga.getChapters().add(new Chapter(null, chapterUrl, description, manga, ReadStatus.NONE));
+                manga.getChapters().add(new Chapter(null, 0L, chapterUrl, description, manga));
             }
 
 
@@ -140,6 +140,9 @@ public class UnionLeitorGetter implements MangaGetter{
             manga.setAuthor(new Author(null, author, null));
 
             manga.setStatus(statusEnum);
+
+            manga.setVisits(0L);
+            manga.setSource(Source.UNION_LEITOR);
 
             // dto.setApiUrl(MangareaderApplication.API_MANGA_URL_PREFIX + url);
 

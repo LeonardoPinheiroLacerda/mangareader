@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import com.leonardo.mangareader.dtos.DetailedChapterDTO;
 import com.leonardo.mangareader.exceptions.ObjectNotFoundException;
 import com.leonardo.mangareader.models.Chapter;
-import com.leonardo.mangareader.models.enums.ReadStatus;
 import com.leonardo.mangareader.repositories.ChapterRepository;
+import com.leonardo.mangareader.services.factories.ChapterGetterFactoryService;
 
 import lombok.AllArgsConstructor;
 
@@ -39,10 +39,6 @@ public class ChapterService {
             chapter = repository.findByUrl(url).orElseThrow(() -> new ObjectNotFoundException("O Capítulo não pode ser encontrado, provavelmente o manga ainda não foi importado."));
         }
 
-        if(chapter.getReadStatus().equals(ReadStatus.NONE)){
-            chapter.setReadStatus(ReadStatus.VIEWED);
-        }
-
         repository.save(chapter);
 
         return factoryService
@@ -55,6 +51,6 @@ public class ChapterService {
     }
 
     public Chapter create(Chapter chapter){
-        return repository.save(new Chapter(null, chapter.getUrl(), chapter.getTitle(), chapter.getManga(), ReadStatus.NONE));
+        return repository.save(new Chapter(null, 0L, chapter.getUrl(), chapter.getTitle(), chapter.getManga()));
     }
 }

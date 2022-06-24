@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.leonardo.mangareader.services.HistoryService;
+import com.leonardo.mangareader.services.MangaHistoryService;
 
 import lombok.AllArgsConstructor;
 
@@ -16,7 +16,7 @@ import lombok.AllArgsConstructor;
 @RequestMapping("/api/history")
 public class HistoryResource {
 
-    private final HistoryService service;
+    private final MangaHistoryService service;
 
     @DeleteMapping
     public ResponseEntity<Void> remove(@RequestParam String url){
