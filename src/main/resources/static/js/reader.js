@@ -10,6 +10,14 @@ var actualMode = modes.length - 1;
 
 var actualPage = 0;
 
+function setRead(){
+    request('/api/chapterhistory/setread/' + chapterId, 'PUT');
+}
+
+function setViewed(){
+    request('/api/chapterhistory/setviewed/' + chapterId, 'PUT');
+}
+
 function checkDevice() {
     if (navigator.userAgent.match(/Android/i)
         || navigator.userAgent.match(/webOS/i)
@@ -40,7 +48,9 @@ function next(btn){
 
         actualPage += 1;
         document.location.href = getUrlWithFragment(actualPage);
-    }    
+    }else{
+        setRead();
+    }  
 }
 
 function previous(btn){
@@ -220,12 +230,17 @@ addEventListener('keyup', (evt) => {
 
 for(let i = 0; i < pointers.length; i ++){
     pointers[i].addEventListener('click', () => {
+        if(pointers[i].id = "next-chapter"){
+            setRead();
+        }
         document.location.href = "/reader?url=" + pointers[i].getAttribute("point-to");
     });
 }
 
 onload = () => {
     changeMode(document.querySelector("#change"));
+
+    setViewed();
 
     document.querySelector("#previous").disabled = false;
     document.querySelector("#next").disabled = false;

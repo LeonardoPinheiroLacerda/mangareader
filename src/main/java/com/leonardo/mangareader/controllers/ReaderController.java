@@ -28,10 +28,12 @@ public class ReaderController {
     public ModelAndView index(@RequestParam String url){
         DetailedChapterDTO chapter = chapterService.getFromUrl(url);
         MangaMetadataDTO manga = MangaService.getMetadataFromUrl(chapter.getMangaUrl());
+        Long id = chapterService.findByUrl(url).get().getId();
 
         ModelAndView modelAndView = new ModelAndView("screens/reader");
         modelAndView.addObject("chapter", chapter);
         modelAndView.addObject("manga", manga);
+        modelAndView.addObject("chapterId", id);
 
         historyService.doHistory(chapter);
 

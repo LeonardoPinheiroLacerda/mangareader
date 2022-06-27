@@ -9,12 +9,14 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.leonardo.mangareader.dtos.ChapterHistoryDTO;
+import com.leonardo.mangareader.exceptions.ObjectNotFoundException;
 import com.leonardo.mangareader.models.Chapter;
 import com.leonardo.mangareader.models.ChapterHistory;
 import com.leonardo.mangareader.models.User;
 import com.leonardo.mangareader.models.enums.ReadStatus;
 import com.leonardo.mangareader.models.pks.ChapterHistoryPK;
 import com.leonardo.mangareader.repositories.ChapterHistoryRepository;
+import com.leonardo.mangareader.repositories.ChapterRepository;
 
 import lombok.AllArgsConstructor;
 
@@ -23,6 +25,7 @@ import lombok.AllArgsConstructor;
 @Service 
 public class ChapterHistoryService {
     
+    private final ChapterRepository chapterRepository;
     private final ChapterHistoryRepository repository;
     private final UserService userService;
     private final DtoMapperService dtoMapperService;
@@ -36,6 +39,33 @@ public class ChapterHistoryService {
         }
 
         return dtoMapperService.chapterHistoryTochapterHistoryDTO(obj);
+    }
+
+    @Transactional
+    public ReadStatus changeReadStatus(Long id, ReadStatus status){
+        
+        Chapter chapter = chapterRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("O capitulo de id " + id + " não pode ser encontrado."));
+
+        User user = userService.getLogged();
+
+        ChapterHistoryPK pk = new ChapterHistoryPK(user, chapter);
+
+        ChapterHistory history = repository.findById(pk).orElse(null);
+
+        if(history == null){
+            doHistory(pk);
+            history = repository.findById(pk).get();
+        }  
+
+        if(!history.getReadStatus().equals(ReadStatus.READ)){
+            history.setReadStatus(status);
+        }else{
+            return history.getReadStatus();
+        }
+
+        repository.save(history);
+
+        return status;
     }
 
     @Transactional

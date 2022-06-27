@@ -50,8 +50,14 @@ public class ChapterService {
             .getFromUrl();
     }
 
+    @Transactional
     public Optional<Chapter> findByUrl(String url){
         return repository.findByUrl(url);
+    }
+
+    @Transactional
+    public Optional<Chapter> findById(Long id){
+        return repository.findById(id);
     }
 
     public Chapter create(Chapter chapter){
