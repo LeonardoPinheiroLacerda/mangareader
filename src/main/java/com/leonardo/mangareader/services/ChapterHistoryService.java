@@ -68,4 +68,10 @@ public class ChapterHistoryService {
 
     }
 
+    @Transactional
+    public void delete(ChapterHistoryPK pk) {
+        ChapterHistory history = repository.findById(pk).orElse(null);
+        if(history == null) return;
+        repository.delete(history);
+    }
 }

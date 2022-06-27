@@ -30,7 +30,7 @@ function cancelRemove(){
 function confirmRemove(){
 
     const remove = async () => {
-        return fetch("api/history?url=" + removeUrl,
+        return fetch("api/mangahistory?url=" + removeUrl,
             {
                 method: "DELETE"
             }

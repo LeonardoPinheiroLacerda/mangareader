@@ -15,6 +15,7 @@ import com.leonardo.mangareader.models.Chapter;
 import com.leonardo.mangareader.models.Manga;
 import com.leonardo.mangareader.models.MangaHistory;
 import com.leonardo.mangareader.models.User;
+import com.leonardo.mangareader.models.pks.ChapterHistoryPK;
 import com.leonardo.mangareader.models.pks.MangaHistoryPK;
 import com.leonardo.mangareader.repositories.MangaHistoryRepository;
 
@@ -28,6 +29,7 @@ public class MangaHistoryService {
     private final MangaHistoryRepository repository;
     private final MangaService mangaService;
     private final ChapterService chapterService;
+    private final ChapterHistoryService chapterHistoryService;
     private final UserService userService;
     private final DtoMapperService dtoMapperService;
     
@@ -108,6 +110,11 @@ public class MangaHistoryService {
         MangaHistoryPK pk = new MangaHistoryPK(user, manga);
 
         MangaHistory history = repository.findById(pk).orElseThrow(() -> new ObjectNotFoundException("Não foi possível localizar o manga de URL " + url + " no seu histórico"));
+
+        manga.getChapters().forEach(chapter -> {
+            ChapterHistoryPK chapterPk = new ChapterHistoryPK(user, chapter);
+            chapterHistoryService.delete(chapterPk);
+        });
 
         repository.delete(history);
     }

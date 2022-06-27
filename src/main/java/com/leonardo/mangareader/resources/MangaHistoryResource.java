@@ -13,8 +13,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 
 @RestController
-@RequestMapping("/api/history")
-public class HistoryResource {
+@RequestMapping("/api/mangahistory")
+public class MangaHistoryResource {
 
     private final MangaHistoryService service;
 

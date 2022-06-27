@@ -2,6 +2,7 @@ package com.leonardo.mangareader.services;
 
 import java.util.stream.Collectors;
 
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import com.leonardo.mangareader.dtos.ArtistDTO;
@@ -22,11 +23,23 @@ import com.leonardo.mangareader.models.Genre;
 import com.leonardo.mangareader.models.Manga;
 import com.leonardo.mangareader.models.MangaHistory;
 import com.leonardo.mangareader.models.User;
-import com.leonardo.mangareader.models.enums.ReadStatus;
+import com.leonardo.mangareader.models.pks.ChapterHistoryPK;
+import com.leonardo.mangareader.repositories.ChapterHistoryRepository;
+import com.leonardo.mangareader.security.AppUserDetails;
+
+import lombok.AllArgsConstructor;
+
+@AllArgsConstructor
 
 @Service
 public class DtoMapperService {
     
+    private final ChapterHistoryRepository chapterHistoryRepository;
+
+    private User getLogged(){
+        return ((AppUserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUser();
+    }
+
     public UserDTO userToUserDTO(User user){
         return new UserDTO(
             user.getId(), 
@@ -133,7 +146,10 @@ public class DtoMapperService {
     }
 
     public ChapterDTO chapterToChapterDTO(Chapter chapter){
-        return new ChapterDTO(chapter.getUrl(), chapter.getTitle(), ReadStatus.NONE);
+        User user = getLogged();
+        ChapterHistory history = chapterHistoryRepository.findById(new ChapterHistoryPK(user, chapter)).get();
+
+        return new ChapterDTO(chapter.getUrl(), chapter.getTitle(), history.getReadStatus());
     }
 
     public MangaHistoryDTO mangaHistoryToMangaHistoryDTO(MangaHistory history){
