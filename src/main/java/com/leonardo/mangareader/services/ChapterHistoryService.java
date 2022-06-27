@@ -9,7 +9,9 @@ import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.leonardo.mangareader.dtos.ChapterHistoryDTO;
+import com.leonardo.mangareader.models.Chapter;
 import com.leonardo.mangareader.models.ChapterHistory;
+import com.leonardo.mangareader.models.User;
 import com.leonardo.mangareader.models.enums.ReadStatus;
 import com.leonardo.mangareader.models.pks.ChapterHistoryPK;
 import com.leonardo.mangareader.repositories.ChapterHistoryRepository;
@@ -49,29 +51,21 @@ public class ChapterHistoryService {
             .collect(Collectors.toList());
     }
 
-    // @Transactional
-    // public ChapterHistoryDTO getChapterHistory(String url){
-    //     Chapter chapter = chapterService.findByUrl(url).orElse(null);
-
-    //     if(chapter == null){
-    //         //Salva no banco e recupera a URL atualizada
-    //         url = chapterService.getFromUrl(url).getChapterUrl();
-    //         chapter = chapterService.findByUrl(url).get();
-    //     }
-
-    //     User user = userService.getLogged();
-
-    //     ChapterHistoryPK pk = new ChapterHistoryPK(user, chapter);
-
-    //     ChapterHistory history = repository.findById(pk).orElse(null);
-
-    //     return dtoMapperService.chapterHistoryTochapterHistoryDTO(history);
-    // }
-
     @Transactional
     public ChapterHistory doHistory(ChapterHistoryPK pk) {
         ChapterHistory history = new ChapterHistory(pk, ReadStatus.NONE, LocalDateTime.now());
         return repository.save(history);
+    }
+
+    @Transactional
+    public void checkAndDoHistory(Chapter chapter, User user){
+
+        ChapterHistoryPK pk = new ChapterHistoryPK(user, chapter);
+    
+        if(repository.findById(pk).isEmpty()){
+            doHistory(pk);
+        }
+
     }
 
 }

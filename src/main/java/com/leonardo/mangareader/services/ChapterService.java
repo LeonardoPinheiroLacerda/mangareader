@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.leonardo.mangareader.dtos.DetailedChapterDTO;
 import com.leonardo.mangareader.exceptions.ObjectNotFoundException;
 import com.leonardo.mangareader.models.Chapter;
+import com.leonardo.mangareader.models.User;
+import com.leonardo.mangareader.models.pks.ChapterHistoryPK;
 import com.leonardo.mangareader.repositories.ChapterRepository;
 import com.leonardo.mangareader.services.factories.ChapterGetterFactoryService;
 
@@ -21,8 +23,8 @@ public class ChapterService {
 
     private final ChapterGetterFactoryService factoryService;
     private final ChapterRepository repository;
-    // private final ChapterHistoryService chapterHistoryService;
-    // private final UserService userService;
+    private final ChapterHistoryService chapterHistoryService;
+    private final UserService userService;
 
     @Transactional
     public DetailedChapterDTO getFromUrl(String url) {
@@ -53,12 +55,13 @@ public class ChapterService {
     }
 
     public Chapter create(Chapter chapter){
-        // User logged = userService.getLogged();
-        // System.out.println(logged);
+        User logged = userService.getLogged();
         chapter = repository.save(new Chapter(null, 0L, chapter.getUrl(), chapter.getTitle(), chapter.getManga()));
         
-        // ChapterHistoryPK pk = new ChapterHistoryPK(logged, chapter);
-        // chapterHistoryService.doHistory(pk);
+        System.out.println(logged.getUsername());
+
+        ChapterHistoryPK pk = new ChapterHistoryPK(logged, chapter);
+        chapterHistoryService.doHistory(pk);
 
         return chapter;
     }

@@ -17,6 +17,7 @@ import com.leonardo.mangareader.dtos.SimpleMangaDTO;
 import com.leonardo.mangareader.exceptions.ObjectNotFoundException;
 import com.leonardo.mangareader.models.Chapter;
 import com.leonardo.mangareader.models.Manga;
+import com.leonardo.mangareader.models.User;
 import com.leonardo.mangareader.repositories.MangaRepository;
 import com.leonardo.mangareader.services.factories.MangaGetterFactoryService;
 import com.leonardo.mangareader.webscraping.mangaGetter.MangaGetter;
@@ -29,7 +30,9 @@ import lombok.AllArgsConstructor;
 public class MangaService {
 
     private final MangaRepository repository;
+    private final UserService userService;
     private final ChapterService chapterService;
+    private final ChapterHistoryService chapterHistoryService;
     private final GenreService genreService;
     private final AuthorService authorService;
     private final ArtistService artistService;
@@ -87,7 +90,11 @@ public class MangaService {
             manga.setScoredBy(updated.getScoredBy());
             manga.setStatus(updated.getStatus());
 
-            repository.save(manga);
+            manga = repository.save(manga);
+
+            User logged = userService.getLogged();
+            manga.getChapters().forEach(chapter -> chapterHistoryService.checkAndDoHistory(chapter, logged));
+
             return dtoMapperService.mangaToMangaDTO(manga);
         }else{
 
@@ -114,7 +121,11 @@ public class MangaService {
 
             manga.setChapters(persistedChapters);
 
-            repository.save(manga);
+            manga = repository.save(manga);
+
+            User logged = userService.getLogged();
+            manga.getChapters().forEach(chapter -> chapterHistoryService.checkAndDoHistory(chapter, logged));
+            
             return dtoMapperService.mangaToMangaDTO(updated);
         }
 
