@@ -1,5 +1,6 @@
 package com.leonardo.mangareader.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -99,9 +100,19 @@ public class MangaService {
             manga.setAuthor(
                 authorService.create(manga.getAuthor())
             );
+
             manga.setArtist(
                 artistService.create(manga.getArtist())
             );
+
+            List<Chapter> persistedChapters = new ArrayList<>();
+
+            manga.getChapters().forEach(chapter -> {
+                Chapter persisted = chapterService.create(chapter);
+                persistedChapters.add(persisted);
+            });
+
+            manga.setChapters(persistedChapters);
 
             repository.save(manga);
             return dtoMapperService.mangaToMangaDTO(updated);

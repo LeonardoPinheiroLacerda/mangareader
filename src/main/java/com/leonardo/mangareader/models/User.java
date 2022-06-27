@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -39,9 +38,6 @@ public class User {
 
     @Column(nullable = true)
     private String passwordRecoveryCode;
-
-    @OneToOne(mappedBy = "id.user")
-    private MangaHistory history;
 
     public User(Integer id, String username, String email, String password) {
         this.id = id;

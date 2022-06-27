@@ -16,7 +16,7 @@ import com.leonardo.mangareader.models.Manga;
 import com.leonardo.mangareader.models.MangaHistory;
 import com.leonardo.mangareader.models.User;
 import com.leonardo.mangareader.models.pks.MangaHistoryPK;
-import com.leonardo.mangareader.repositories.HistoryRepository;
+import com.leonardo.mangareader.repositories.MangaHistoryRepository;
 
 import lombok.AllArgsConstructor;
 
@@ -25,7 +25,7 @@ import lombok.AllArgsConstructor;
 @Service 
 public class MangaHistoryService {
     
-    private final HistoryRepository repository;
+    private final MangaHistoryRepository repository;
     private final MangaService mangaService;
     private final ChapterService chapterService;
     private final UserService userService;

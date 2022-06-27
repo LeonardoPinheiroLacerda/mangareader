@@ -12,7 +12,7 @@ import com.leonardo.mangareader.models.User;
 import com.leonardo.mangareader.models.pks.MangaHistoryPK;
 
 @Repository
-public interface HistoryRepository extends JpaRepository<MangaHistory, MangaHistoryPK> {
+public interface MangaHistoryRepository extends JpaRepository<MangaHistory, MangaHistoryPK> {
 
     @Query("SELECT h FROM MangaHistory h WHERE h.id.user = ?1")
     public Optional<List<MangaHistory>> findUserHistory(User user);

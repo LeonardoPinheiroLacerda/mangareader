@@ -7,18 +7,20 @@ import org.springframework.stereotype.Service;
 import com.leonardo.mangareader.dtos.ArtistDTO;
 import com.leonardo.mangareader.dtos.AuthorDTO;
 import com.leonardo.mangareader.dtos.ChapterDTO;
+import com.leonardo.mangareader.dtos.ChapterHistoryDTO;
 import com.leonardo.mangareader.dtos.GenreDTO;
-import com.leonardo.mangareader.dtos.MangaHistoryDTO;
 import com.leonardo.mangareader.dtos.MangaDTO;
+import com.leonardo.mangareader.dtos.MangaHistoryDTO;
 import com.leonardo.mangareader.dtos.MangaMetadataDTO;
 import com.leonardo.mangareader.dtos.SimpleMangaDTO;
 import com.leonardo.mangareader.dtos.UserDTO;
 import com.leonardo.mangareader.models.Artist;
 import com.leonardo.mangareader.models.Author;
 import com.leonardo.mangareader.models.Chapter;
+import com.leonardo.mangareader.models.ChapterHistory;
 import com.leonardo.mangareader.models.Genre;
-import com.leonardo.mangareader.models.MangaHistory;
 import com.leonardo.mangareader.models.Manga;
+import com.leonardo.mangareader.models.MangaHistory;
 import com.leonardo.mangareader.models.User;
 import com.leonardo.mangareader.models.enums.ReadStatus;
 
@@ -139,6 +141,14 @@ public class DtoMapperService {
             mangaToMangaMetadataDTO(history.getId().getManga()), 
             history.getLastReadAt(),
             chapterToChapterDTO(history.getLastChapterRead())
+        );
+    }
+
+    public ChapterHistoryDTO chapterHistoryTochapterHistoryDTO(ChapterHistory history){
+        return new ChapterHistoryDTO(
+            chapterToChapterDTO(history.getId().getChapter()), 
+            history.getLastReadAt(), 
+            history.getReadStatus()
         );
     }
 

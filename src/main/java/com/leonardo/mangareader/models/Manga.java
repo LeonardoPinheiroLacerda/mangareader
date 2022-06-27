@@ -92,8 +92,5 @@ public class Manga {
     @OneToMany(mappedBy = "manga", fetch = FetchType.EAGER, cascade = CascadeType.PERSIST)
     private List<Chapter> chapters = new ArrayList<>();
 
-    @OneToMany(mappedBy = "id.manga", fetch = FetchType.EAGER)
-    private Set<MangaHistory> histories = new HashSet<>();
-
 }
 
