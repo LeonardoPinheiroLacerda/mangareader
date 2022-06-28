@@ -28,7 +28,7 @@ async function logout(){
     }
 
     setTimeout(() => {
-        document.location.href = document.location.href;
+        document.location.href = "/";
     }, 3000);
 
 }
