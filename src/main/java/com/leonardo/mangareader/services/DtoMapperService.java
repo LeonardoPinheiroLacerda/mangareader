@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import com.leonardo.mangareader.MangareaderApplication;
 import com.leonardo.mangareader.dtos.ArtistDTO;
 import com.leonardo.mangareader.dtos.AuthorDTO;
 import com.leonardo.mangareader.dtos.ChapterDTO;
@@ -162,6 +163,7 @@ public class DtoMapperService {
 
     public ChapterHistoryDTO chapterHistoryTochapterHistoryDTO(ChapterHistory history){
         return new ChapterHistoryDTO(
+            mangaToSimpleMangaDTO(history.getId().getChapter().getManga(), MangareaderApplication.API_MANGA_URL_PREFIX),
             chapterToChapterDTO(history.getId().getChapter()), 
             history.getLastReadAt(), 
             history.getReadStatus()

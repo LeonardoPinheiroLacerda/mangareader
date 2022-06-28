@@ -14,7 +14,7 @@ import com.leonardo.mangareader.models.pks.ChapterHistoryPK;
 @Repository
 public interface ChapterHistoryRepository extends JpaRepository<ChapterHistory, ChapterHistoryPK> {
 
-    @Query("SELECT h FROM ChapterHistory h WHERE h.id.user = ?1")
+    @Query("SELECT h FROM ChapterHistory h WHERE h.id.user = ?1 AND h.readStatus != 'NONE' ORDER BY h.lastReadAt desc")
     public Optional<List<ChapterHistory>> findUserHistory(User user);
 
 }

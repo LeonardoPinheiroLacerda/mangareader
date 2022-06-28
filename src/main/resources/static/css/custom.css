@@ -67,6 +67,20 @@
     margin-bottom: 2px !important;
 }
 
+.chapter-cover{
+    height: 85px;
+    max-width: 75px;
+    margin: 5px
+}
+
+.chapter-history{
+    transition: .3s;
+}
+
+.chapter-history:hover{
+    background-color: var(--bs-primary);
+}
+
 @media (max-width:620px) {
     
     #manga-tags-body{
@@ -154,10 +168,9 @@
 
 @media (max-width:520px) {
     
-    .history {
+    .history{
         width:380px !important;
     }
-
 }
 
 
@@ -192,6 +205,79 @@
         width:150px !important;
     }
 
+}
+
+@media (max-width: 1400px){
+    .chapter-history-info span{
+        width: 1000px;
+    }
+}
+
+@media (max-width: 1200px){
+    .chapter-history-info span{
+        width: 800px;
+    }
+}
+
+@media (max-width: 992px){
+    .chapter-history-info span{
+        width: 550px;
+    }
+}
+
+@media (max-width: 768px){
+    .chapter-history-info span{
+        width: 400px;
+    }
+}
+
+@media (max-width: 625px){
+    .chapter-history-info span{
+        width: 300px;
+    }
+}
+
+@media (max-width: 487px){
+    .chapter-history-info span{
+        width: 260px;
+    }
+}
+
+@media (max-width: 490px){
+    .chapter-history-info span{
+        width: 230px;
+    }
+}
+
+
+@media (max-width: 415px){
+    .chapter-history-info span{
+        width: 200px;
+    }
+}
+
+@media (max-width: 385px){
+    .chapter-history-info span{
+        width: 150px;
+    }
+}
+
+@media (max-width: 335px){
+    .chapter-history-info span{
+        width: 120px;
+    }
+}
+
+@media (max-width: 310px){
+    .chapter-history-info span{
+        width: 90px;
+    }
+}
+
+@media (max-width: 280px){
+    .chapter-history-info span{
+        width: 75px;
+    }
 }
 
 .history-info:hover{

@@ -18,6 +18,7 @@ import lombok.ToString;
 
 public class ChapterHistoryDTO {
     
+    private SimpleMangaDTO manga;
     private ChapterDTO chapter;
     private LocalDateTime lastRead;
     private ReadStatus status;

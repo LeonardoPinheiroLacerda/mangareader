@@ -63,8 +63,6 @@ public class ChapterService {
     public Chapter create(Chapter chapter){
         User logged = userService.getLogged();
         chapter = repository.save(new Chapter(null, 0L, chapter.getUrl(), chapter.getTitle(), chapter.getManga()));
-        
-        System.out.println(logged.getUsername());
 
         ChapterHistoryPK pk = new ChapterHistoryPK(logged, chapter);
         chapterHistoryService.doHistory(pk);

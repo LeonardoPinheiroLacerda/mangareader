@@ -59,9 +59,9 @@ public class ChapterHistoryService {
 
         if(!history.getReadStatus().equals(ReadStatus.READ)){
             history.setReadStatus(status);
-        }else{
-            return history.getReadStatus();
         }
+
+        history.setLastReadAt(LocalDateTime.now());
 
         repository.save(history);
 
