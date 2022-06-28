@@ -67,17 +67,26 @@
     margin-bottom: 2px !important;
 }
 
+#chapter-history{
+    width:330px;
+}
+
 .chapter-cover{
     height: 85px;
     max-width: 75px;
     margin: 5px
 }
 
-.chapter-history{
+.chapter-link{
     transition: .3s;
+    width: 300px !important
 }
 
-.chapter-history:hover{
+.chapter-history-info{
+    width:220px !important
+}
+
+.chapter-link:hover{
     background-color: var(--bs-primary);
 }
 
@@ -118,6 +127,11 @@
     #sidebar-spacer, #sidebar{
         height: 100% !important;
         width: 55px !important;
+    }
+
+    #empty-history{
+        height: 500px;
+        padding-top: 240px;
     }
 
     #search-section {
@@ -207,76 +221,81 @@
 
 }
 
-@media (max-width: 1400px){
-    .chapter-history-info span{
-        width: 1000px;
-    }
-}
-
-@media (max-width: 1200px){
-    .chapter-history-info span{
-        width: 800px;
-    }
-}
-
-@media (max-width: 992px){
-    .chapter-history-info span{
-        width: 550px;
-    }
-}
-
 @media (max-width: 768px){
-    .chapter-history-info span{
-        width: 400px;
+
+    #history-main{
+        flex-direction: column !important;
+    }
+
+    #manga-history{
+        margin:0px !important;
+    }
+
+    #chapter-history{
+        width:100%;
+    }
+
+    .chapter-link{
+        width:500px !important;
+    }
+
+    .chapter-history-info{
+        width: 420px !important;
     }
 }
 
 @media (max-width: 625px){
-    .chapter-history-info span{
-        width: 300px;
+    .chapter-link{
+        width:400px !important;
+    }
+
+    .chapter-history-info{
+        width: 320px !important;
     }
 }
 
-@media (max-width: 487px){
-    .chapter-history-info span{
-        width: 260px;
+@media (max-width: 515px){
+    .chapter-link{
+        width:300px !important;
+    }
+
+    .chapter-history-info{
+        width: 220px !important;
     }
 }
-
-@media (max-width: 490px){
-    .chapter-history-info span{
-        width: 230px;
-    }
-}
-
 
 @media (max-width: 415px){
-    .chapter-history-info span{
-        width: 200px;
+    .chapter-link{
+        width:250px !important;
+    }
+
+    .chapter-history-info{
+        width: 170px !important;
     }
 }
 
-@media (max-width: 385px){
-    .chapter-history-info span{
-        width: 150px;
+@media (max-width: 365px){
+    .chapter-link{
+        width:200px !important;
+    }
+
+    .chapter-history-info{
+        width: 120px !important;
     }
 }
 
-@media (max-width: 335px){
-    .chapter-history-info span{
-        width: 120px;
+@media (max-width: 315px){
+    .chapter-cover{
+        display: none !important;
     }
-}
 
-@media (max-width: 310px){
-    .chapter-history-info span{
-        width: 90px;
+    .chapter-link{
+        width:150px !important;
+        padding: 5px;
     }
-}
 
-@media (max-width: 280px){
-    .chapter-history-info span{
-        width: 75px;
+    .chapter-history-info{
+        width:140px !important;
     }
 }
 
@@ -286,7 +305,8 @@
 }
 
 .history{
-    width:200px
+    width:200px;
+    transition: .3s;
 }
 
 .history-btn{
