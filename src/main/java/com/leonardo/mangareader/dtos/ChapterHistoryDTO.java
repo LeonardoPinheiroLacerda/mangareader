@@ -1,7 +1,5 @@
 package com.leonardo.mangareader.dtos;
 
-import java.time.LocalDateTime;
-
 import com.leonardo.mangareader.models.enums.ReadStatus;
 
 import lombok.AllArgsConstructor;
@@ -20,7 +18,7 @@ public class ChapterHistoryDTO {
     
     private SimpleMangaDTO manga;
     private ChapterDTO chapter;
-    private LocalDateTime lastRead;
+    private String lastRead;
     private ReadStatus status;
 
 }

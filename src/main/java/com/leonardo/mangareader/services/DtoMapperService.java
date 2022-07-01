@@ -1,5 +1,6 @@
 package com.leonardo.mangareader.services;
 
+import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
 
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -165,7 +166,7 @@ public class DtoMapperService {
         return new ChapterHistoryDTO(
             mangaToSimpleMangaDTO(history.getId().getChapter().getManga(), MangareaderApplication.API_MANGA_URL_PREFIX),
             chapterToChapterDTO(history.getId().getChapter()), 
-            history.getLastReadAt(), 
+            history.getLastReadAt().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")), 
             history.getReadStatus()
         );
     }

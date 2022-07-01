@@ -14,7 +14,7 @@ import com.leonardo.mangareader.models.pks.MangaHistoryPK;
 @Repository
 public interface MangaHistoryRepository extends JpaRepository<MangaHistory, MangaHistoryPK> {
 
-    @Query("SELECT h FROM MangaHistory h WHERE h.id.user = ?1")
+    @Query("SELECT h FROM MangaHistory h WHERE h.id.user = ?1 ORDER BY h.lastReadAt desc")
     public Optional<List<MangaHistory>> findUserHistory(User user);
 
 }

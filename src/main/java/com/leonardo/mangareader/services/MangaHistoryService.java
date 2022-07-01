@@ -52,7 +52,6 @@ public class MangaHistoryService {
         return history
             .stream()
             .map(h -> dtoMapperService.mangaHistoryToMangaHistoryDTO(h))
-            .sorted((h1, h2) -> h2.getLastRead().compareTo(h1.getLastRead()))
             .collect(Collectors.toList());
     }
 

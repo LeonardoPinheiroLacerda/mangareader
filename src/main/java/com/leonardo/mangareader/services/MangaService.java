@@ -46,6 +46,7 @@ public class MangaService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public Optional<Manga> findByUrl(String url){
         return repository.findByUrl(url);
     }

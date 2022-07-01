@@ -77,7 +77,6 @@ public class ChapterHistoryService {
         return history
             .stream()
             .map(h -> dtoMapperService.chapterHistoryTochapterHistoryDTO(h))
-            .sorted((h1, h2) -> h2.getLastRead().compareTo(h1.getLastRead()))
             .collect(Collectors.toList());
     }
 

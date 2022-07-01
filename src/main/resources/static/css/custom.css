@@ -78,7 +78,6 @@
 }
 
 .chapter-link{
-    transition: .3s;
     width: 300px !important
 }
 
@@ -86,9 +85,14 @@
     width:220px !important
 }
 
-.chapter-link:hover{
-    background-color: var(--bs-primary);
+.chapter-history-link{
+    transition: .3s;
 }
+
+.chapter-history-link:hover{
+    opacity: .8 !important;
+}
+
 
 @media (max-width:620px) {
     
@@ -141,6 +145,11 @@
     svg{
         width: 20px;
         height: 20px;
+    }
+
+    .chapter-history-link svg{
+        width: 48px;
+        height: 48px;
     }
 
     #home-icon {
@@ -287,6 +296,14 @@
 @media (max-width: 315px){
     .chapter-cover{
         display: none !important;
+    }
+
+    .chapter-history-link label{
+        display: none !important;
+    }
+
+    .chapter-history-link{
+        justify-content: center !important;
     }
 
     .chapter-link{
