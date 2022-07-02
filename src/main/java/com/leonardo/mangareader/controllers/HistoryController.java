@@ -26,12 +26,33 @@ public class HistoryController {
     @GetMapping
     public ModelAndView index(){
 
+        final Integer mangaLimit = 8;
+        final Integer chapterLimit = 7;
+
         List<MangaHistoryDTO> mangaHistory = mangaHistoryService.getUserHistory();
         List<ChapterHistoryDTO> chapterHistory = chapterHistoryService.getUserHistory();
+        Boolean isMangaViewMore = false;
+        Boolean isChapterViewMore = false;
 
         ModelAndView modelAndView = new ModelAndView("screens/history");
+
+        if(mangaHistory.size() > mangaLimit){
+            isMangaViewMore = true;
+            mangaHistory = mangaHistory.subList(0, mangaLimit);
+        }
+        if (chapterHistory.size() > chapterLimit){
+            isChapterViewMore = true;
+            chapterHistory = chapterHistory.subList(0, chapterLimit);
+        }
+
+       
+       
+        
+
         modelAndView.addObject("mangaHistory", mangaHistory);
         modelAndView.addObject("chapterHistory", chapterHistory);
+        modelAndView.addObject("isMangaViewMore", isMangaViewMore);
+        modelAndView.addObject("isChapterViewMore", isChapterViewMore);
         
         return modelAndView;
     }

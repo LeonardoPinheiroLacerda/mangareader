@@ -93,6 +93,9 @@
     opacity: .8 !important;
 }
 
+.viewmore-btn{
+    width: 200px
+}
 
 @media (max-width:620px) {
     
@@ -250,6 +253,12 @@
 
     .chapter-history-info{
         width: 420px !important;
+    }
+
+    .viewmore-btn{
+        width:auto !important;
+        margin-left: 2rem !important;
+        margin-right: 2rem !important;
     }
 }
 

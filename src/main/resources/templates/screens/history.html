@@ -50,15 +50,24 @@
                             </svg>
                         </button>
                     </div>
-                    
+
                 </div>
+
+                
                 
             </div>
+
+            <a href="/history/mangas/viewmore" th:if="${isMangaViewMore}" class="btn btn-lg btn-primary d-flex align-items-center justify-content-center my-3 mx-auto viewmore-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg me-2" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                </svg>    
+                Ver mais
+            </a> 
         </div>
 
-        <div id="chapter-history" class="vh-100 py-5 flex-grow-1" th:if="${chapterHistory.size() > 0}">
+        <div id="chapter-history" class="py-5" th:if="${chapterHistory.size() > 0}">
             <h5 class="text-center text-light mb-5">Últimos capítulos lidos:</h5>
-            <div class="d-flex flex-column justify-content-center align-items-center m-2 mb-5">
+            <div class="d-flex flex-column justify-content-center align-items-center m-2 mb-3">
                 <div class="position-relative text-reset text-decoration-none d-flex flex-row border border-secondary rounded w-100 my-1 chapter-link" th:each="history : ${chapterHistory}">
                     <a class="opacity-0 position-absolute start-0 top-0 bg-primary w-100 h-100 text-light text-decoration-none d-flex justify-content-between align-items-center chapter-history-link" target="_blank" th:href="${'/reader?url=' + history.getChapter().getUrl()}">
                         <svg xmlns="http://www.w3.org/2000/svg" th:if="${history.getChapter().getStatus().name().equals('VIEWED')}" width="48" height="48" fill="currentColor" class="bi bi-eye m-2" viewBox="0 0 16 16">
@@ -77,6 +86,13 @@
                     </div>
                 </div>
             </div>
+
+            <a href="/history/chapters/viewmore" th:if="${isChapterViewMore}" class="btn btn-lg btn-primary d-flex align-items-center justify-content-center m-auto viewmore-btn">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-plus-lg me-2" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z"/>
+                </svg>    
+                Ver mais
+            </a> 
         </div>
         
 

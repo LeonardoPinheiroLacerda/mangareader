@@ -1,5 +1,7 @@
 package com.leonardo.mangareader.controllers;
 
+import java.util.Optional;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.leonardo.mangareader.dtos.MangaDTO;
 import com.leonardo.mangareader.exceptions.NotSuportedSourceException;
 import com.leonardo.mangareader.exceptions.SourceException;
+import com.leonardo.mangareader.models.Manga;
 import com.leonardo.mangareader.models.pks.MangaHistoryPK;
 import com.leonardo.mangareader.services.MangaHistoryService;
 import com.leonardo.mangareader.services.MangaService;
@@ -35,7 +38,12 @@ public class MangaController {
             modelAndView.addObject("manga", manga);
             modelAndView.addObject("history", historyService.getMangaHistory(url));
 
-            historyService.doHistory(new MangaHistoryPK(userService.getLogged(), mangaService.findByUrl(url).get()));
+            Optional<Manga> mangaOpt = mangaService.findByUrl(url);
+
+            if(mangaOpt.isPresent()){
+                historyService.doHistory(new MangaHistoryPK(userService.getLogged(), mangaOpt.get()));
+            }
+            
             
             return modelAndView;
         } catch (NotSuportedSourceException e) {
