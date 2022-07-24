@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.leonardo.mangareader.dtos.ChapterHistoryDTO;
@@ -102,5 +104,10 @@ public class ChapterHistoryService {
         ChapterHistory history = repository.findById(pk).orElse(null);
         if(history == null) return;
         repository.delete(history);
+    }
+
+    @Transactional
+    public Page<ChapterHistory> findPage(Pageable pageable) {
+        return repository.findNonViewed(userService.getLogged(), pageable);
     }
 }

@@ -149,7 +149,7 @@ public class DtoMapperService {
 
     public ChapterDTO chapterToChapterDTO(Chapter chapter){
         User user = getLogged();
-        ChapterHistory history = chapterHistoryRepository.findById(new ChapterHistoryPK(user, chapter)).get();
+        ChapterHistory history = chapterHistoryRepository.findById(new ChapterHistoryPK(user, chapter)).orElse(new ChapterHistory());
 
         return new ChapterDTO(chapter.getUrl(), chapter.getTitle(), history.getReadStatus());
     }

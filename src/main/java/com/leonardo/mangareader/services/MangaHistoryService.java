@@ -120,8 +120,9 @@ public class MangaHistoryService {
         repository.delete(history);
     }
 
+    @Transactional
     public Page<MangaHistory> findPage(Pageable pageable){
-        Page<MangaHistory> mangaHistories = repository.findAll(pageable);
+        Page<MangaHistory> mangaHistories = repository.findUserHistory(userService.getLogged(), pageable);
         return mangaHistories;
     }
 

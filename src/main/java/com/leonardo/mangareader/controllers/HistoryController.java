@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.leonardo.mangareader.dtos.ChapterHistoryDTO;
 import com.leonardo.mangareader.dtos.MangaHistoryDTO;
+import com.leonardo.mangareader.models.ChapterHistory;
 import com.leonardo.mangareader.models.MangaHistory;
 import com.leonardo.mangareader.services.ChapterHistoryService;
 import com.leonardo.mangareader.services.DtoMapperService;
@@ -30,7 +31,7 @@ public class HistoryController {
     private final DtoMapperService dtoMapperService;
 
     private final Integer MANGA_PAGE_SIZE = 12;
-    private final Integer CHAPTER_PAGE_SIZE = 10;
+    private final Integer CHAPTER_PAGE_SIZE = 24;
     
     @GetMapping
     public ModelAndView index(){
@@ -81,6 +82,27 @@ public class HistoryController {
         modelAndView.addObject("actualPage", page.getPageable().getPageNumber());
         modelAndView.addObject("hasNextPage", page.hasNext());
         modelAndView.addObject("mangaHistory", dtos);
+
+        return modelAndView;
+    }
+
+    @GetMapping("/chapters/viewmore")
+    public ModelAndView chaptersViewmore(Pageable pageable){
+        ModelAndView modelAndView = new ModelAndView("screens/historyChapters");
+
+        Page<ChapterHistory> page = chapterHistoryService.findPage(pageable);
+        List<ChapterHistoryDTO> dtos = page
+            .getContent()
+            .stream()
+            .map(history -> dtoMapperService.chapterHistoryTochapterHistoryDTO(history))
+            .collect(Collectors.toList());
+
+        
+        
+        modelAndView.addObject("chapterPageSize", CHAPTER_PAGE_SIZE);
+        modelAndView.addObject("actualPage", page.getPageable().getPageNumber());
+        modelAndView.addObject("hasNextPage", page.hasNext());
+        modelAndView.addObject("chapterHistory", dtos);
 
         return modelAndView;
     }
