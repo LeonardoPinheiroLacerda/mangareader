@@ -5,6 +5,7 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -37,7 +38,7 @@ public class Genre {
     @Column(nullable = true)
     private String url;
 
-    @ManyToMany(mappedBy = "genres")
+    @ManyToMany(mappedBy = "genres", fetch = FetchType.EAGER)
     private Set<Manga> mangas = new HashSet<>();
 
 }

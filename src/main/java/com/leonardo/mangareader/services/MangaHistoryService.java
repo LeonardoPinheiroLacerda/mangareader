@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.leonardo.mangareader.dtos.DetailedChapterDTO;
@@ -116,6 +118,11 @@ public class MangaHistoryService {
         });
 
         repository.delete(history);
+    }
+
+    public Page<MangaHistory> findPage(Pageable pageable){
+        Page<MangaHistory> mangaHistories = repository.findAll(pageable);
+        return mangaHistories;
     }
 
 }
