@@ -97,6 +97,11 @@
     width: 200px
 }
 
+.history img{
+    height: 275px;
+    width: auto;
+}
+
 @media (max-width:620px) {
     
     #manga-tags-body{
@@ -196,6 +201,10 @@
     
     .history{
         width:380px !important;
+    }
+
+    .history img{
+        height: auto !important;
     }
 }
 

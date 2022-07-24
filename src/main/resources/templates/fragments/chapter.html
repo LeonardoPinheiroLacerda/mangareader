@@ -1,0 +1,17 @@
+<div th:fragment="chapter(obj)" class="position-relative text-reset text-decoration-none d-flex flex-row border border-secondary rounded w-100 my-1 chapter-link">
+    <a class="opacity-0 position-absolute start-0 top-0 bg-primary w-100 h-100 text-light text-decoration-none d-flex justify-content-between align-items-center chapter-history-link" target="_blank" th:href="${'/reader?url=' + obj.getChapter().getUrl()}">
+        <svg xmlns="http://www.w3.org/2000/svg" th:if="${obj.getChapter().getStatus().name().equals('VIEWED')}" width="48" height="48" fill="currentColor" class="bi bi-eye m-2" viewBox="0 0 16 16">
+            <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+            <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" th:if="${obj.getChapter().getStatus().name().equals('READ')}" width="48" height="48" fill="currentColor" class="bi bi-check-lg m-2" viewBox="0 0 16 16">
+            <path d="M12.736 3.97a.733.733 0 0 1 1.047 0c.286.289.29.756.01 1.05L7.88 12.01a.733.733 0 0 1-1.065.02L3.217 8.384a.757.757 0 0 1 0-1.06.733.733 0 0 1 1.047 0l3.052 3.093 5.4-6.425a.247.247 0 0 1 .02-.022Z"/>
+        </svg>
+        <label class="m-3 fw-bold text-center" th:text='${obj.getLastRead()}'></label>
+    </a>
+    <img th:src="${obj.getManga().getCover()}" class="chapter-cover rounded">
+    <div class="d-flex flex-column justify-content-center w-100 chapter-history-info">
+        <span class="text-truncate text-light" th:text="${obj.getManga().getName()}"></span>
+        <span class="text-truncate text-light" th:text="${obj.getChapter().getDescription()}"></span>
+    </div>
+</div>
